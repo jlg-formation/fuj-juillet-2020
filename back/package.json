@@ -2,10 +2,10 @@
   "name": "back",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon"
+    "start": "npx nodemon"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,9 @@
     "serve-index": "^1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "@types/node": "^16.3.2",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
   }
 }
