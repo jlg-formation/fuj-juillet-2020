@@ -10,11 +10,21 @@ const articles: Article[] = [];
 let id = 0;
 const getId = () => {
   id++;
-  return "" + id;
+  const idStr = new String(id).padStart(6, "0");
+  return new Date().getTime() + "_" + idStr;
 };
 
 app.get("/", (req, res) => {
   res.json(articles);
+});
+
+app.post("/", (req, res, next) => {
+  const article = req.body as Article;
+  if (article.price > 2) {
+    res.status(400).send("price > 2");
+    return;
+  }
+  next();
 });
 
 app.post("/", (req, res) => {
