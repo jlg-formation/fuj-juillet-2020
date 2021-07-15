@@ -16,6 +16,10 @@ header {
     color: inherit;
     text-decoration: inherit;
 
+    &:hover {
+      text-decoration: underline;
+    }
+
     span {
       padding: 0 0.5em;
       font-weight: bold;
