@@ -1,3 +1,4 @@
+import { ArticleService } from './../services/article.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,14 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stock.component.scss'],
 })
 export class StockComponent implements OnInit {
-  articles = [
-    { name: 'Tournevis', price: 2.34, qty: 123 },
-    { name: 'Marteau', price: 11, qty: 4567 },
-    { name: 'Tondeuse à gazon', price: 234, qty: 3 },
-    { name: 'Pelle', price: 1.23, qty: 5 },
-  ];
-
-  constructor() {}
+  constructor(public articleService: ArticleService) {}
 
   ngOnInit(): void {}
 }
