@@ -1,0 +1,37 @@
+button {
+  margin-right: 0.3em;
+}
+
+nav {
+  margin-bottom: 0.5em;
+}
+
+table {
+  border: 0.1em solid #bbb;
+  border-collapse: collapse;
+  th,
+  td {
+    padding: 0.5em 1em;
+  }
+
+  thead {
+    background-color: #bbb;
+  }
+
+  tbody {
+    cursor: pointer;
+    tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+  }
+
+  .qty,
+  .price {
+    text-align: right;
+    white-space: nowrap;
+  }
+}
