@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~12.1.2",
     "@angular/router": "~12.1.2",
     "normalize.css": "^8.0.1",
+    "pdfform.js": "^1.0.14",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
