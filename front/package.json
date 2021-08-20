@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~12.1.2",
     "@angular/platform-browser-dynamic": "~12.1.2",
     "@angular/router": "~12.1.2",
+    "file-saver": "^2.0.5",
     "normalize.css": "^8.0.1",
     "pdfform.js": "^1.0.14",
     "rxjs": "~6.6.0",
