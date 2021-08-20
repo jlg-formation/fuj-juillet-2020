@@ -1,6 +1,9 @@
+import { PdfService } from './../services/pdf.service';
 import { ArticleService } from './../services/article.service';
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../interfaces/article';
+
+import 'pdfform.js/dist/pdfform.minipdf.dist.js';
 
 @Component({
   selector: 'app-stock',
@@ -9,7 +12,10 @@ import { Article } from '../interfaces/article';
 })
 export class StockComponent implements OnInit {
   selectedArticles = new Set<Article>();
-  constructor(public articleService: ArticleService) {}
+  constructor(
+    public articleService: ArticleService,
+    private pdfService: PdfService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -33,6 +39,6 @@ export class StockComponent implements OnInit {
     console.log('article: ', article);
     this.selectedArticles.clear();
 
-    // const pdfTemplate = getPdfTemplate();
+    this.pdfService.exportForm('/assets/article_form.pdf', article);
   }
 }
