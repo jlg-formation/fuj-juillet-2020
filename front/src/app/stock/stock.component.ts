@@ -1,9 +1,8 @@
+import { PdfForm } from './../interfaces/pdf-form';
 import { PdfService } from './../services/pdf.service';
 import { ArticleService } from './../services/article.service';
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../interfaces/article';
-
-import 'pdfform.js/dist/pdfform.minipdf.dist.js';
 
 @Component({
   selector: 'app-stock',
@@ -39,6 +38,10 @@ export class StockComponent implements OnInit {
     console.log('article: ', article);
     this.selectedArticles.clear();
 
-    this.pdfService.exportForm('/assets/article_form.pdf', article);
+    this.pdfService.exportForm(
+      '/assets/article_form.pdf',
+      article as unknown as PdfForm,
+      `${article.name}.article.pdf`
+    );
   }
 }
