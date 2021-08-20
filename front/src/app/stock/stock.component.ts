@@ -26,4 +26,13 @@ export class StockComponent implements OnInit {
     this.articleService.remove(this.selectedArticles);
     this.selectedArticles.clear();
   }
+
+  exportPDFForm() {
+    console.log('merge to pdf form');
+    const article = [...this.selectedArticles][0];
+    console.log('article: ', article);
+    this.selectedArticles.clear();
+
+    // const pdfTemplate = getPdfTemplate();
+  }
 }

@@ -6,6 +6,9 @@
       <button [hidden]="selectedArticles.size === 0" (click)="remove()">
         Supprimer
       </button>
+      <button [hidden]="selectedArticles.size !== 1" (click)="exportPDFForm()">
+        PDF
+      </button>
     </nav>
     <table>
       <thead>
