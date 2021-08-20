@@ -4,7 +4,7 @@ import { articleRouter } from "./articles";
 
 const app = express();
 const port = process.env.PORT || 3000;
-const www = process.env.WWW_DIR || "./public";
+const www = process.env.WWW_DIR || "../front/dist/front";
 
 app.use(express.json());
 
