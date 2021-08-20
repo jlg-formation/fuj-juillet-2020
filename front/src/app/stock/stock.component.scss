@@ -3,7 +3,12 @@ button {
 }
 
 nav {
+  display: flex;
   margin-bottom: 0.5em;
+
+  .empty {
+    flex-grow: 1;
+  }
 }
 
 table {

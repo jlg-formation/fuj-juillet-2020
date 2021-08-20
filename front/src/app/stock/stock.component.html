@@ -6,6 +6,8 @@
       <button [hidden]="selectedArticles.size === 0" (click)="remove()">
         Supprimer
       </button>
+      <span class="empty"></span>
+      <button (click)="export()">Export</button>
     </nav>
     <table>
       <thead>
