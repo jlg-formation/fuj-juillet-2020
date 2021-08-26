@@ -5,14 +5,19 @@ const app = Router();
 
 export const articleRouter = app;
 
-const articles: Article[] = [];
-
 let id = 0;
 const getId = () => {
   id++;
   const idStr = new String(id).padStart(6, "0");
   return new Date().getTime() + "_" + idStr;
 };
+
+const articles: Article[] = [
+  { id: getId(), name: "tournevisssss", price: 2.34, qty: 123 },
+  { id: getId(), name: "Marteau", price: 11, qty: 4567 },
+  { id: getId(), name: "Tondeuse à gazon", price: 234, qty: 3 },
+  { id: getId(), name: "Pelle", price: 1.23, qty: 5 },
+];
 
 app.get("/", (req, res) => {
   res.json(articles);
