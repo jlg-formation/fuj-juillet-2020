@@ -1,5 +1,8 @@
 import { Router } from "express";
 import { Article } from "./interfaces/Article";
+import { promises as fs } from "fs";
+
+const filename = "data/articles.json";
 
 const app = Router();
 
@@ -12,12 +15,26 @@ const getId = () => {
   return new Date().getTime() + "_" + idStr;
 };
 
-let articles: Article[] = [
-  { id: getId(), name: "tournevisssss", price: 2.34, qty: 123 },
-  { id: getId(), name: "Marteau", price: 11, qty: 4567 },
-  { id: getId(), name: "Tondeuse à gazon", price: 234, qty: 3 },
-  { id: getId(), name: "Pelle", price: 1.23, qty: 5 },
-];
+let articles: Article[] = [];
+
+async function init() {
+  try {
+    const str = await fs.readFile(filename, { encoding: "utf-8" });
+    articles = JSON.parse(str);
+  } catch (err) {
+    console.log("err: ", err);
+  }
+}
+
+init();
+
+async function save() {
+  try {
+    await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
+  } catch (err) {
+    console.log("err: ", err);
+  }
+}
 
 app.use((req, res, next) => {
   setTimeout(() => {
@@ -42,11 +59,13 @@ app.post("/", (req, res) => {
   const article = req.body as Article;
   article.id = getId();
   articles.push(article);
+  save();
   res.status(201).json(article);
 });
 
 app.delete("/", (req, res) => {
   const ids = req.body as string[];
   articles = articles.filter((a) => !ids.includes(a.id));
+  save();
   res.status(204).end();
 });
