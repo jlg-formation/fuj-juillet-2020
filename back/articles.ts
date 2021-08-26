@@ -19,6 +19,12 @@ const articles: Article[] = [
   { id: getId(), name: "Pelle", price: 1.23, qty: 5 },
 ];
 
+app.use((req, res, next) => {
+  setTimeout(() => {
+    next();
+  }, 2000);
+});
+
 app.get("/", (req, res) => {
   res.json(articles);
 });

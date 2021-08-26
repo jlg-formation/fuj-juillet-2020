@@ -5,6 +5,8 @@ import { ArticleService } from './article.service';
 
 import { map } from 'rxjs/operators';
 
+const url = 'http://localhost:3000/api/articles';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,7 @@ export class HttpArticleService extends ArticleService {
 
   refresh() {
     this.http
-      .get<Article[]>('http://localhost:3000/api/articles')
+      .get<Article[]>(url)
       .pipe(
         map((articles) => {
           articles.forEach(
@@ -40,5 +42,22 @@ export class HttpArticleService extends ArticleService {
           console.log('complete');
         },
       });
+  }
+
+  add(article: Article) {
+    super.add(article);
+    this.http.post<void>(url, article).subscribe({
+      next: () => {
+        this.refresh();
+      },
+      error: (err) => {
+        console.log('err: ', err);
+        alert('oups! Error from server...');
+        this.refresh();
+      },
+      complete: () => {
+        console.log('complete');
+      },
+    });
   }
 }
