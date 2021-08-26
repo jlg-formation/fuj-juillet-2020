@@ -11,27 +11,51 @@ app.use((req, res, next) => {
   }, 1);
 });
 
-app.get("/", async (req, res) => {
-  res.json(await db.getArticles());
+app.get("/", (req, res) => {
+  (async () => {
+    try {
+      res.json(await db.getArticles());
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  })();
 });
 
 app.post("/", (req, res, next) => {
-  const article = req.body as Article;
-  if (article.price > 2) {
-    res.status(400).send("price > 2");
-    return;
-  }
-  next();
+  (async () => {
+    try {
+      const article = req.body as Article;
+      if (article.price > 2) {
+        res.status(400).send("price > 2");
+        return;
+      }
+      next();
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  })();
 });
 
-app.post("/", async (req, res) => {
-  const article = req.body as Article;
-  await db.addArticle(article);
-  res.status(201).json(article);
+app.post("/", (req, res) => {
+  (async () => {
+    try {
+      const article = req.body as Article;
+      await db.addArticle(article);
+      res.status(201).json(article);
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  })();
 });
 
 app.delete("/", (req, res) => {
-  const ids = req.body as string[];
-  db.removeArticle(ids);
-  res.status(204).end();
+  (async () => {
+    try {
+      const ids = req.body as string[];
+      db.removeArticle(ids);
+      res.status(204).end();
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  })();
 });
