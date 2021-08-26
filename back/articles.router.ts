@@ -12,7 +12,7 @@ const getId = () => {
   return new Date().getTime() + "_" + idStr;
 };
 
-const articles: Article[] = [
+let articles: Article[] = [
   { id: getId(), name: "tournevisssss", price: 2.34, qty: 123 },
   { id: getId(), name: "Marteau", price: 11, qty: 4567 },
   { id: getId(), name: "Tondeuse à gazon", price: 234, qty: 3 },
@@ -43,4 +43,10 @@ app.post("/", (req, res) => {
   article.id = getId();
   articles.push(article);
   res.status(201).json(article);
+});
+
+app.delete("/", (req, res) => {
+  const ids = req.body as string[];
+  articles = articles.filter((a) => !ids.includes(a.id));
+  res.status(204).end();
 });
