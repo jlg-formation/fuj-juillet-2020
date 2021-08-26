@@ -34,6 +34,7 @@ export class HttpArticleService extends ArticleService {
         next: (articles) => {
           console.log('articles: ', articles);
           this.articles = articles;
+          this.save();
         },
         error: (err) => {
           console.log('err: ', err);

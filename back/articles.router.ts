@@ -22,7 +22,7 @@ const articles: Article[] = [
 app.use((req, res, next) => {
   setTimeout(() => {
     next();
-  }, 2000);
+  }, 1);
 });
 
 app.get("/", (req, res) => {

@@ -2,7 +2,7 @@ import express from "express";
 import serveIndex from "serve-index";
 import cors from "cors";
 
-import { articleRouter } from "./articles";
+import { articleRouter } from "./articles.router";
 
 const app = express();
 const port = process.env.PORT || 3000;
