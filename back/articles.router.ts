@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { Article } from "./interfaces/Article";
-import { db } from "./articles.file";
+import { db } from "./articles.mongo";
 const app = Router();
 
 export const articleRouter = app;
@@ -11,8 +11,8 @@ app.use((req, res, next) => {
   }, 1);
 });
 
-app.get("/", (req, res) => {
-  res.json(db.getArticles());
+app.get("/", async (req, res) => {
+  res.json(await db.getArticles());
 });
 
 app.post("/", (req, res, next) => {
@@ -24,9 +24,9 @@ app.post("/", (req, res, next) => {
   next();
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
   const article = req.body as Article;
-  db.addArticle(article);
+  await db.addArticle(article);
   res.status(201).json(article);
 });
 
