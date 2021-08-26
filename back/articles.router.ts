@@ -1,40 +1,9 @@
 import { Router } from "express";
 import { Article } from "./interfaces/Article";
-import { promises as fs } from "fs";
-
-const filename = "data/articles.json";
-
+import { db } from "./articles.file";
 const app = Router();
 
 export const articleRouter = app;
-
-let id = 0;
-const getId = () => {
-  id++;
-  const idStr = new String(id).padStart(6, "0");
-  return new Date().getTime() + "_" + idStr;
-};
-
-let articles: Article[] = [];
-
-async function init() {
-  try {
-    const str = await fs.readFile(filename, { encoding: "utf-8" });
-    articles = JSON.parse(str);
-  } catch (err) {
-    console.log("err: ", err);
-  }
-}
-
-init();
-
-async function save() {
-  try {
-    await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
-  } catch (err) {
-    console.log("err: ", err);
-  }
-}
 
 app.use((req, res, next) => {
   setTimeout(() => {
@@ -43,7 +12,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.json(articles);
+  res.json(db.getArticles());
 });
 
 app.post("/", (req, res, next) => {
@@ -57,15 +26,12 @@ app.post("/", (req, res, next) => {
 
 app.post("/", (req, res) => {
   const article = req.body as Article;
-  article.id = getId();
-  articles.push(article);
-  save();
+  db.addArticle(article);
   res.status(201).json(article);
 });
 
 app.delete("/", (req, res) => {
   const ids = req.body as string[];
-  articles = articles.filter((a) => !ids.includes(a.id));
-  save();
+  db.removeArticle(ids);
   res.status(204).end();
 });
