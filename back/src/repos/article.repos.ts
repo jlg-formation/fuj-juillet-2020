@@ -1,5 +1,5 @@
-import { DbServer } from "./src/DbServer";
-import { Article } from "./interfaces/Article";
+import { DbServer } from "../DbServer";
+import { Article } from "../../interfaces/Article";
 import { MongoClient, ObjectId } from "mongodb";
 
 function transform(r: any): Article {

@@ -2,7 +2,7 @@ import cors from "cors";
 import express, { Express } from "express";
 import { Server } from "http";
 import serveIndex from "serve-index";
-import { articleRouter } from "../articles.router";
+import { articleRouter } from "./routers/articles.router";
 import { DbServer, DbServerOptions } from "./DbServer";
 
 interface WebServerOptions {

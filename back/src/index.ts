@@ -1,4 +1,4 @@
-import { WebServer } from "./src/WebServer";
+import { WebServer } from "./WebServer";
 
 (async () => {
   const server = new WebServer({

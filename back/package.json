@@ -2,7 +2,7 @@
   "name": "back",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "mocha",
     "start": "npx nodemon"

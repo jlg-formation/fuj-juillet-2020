@@ -1,7 +1,7 @@
-import { DbServer } from "./src/DbServer";
+import { DbServer } from "../DbServer";
 import { Router } from "express";
-import { Article } from "./interfaces/Article";
-import { ArticleRepos } from "./articles.mongo";
+import { Article } from "../../interfaces/Article";
+import { ArticleRepos } from "../repos/article.repos";
 const app = Router();
 
 export const articleRouter = function (db: DbServer) {
