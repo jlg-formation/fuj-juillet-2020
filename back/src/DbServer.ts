@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import {MongoClient} from 'mongodb';
 
 export interface DbServerOptions {
   uri: string;
@@ -6,20 +6,20 @@ export interface DbServerOptions {
 
 export class DbServer {
   options: DbServerOptions = {
-    uri: "mongodb://localhost/gestion-stock",
+    uri: 'mongodb://localhost/gestion-stock',
   };
   client: MongoClient;
   constructor(options: Partial<DbServerOptions>) {
-    this.options = { ...this.options, ...options };
+    this.options = {...this.options, ...options};
     this.client = new MongoClient(this.options.uri);
   }
   async start() {
     try {
       await this.client.connect();
       const databasesList = await this.client.db().admin().listDatabases();
-      console.log("databasesList: ", databasesList);
+      console.log('databasesList: ', databasesList);
     } catch (err) {
-      console.log("err: ", err);
+      console.log('err: ', err);
       await this.client.close();
     }
   }

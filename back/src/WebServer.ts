@@ -1,9 +1,9 @@
-import cors from "cors";
-import express, { Express } from "express";
-import { Server } from "http";
-import serveIndex from "serve-index";
-import { articleRouter } from "./routers/articles.router";
-import { DbServer, DbServerOptions } from "./DbServer";
+import cors from 'cors';
+import express, {Express} from 'express';
+import {Server} from 'http';
+import serveIndex from 'serve-index';
+import {articleRouter} from './routers/articles.router';
+import {DbServer, DbServerOptions} from './DbServer';
 
 interface WebServerOptions {
   port: number;
@@ -14,7 +14,7 @@ export class WebServer {
   options: WebServerOptions = {
     port: 3000,
     dbOptions: {
-      uri: "mongodb://localhost/gestion-stock",
+      uri: 'mongodb://localhost/gestion-stock',
     },
   };
 
@@ -23,71 +23,84 @@ export class WebServer {
   db: DbServer;
 
   constructor(options: Partial<WebServerOptions> = {}) {
-    console.log("options: ", options);
-    this.options = { ...this.options, ...options };
-    console.log("this.options: ", this.options);
+    console.log('options: ', options);
+    this.options = {...this.options, ...options};
+    console.log('this.options: ', this.options);
 
     this.db = new DbServer(this.options.dbOptions);
 
     const app = express();
-    const www = "../front/dist/front";
+    const www = '../front/dist/front';
 
     app.use(express.json());
     app.use(cors());
 
     app.use((req, res, next) => {
-      console.log("req: ", req.url);
+      console.log('req: ', req.url);
       next();
     });
 
-    app.use("/api/articles", articleRouter(this.db));
+    app.use('/api/articles', articleRouter(this.db));
 
-    app.get("/api/date", (req, res) => {
+    app.get('/api/date', (req, res) => {
       res.json({
         date: new Date(),
       });
     });
 
+    app.get('/api/crash', () => {
+      (async () => {
+        throw new Error('bam! Crash...');
+      })();
+    });
+
     app.use(express.static(www));
-    app.use(serveIndex(www, { icons: true }));
+    app.use(serveIndex(www, {icons: true}));
     this.app = app;
   }
 
   async start() {
     let isStarted = false;
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        await this.db.start();
-        this.server = this.app.listen(this.options.port, () => {
-          console.log(
-            `Example app listening at http://localhost:${this.options.port}`
-          );
-          isStarted = true;
-          resolve();
-        });
-        this.server.on("error", (err) => {
-          if (!isStarted) {
-            reject(err);
-          }
-        });
-      } catch (err) {
-        console.log("err: ", err);
-      }
+    return new Promise<void>((resolve, reject) => {
+      (async () => {
+        try {
+          await this.db.start();
+          this.server = this.app.listen(this.options.port, () => {
+            console.log(
+              `Example app listening at http://localhost:${this.options.port}`
+            );
+            isStarted = true;
+            resolve();
+          });
+          this.server.on('error', async err => {
+            if (!isStarted) {
+              await this.db.stop();
+              reject(err);
+            }
+          });
+        } catch (err) {
+          console.log('err: ', err);
+        }
+      })();
     });
   }
 
   async stop() {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        await this.db.stop();
-        this.server?.close((err) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          resolve();
-        });
-      } catch (err) {}
+    return new Promise<void>((resolve, reject) => {
+      (async () => {
+        try {
+          await this.db.stop();
+          this.server?.close(err => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve();
+          });
+        } catch (err) {
+          console.log('err: ', err);
+        }
+      })();
     });
   }
 }
