@@ -3,3 +3,4 @@ data/*.json
 coverage
 .nyc_output
 build
+ecosystem.config.js

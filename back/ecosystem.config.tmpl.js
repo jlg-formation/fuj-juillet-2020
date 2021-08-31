@@ -6,9 +6,7 @@ module.exports = {
       env: {
         WIAME_NODESERVER_PORT: 3050,
       },
-      env_production: {
-        WIAME_NODESERVER_PORT: 3333,
-      },
+      env_production: {},
     },
   ],
 };
