@@ -3,7 +3,8 @@ import {WebServer} from '../src/WebServer';
 import got from 'got';
 
 describe('Server', () => {
-  it('should start and stop', async () => {
+  it('should start and stop', async function () {
+    this.timeout(15000);
     const server = new WebServer({port: 3400});
     await server.start();
     const data = await got.get('http://localhost:3400/api/articles').json();
