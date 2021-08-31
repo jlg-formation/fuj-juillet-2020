@@ -30,7 +30,7 @@ export class WebServer {
     this.db = new DbServer(this.options.dbOptions);
 
     const app = express();
-    const www = "./public";
+    const www = "../front/dist/front";
 
     app.use(express.json());
     app.use(cors());
