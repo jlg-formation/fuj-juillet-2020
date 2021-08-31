@@ -1,7 +1,6 @@
+import { DbServer } from "./src/DbServer";
 import { Article } from "./interfaces/Article";
 import { MongoClient, ObjectId } from "mongodb";
-
-const uri = "mongodb://localhost/gestion-stock";
 
 function transform(r: any): Article {
   const article = { ...r };
@@ -10,35 +9,29 @@ function transform(r: any): Article {
   return article as Article;
 }
 
-const client = new MongoClient(uri);
-
-async function init() {
-  try {
-    await client.connect();
-    const databasesList = await client.db().admin().listDatabases();
-    console.log("databasesList: ", databasesList);
-  } catch (err) {
-    console.log("err: ", err);
-    await client.close();
+export class ArticleRepos {
+  client: MongoClient;
+  constructor(private db: DbServer) {
+    this.client = db.client;
   }
-}
 
-init();
-
-class MongoDb {
-  async getArticles(): Promise<Article[]> {
-    const results = await client.db().collection("articles").find({}).toArray();
+  async retrieveAll(): Promise<Article[]> {
+    const results = await this.client
+      .db()
+      .collection("articles")
+      .find({})
+      .toArray();
     console.log("results: ", results);
     const articles = results.map((r) => transform(r));
     return articles;
   }
 
-  async addArticle(article: Article): Promise<void> {
-    await client.db().collection("articles").insertOne(article);
+  async add(article: Article): Promise<void> {
+    await this.client.db().collection("articles").insertOne(article);
   }
 
-  async removeArticle(ids: string[]) {
-    await client
+  async remove(ids: string[]) {
+    await this.client
       .db()
       .collection("articles")
       .deleteMany({
@@ -48,5 +41,3 @@ class MongoDb {
       });
   }
 }
-
-export const db = new MongoDb();

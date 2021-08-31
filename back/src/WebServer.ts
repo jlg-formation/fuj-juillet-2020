@@ -19,7 +19,7 @@ export class WebServer {
   };
 
   app: Express;
-  server: Server;
+  server: Server | undefined;
   db: DbServer;
 
   constructor(options: Partial<WebServerOptions> = {}) {
@@ -40,7 +40,7 @@ export class WebServer {
       next();
     });
 
-    // app.use("/api/articles", articleRouter);
+    app.use("/api/articles", articleRouter(this.db));
 
     app.get("/api/date", (req, res) => {
       res.json({
@@ -80,7 +80,7 @@ export class WebServer {
     return new Promise<void>(async (resolve, reject) => {
       try {
         await this.db.stop();
-        this.server.close((err) => {
+        this.server?.close((err) => {
           if (err) {
             reject(err);
             return;
