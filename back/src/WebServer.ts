@@ -2,12 +2,16 @@ import cors from 'cors';
 import express, {Express} from 'express';
 import {Server} from 'http';
 import serveIndex from 'serve-index';
+
+import {oAuth2Router} from './routers/oauth2.router';
 import {articleRouter} from './routers/articles.router';
 import {DbServer, DbServerOptions} from './DbServer';
+import {OAuth2Options} from './interfaces/OAuth2Options';
 
 interface WebServerOptions {
   port: number;
   dbOptions: DbServerOptions;
+  oauth2: OAuth2Options;
 }
 
 export class WebServer {
@@ -15,6 +19,12 @@ export class WebServer {
     port: 3000,
     dbOptions: {
       uri: 'mongodb://localhost/gestion-stock',
+    },
+    oauth2: {
+      clientID: process.env.OAUTH2_CLIENT_ID || 'TBD',
+      clientSecret: process.env.OAUTH2_CLIENT_SECRET || 'TBD',
+      accessTokenUrl: process.env.OAUTH2_ACCESS_TOKEN_URL || 'TBD',
+      loginUrl: process.env.OAUTH2_LOGIN_URL || 'TBD',
     },
   };
 
@@ -41,6 +51,7 @@ export class WebServer {
     });
 
     app.use('/api/articles', articleRouter(this.db));
+    app.use('/api/oauth', oAuth2Router);
 
     app.get('/api/date', (req, res) => {
       res.json({
