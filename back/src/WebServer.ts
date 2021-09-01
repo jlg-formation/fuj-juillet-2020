@@ -1,3 +1,4 @@
+import {authRouter} from './routers/auth.router';
 import cors from 'cors';
 import express, {Express} from 'express';
 import session from 'express-session';
@@ -62,6 +63,7 @@ export class WebServer {
 
     app.use('/api/articles', articleRouter(this.db));
     app.use('/api/oauth', oAuth2Router(this.options.oauth2));
+    app.use('/api/auth', authRouter);
 
     app.get('/api/date', (req, res) => {
       res.json({
