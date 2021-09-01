@@ -1,18 +1,12 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AutofocusDirective } from './autofocus.directive';
-
-
+import { UserStatusComponent } from './user-status/user-status.component';
 
 @NgModule({
-  declarations: [
-    AutofocusDirective
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    AutofocusDirective
-  ]
+  declarations: [AutofocusDirective, UserStatusComponent],
+  imports: [CommonModule, RouterModule],
+  exports: [AutofocusDirective, UserStatusComponent],
 })
-export class WidgetModule { }
+export class WidgetModule {}
