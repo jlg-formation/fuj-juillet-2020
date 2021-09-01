@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express, {Express} from 'express';
+import session from 'express-session';
 import {Server} from 'http';
 import serveIndex from 'serve-index';
 
@@ -41,6 +42,15 @@ export class WebServer {
 
     const app = express();
     const www = '../front/dist/front';
+
+    app.use(
+      session({
+        name: 'gestion-stock.sid',
+        secret: 'do not change this secret or all session will be reset...',
+        resave: false,
+        saveUninitialized: true,
+      })
+    );
 
     app.use(express.json());
     app.use(cors());
