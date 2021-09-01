@@ -51,7 +51,7 @@ export class WebServer {
     });
 
     app.use('/api/articles', articleRouter(this.db));
-    app.use('/api/oauth', oAuth2Router);
+    app.use('/api/oauth', oAuth2Router(this.options.oauth2));
 
     app.get('/api/date', (req, res) => {
       res.json({
