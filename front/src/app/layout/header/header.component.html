@@ -3,5 +3,5 @@
     <img src="assets/logo.svg" alt="Logo Gestion Stock" />
     <span>Gestion Stock</span>
   </a>
-  <a class="login" href="#">Se connecter</a>
+  <a class="login" [href]="oauth2Service.getConnectUrl()"> Se connecter </a>
 </header>
