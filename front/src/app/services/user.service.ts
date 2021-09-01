@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, of, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '../interfaces/user';
@@ -34,5 +34,10 @@ export class UserService {
           this.user$.next(user);
         },
       });
+  }
+
+  disconnect(): Observable<void> {
+    this.user$.next(undefined);
+    return this.http.post<void>('/api/auth/disconnect', undefined);
   }
 }

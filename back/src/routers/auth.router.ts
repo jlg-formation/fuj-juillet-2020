@@ -36,3 +36,10 @@ app.get('/isConnected', (req, res) => {
   }
   return res.json(req.session.user);
 });
+
+app.post('/disconnect', (req, res) => {
+  req.session.user = undefined;
+  req.session.accessToken = undefined;
+  req.session.afterLoginRoute = undefined;
+  res.status(204).end();
+});
