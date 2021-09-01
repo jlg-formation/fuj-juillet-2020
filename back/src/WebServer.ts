@@ -54,7 +54,15 @@ export class WebServer {
     );
 
     app.use(express.json());
-    app.use(cors());
+    app.use(
+      cors((req, callback) => {
+        const options = {
+          credentials: true,
+          origin: req.headers.origin,
+        };
+        callback(null, options);
+      })
+    );
 
     app.use((req, res, next) => {
       console.log('req: ', req.url);
