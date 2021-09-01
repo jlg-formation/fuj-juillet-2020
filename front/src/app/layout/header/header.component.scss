@@ -8,6 +8,7 @@ header {
   padding: 0 0.5em;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   a {
     display: flex;
@@ -24,6 +25,16 @@ header {
       padding: 0 0.5em;
       font-weight: bold;
       font-size: 1.4em;
+      white-space: nowrap;
+
+      @media only screen and (max-width: 375px) {
+        font-size: 1.2em;
+      }
+    }
+
+    &.login {
+      padding-right: 0.5em;
+      white-space: nowrap;
     }
   }
 }
