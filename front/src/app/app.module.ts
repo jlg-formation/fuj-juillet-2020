@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,11 +9,19 @@ import { HomeComponent } from './home/home.component';
 import { HttpArticleService } from './services/http-article.service';
 import { LegalComponent } from './legal/legal.component';
 import { ArticleService } from './services/article.service';
+import { CredentialsInterceptor } from './interceptors/credentials.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LegalComponent],
   imports: [BrowserModule, AppRoutingModule, LayoutModule, HttpClientModule],
-  providers: [{ provide: ArticleService, useClass: HttpArticleService }],
+  providers: [
+    { provide: ArticleService, useClass: HttpArticleService },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CredentialsInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
