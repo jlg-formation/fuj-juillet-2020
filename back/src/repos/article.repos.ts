@@ -1,5 +1,5 @@
 import {DbServer} from '../DbServer';
-import {Article} from '../../interfaces/Article';
+import {Article} from '../interfaces/Article';
 import {MongoClient, ObjectId} from 'mongodb';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,4 +1,4 @@
-import {Article} from '../../interfaces/Article';
+import {Article} from '../interfaces/Article';
 import {promises as fs} from 'fs';
 
 const filename = 'data/articles.json';

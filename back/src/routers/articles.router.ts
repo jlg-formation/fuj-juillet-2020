@@ -1,6 +1,6 @@
 import {DbServer} from '../DbServer';
 import {Router} from 'express';
-import {Article} from '../../interfaces/Article';
+import {Article} from '../interfaces/Article';
 import {ArticleRepos} from '../repos/article.repos';
 const app = Router();
 
