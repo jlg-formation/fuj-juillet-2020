@@ -1,3 +1,4 @@
+import { WidgetModule } from './../widget/widget.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,7 +8,7 @@ import { BodyComponent } from './body/body.component';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, BodyComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, WidgetModule],
   exports: [HeaderComponent, FooterComponent, BodyComponent],
 })
 export class LayoutModule {}
