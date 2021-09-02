@@ -25,8 +25,8 @@ export class WebServer {
     oauth2: {
       clientID: process.env.OAUTH2_CLIENT_ID || 'TBD',
       clientSecret: process.env.OAUTH2_CLIENT_SECRET || 'TBD',
+      authorizationUrl: process.env.OAUTH2_AUTHORIZATION_URL || 'TBD',
       accessTokenUrl: process.env.OAUTH2_ACCESS_TOKEN_URL || 'TBD',
-      loginUrl: process.env.OAUTH2_LOGIN_URL || 'TBD',
     },
   };
 

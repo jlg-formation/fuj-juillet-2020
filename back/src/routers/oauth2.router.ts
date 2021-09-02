@@ -12,6 +12,12 @@ declare module 'express-session' {
   }
 }
 
+export interface Oauth2Config {
+  authorizationUrl: string;
+  clientId: string;
+  redirectUri: string;
+}
+
 const app = Router();
 
 export const oAuth2Router = (options: OAuth2Options) => {
@@ -19,6 +25,16 @@ export const oAuth2Router = (options: OAuth2Options) => {
   const clientSecret = options.clientSecret;
 
   const authorizationServerUrl = options.accessTokenUrl;
+
+  const config: Oauth2Config = {
+    authorizationUrl: options.authorizationUrl,
+    clientId: options.clientID,
+    redirectUri: '/api/oauth/redirect',
+  };
+
+  app.get('/config', (req, res) => {
+    res.json(config);
+  });
 
   app.get('/redirect', (req, res) => {
     (async () => {
