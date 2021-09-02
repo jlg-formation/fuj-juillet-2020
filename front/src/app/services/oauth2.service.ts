@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { delay } from 'rxjs/operators';
 
 export interface Oauth2Config {
   authorizationUrl: string;
@@ -25,14 +26,17 @@ export class Oauth2Service {
   config$ = new BehaviorSubject<Oauth2Config | undefined>(undefined);
 
   constructor(private http: HttpClient) {
-    this.http.get<Oauth2Config>('/api/oauth/config').subscribe({
-      next: (config) => {
-        this.config$.next(config);
-      },
-      error: (err) => {
-        console.log('err: ', err);
-      },
-    });
+    this.http
+      .get<Oauth2Config>('/api/oauth/config')
+      .pipe(delay(2000))
+      .subscribe({
+        next: (config) => {
+          this.config$.next(config);
+        },
+        error: (err) => {
+          console.log('err: ', err);
+        },
+      });
   }
 
   getConnectUrl() {
