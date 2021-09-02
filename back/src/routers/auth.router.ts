@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response, Router} from 'express';
-import '../modules';
+import './oauth2/modules';
 
 export const auth = (req: Request, res: Response, next: NextFunction) => {
   if (!req.session.user) {

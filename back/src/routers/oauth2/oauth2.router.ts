@@ -1,7 +1,7 @@
 import {Router} from 'express';
 
-import '../../modules';
-import {Oauth2Config, OAuth2Options} from '../../interfaces/OAuth2';
+import './modules';
+import {Oauth2Config, OAuth2Options} from './interfaces/OAuth2';
 import {OAuth2Factory} from './OAuth2Factory';
 
 const app = Router();

@@ -1,5 +1,5 @@
-import {User} from '../../interfaces/User';
-import {OAuth2ProviderOptions} from '../../interfaces/OAuth2';
+import {User} from './interfaces/User';
+import {OAuth2ProviderOptions} from './interfaces/OAuth2';
 
 export abstract class OAuth2 {
   abstract getAccessToken(
