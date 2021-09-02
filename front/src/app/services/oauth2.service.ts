@@ -1,26 +1,48 @@
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+
+export interface Oauth2Config {
+  authorizationUrl: string;
+  clientId: string;
+  redirectUri: string;
+}
+
+function getHost() {
+  const url = window.location.href;
+  const arr = url.split('/');
+  const result = arr[0] + '//' + arr[2];
+  return result;
+}
+
+const host = getHost();
+console.log('host: ', host);
 
 @Injectable({
   providedIn: 'root',
 })
 export class Oauth2Service {
-  connectUrl = 'https://github.com/login/oauth/authorize';
-  clientId = 'Iv1.6752065f0d086d79';
-  redirectUri = 'http://localhost:4200/api/oauth/redirect';
+  config$ = new BehaviorSubject<Oauth2Config | undefined>(undefined);
 
-  constructor() {}
+  constructor(private http: HttpClient) {
+    this.http.get<Oauth2Config>('/api/oauth/config').subscribe({
+      next: (config) => {
+        this.config$.next(config);
+      },
+      error: (err) => {
+        console.log('err: ', err);
+      },
+    });
+  }
 
   getConnectUrl() {
-    const queryObject: any = {
-      client_id: this.clientId,
-      redirect_uri: this.redirectUri,
-    };
+    const config = this.config$.value;
+    if (!config) {
+      return '';
+    }
     return (
-      this.connectUrl +
-      '?' +
-      Object.keys(queryObject)
-        .map((key) => `${key}=${queryObject[key]}`)
-        .join('&')
+      config.authorizationUrl +
+      `?client_id=${config.clientId}&redirect_uri=${host}${config.redirectUri}`
     );
   }
 }
