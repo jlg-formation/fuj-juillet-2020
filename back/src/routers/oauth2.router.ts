@@ -56,12 +56,7 @@ export const oAuth2Router = (options: OAuth2Options) => {
         req.session.accessToken = data.access_token;
 
         const user = await getUserInfo(data.access_token);
-        req.session.user = {
-          displayName: user.name,
-          email: user.email,
-          id: user.login,
-          resourceServer: 'github',
-        };
+        req.session.user = user;
         res.redirect(req.session.afterLoginRoute || '/');
       } catch (error) {
         console.log('error: ', error);
