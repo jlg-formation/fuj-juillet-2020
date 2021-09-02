@@ -14,8 +14,6 @@ export interface Oauth2Config {
   };
 }
 
-const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>;
-
 export const getOAuth2Options = (): OAuth2Options => {
   const providerList = process.env.OAUTH2_PROVIDER_LIST;
   if (!providerList) {
@@ -38,7 +36,7 @@ const app = Router();
 
 export const oAuth2Router = (options: OAuth2Options) => {
   const config: Oauth2Config = {};
-  for (const p of getKeys(options)) {
+  for (const p of Object.keys(options)) {
     config[p] = {
       authorizationUrl: options[p].authorizationUrl,
       clientId: options[p].clientID,
