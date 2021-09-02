@@ -30,7 +30,7 @@ export class Oauth2Service {
   constructor(private http: HttpClient) {
     this.http
       .get<Oauth2Config>('/api/oauth/config')
-      .pipe(delay(2000))
+      .pipe(delay(500))
       .subscribe({
         next: (config) => {
           this.config$.next(config);
@@ -50,9 +50,16 @@ export class Oauth2Service {
     if (!providerConfig) {
       return '';
     }
-    return (
+
+    let result =
       providerConfig.authorizationUrl +
-      `?client_id=${providerConfig.clientId}&redirect_uri=${host}${providerConfig.redirectUri}`
-    );
+      `?client_id=${providerConfig.clientId}&redirect_uri=${host}${providerConfig.redirectUri}`;
+
+    // special case
+    if (provider === 'AZUREAD') {
+      result += '&scope=User.Read&response_type=code';
+    }
+
+    return result;
   }
 }

@@ -63,28 +63,38 @@ export const oAuth2Router = (options: OAuth2Options) => {
     (async () => {
       try {
         const requestToken = req.query.code;
-        const url = `${options[p].accessTokenUrl}?client_id=${options[p].clientID}&client_secret=${options[p].clientSecret}&code=${requestToken}`;
-        console.log('url: ', url);
-        const data = (await got
-          .post(url, {
-            json: {
-              hello: 'world',
-            },
-          })
-          .json()) as {access_token: string};
-        // Once we get the response, extract the access token from
-        // the response body
-        console.log('data: ', data);
-        req.session.accessToken = data.access_token;
+        if (!requestToken) {
+          throw new Error('requestToken not defined.');
+        }
         if (p === 'GITHUB') {
+          const url = `${options[p].accessTokenUrl}?client_id=${options[p].clientID}&code=${requestToken}&client_secret=${options[p].clientSecret}`;
+          console.log('url: ', url);
+          const data = (await got.post(url).json()) as {access_token: string};
+          console.log('data: ', data);
+          req.session.accessToken = data.access_token;
           const user = await getGithubUserInfo(data.access_token);
           req.session.user = user;
         }
+
         if (p === 'AZUREAD') {
+          const url = `${options[p].accessTokenUrl}`;
+          const body: {[key: string]: string} = {
+            grant_type: 'authorization_code',
+            client_id: options[p].clientID,
+            client_secret: options[p].clientSecret,
+            code: '' + requestToken,
+            redirect_uri: `http://localhost:4200${config[p].redirectUri}`,
+          };
+          const data: {access_token: string} = await got(url, {
+            method: 'POST',
+            form: body,
+            // throwHttpErrors: false,
+          }).json();
+          console.log('data: ', data);
+
           const user = await getAzureADUserInfo(data.access_token);
           req.session.user = user;
         }
-
         res.redirect(req.session.afterLoginRoute || '/');
       } catch (error) {
         console.log('error: ', error);
