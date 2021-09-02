@@ -1,8 +1,5 @@
 import {MongoClient} from 'mongodb';
-
-export interface DbServerOptions {
-  uri: string;
-}
+import {DbServerOptions} from './interfaces/DbServerOptions';
 
 export class DbServer {
   options: DbServerOptions = {

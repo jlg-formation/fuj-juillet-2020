@@ -1,8 +1,7 @@
+import {options} from './options';
 import {WebServer} from './WebServer';
 
 (async () => {
-  const server = new WebServer({
-    port: +(process.env.WIAME_NODESERVER_PORT || 3000),
-  });
+  const server = new WebServer(options);
   await server.start();
 })();

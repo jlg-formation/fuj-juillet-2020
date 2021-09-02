@@ -5,16 +5,10 @@ import session from 'express-session';
 import {Server} from 'http';
 import serveIndex from 'serve-index';
 
-import {getOAuth2Options, oAuth2Router} from './routers/oauth2.router';
+import {oAuth2Router} from './routers/oauth2.router';
 import {articleRouter} from './routers/articles.router';
-import {DbServer, DbServerOptions} from './DbServer';
-import {OAuth2Options} from './interfaces/OAuth2';
-
-interface WebServerOptions {
-  port: number;
-  dbOptions: DbServerOptions;
-  oauth2: OAuth2Options;
-}
+import {DbServer} from './DbServer';
+import {WebServerOptions} from './interfaces/WebServerOptions';
 
 export class WebServer {
   options: WebServerOptions = {
@@ -22,7 +16,7 @@ export class WebServer {
     dbOptions: {
       uri: 'mongodb://localhost/gestion-stock',
     },
-    oauth2: getOAuth2Options(),
+    oauth2: {},
   };
 
   app: Express;
