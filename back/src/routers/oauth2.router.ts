@@ -2,17 +2,9 @@ import {getAzureADUserInfo} from './oauth2/azuread.oauth2';
 import {Router} from 'express';
 import got from 'got';
 
+import '../modules';
 import {OAuth2Options} from '../interfaces/OAuth2Options';
-import {User} from '../interfaces/User';
 import {getGithubUserInfo} from './oauth2/github.oauth2';
-
-declare module 'express-session' {
-  interface SessionData {
-    accessToken?: string;
-    afterLoginRoute?: string;
-    user?: User;
-  }
-}
 
 export interface Oauth2Config {
   [provider: string]: {
