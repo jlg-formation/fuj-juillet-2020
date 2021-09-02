@@ -1,10 +1,13 @@
-<a
-  *ngIf="!(userService.user$ | async)"
-  class="login"
-  [href]="oauth2Service.getConnectUrl()"
->
-  Se connecter
-</a>
-<a *ngIf="userService.user$ | async" class="login" routerLink="/user">
-  {{ (userService.user$ | async)?.displayName }}
-</a>
+<ng-container *ngIf="oauth2Service.config$ | async">
+  <a
+    *ngIf="!(userService.user$ | async)"
+    class="login"
+    [href]="oauth2Service.getConnectUrl()"
+  >
+    Se connecter
+  </a>
+  <a *ngIf="userService.user$ | async" class="login" routerLink="/user">
+    {{ (userService.user$ | async)?.displayName }}
+  </a>
+</ng-container>
+<ng-container *ngIf="!(oauth2Service.config$ | async)"> ... </ng-container>
