@@ -5,7 +5,7 @@ import session from 'express-session';
 import {Server} from 'http';
 import serveIndex from 'serve-index';
 
-import {oAuth2Router} from './routers/oauth2.router';
+import {getOAuth2Options, oAuth2Router} from './routers/oauth2.router';
 import {articleRouter} from './routers/articles.router';
 import {DbServer, DbServerOptions} from './DbServer';
 import {OAuth2Options} from './interfaces/OAuth2Options';
@@ -22,12 +22,7 @@ export class WebServer {
     dbOptions: {
       uri: 'mongodb://localhost/gestion-stock',
     },
-    oauth2: {
-      clientID: process.env.OAUTH2_CLIENT_ID || 'TBD',
-      clientSecret: process.env.OAUTH2_CLIENT_SECRET || 'TBD',
-      authorizationUrl: process.env.OAUTH2_AUTHORIZATION_URL || 'TBD',
-      accessTokenUrl: process.env.OAUTH2_ACCESS_TOKEN_URL || 'TBD',
-    },
+    oauth2: getOAuth2Options(),
   };
 
   app: Express;

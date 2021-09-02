@@ -4,9 +4,11 @@ import { Injectable } from '@angular/core';
 import { delay } from 'rxjs/operators';
 
 export interface Oauth2Config {
-  authorizationUrl: string;
-  clientId: string;
-  redirectUri: string;
+  [provider: string]: {
+    authorizationUrl: string;
+    clientId: string;
+    redirectUri: string;
+  };
 }
 
 function getHost() {
@@ -39,14 +41,18 @@ export class Oauth2Service {
       });
   }
 
-  getConnectUrl() {
+  getConnectUrl(provider: string) {
     const config = this.config$.value;
     if (!config) {
       return '';
     }
+    const providerConfig = config[provider];
+    if (!providerConfig) {
+      return '';
+    }
     return (
-      config.authorizationUrl +
-      `?client_id=${config.clientId}&redirect_uri=${host}${config.redirectUri}`
+      providerConfig.authorizationUrl +
+      `?client_id=${providerConfig.clientId}&redirect_uri=${host}${providerConfig.redirectUri}`
     );
   }
 }

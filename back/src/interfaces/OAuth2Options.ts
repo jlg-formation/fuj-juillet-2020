@@ -1,6 +1,8 @@
-export interface OAuth2Options {
-  clientID: string;
-  clientSecret: string;
-  authorizationUrl: string;
-  accessTokenUrl: string;
-}
+export type OAuth2Options = {
+  [provider: string]: {
+    clientID: string;
+    clientSecret: string;
+    authorizationUrl: string;
+    accessTokenUrl: string;
+  };
+};
