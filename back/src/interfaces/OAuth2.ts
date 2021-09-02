@@ -1,10 +1,12 @@
 export interface OAuth2Options {
-  [provider: string]: {
-    clientID: string;
-    clientSecret: string;
-    authorizationUrl: string;
-    accessTokenUrl: string;
-  };
+  [provider: string]: OAuth2ProviderOptions;
+}
+
+export interface OAuth2ProviderOptions {
+  clientID: string;
+  clientSecret: string;
+  authorizationUrl: string;
+  accessTokenUrl: string;
 }
 
 export interface Oauth2Config {

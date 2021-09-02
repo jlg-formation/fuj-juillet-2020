@@ -1,10 +1,8 @@
-import {getAzureADUserInfo} from './oauth2/azuread.oauth2';
 import {Router} from 'express';
-import got from 'got';
 
 import '../modules';
 import {Oauth2Config, OAuth2Options} from '../interfaces/OAuth2';
-import {getGithubUserInfo} from './oauth2/github.oauth2';
+import {OAuth2Factory} from './oauth2/OAuth2Factory';
 
 const app = Router();
 
@@ -26,39 +24,18 @@ export const oAuth2Router = (options: OAuth2Options) => {
     const p = req.params.provider;
     (async () => {
       try {
-        const requestToken = req.query.code;
+        const requestToken = req.query.code as string;
         if (!requestToken) {
           throw new Error('requestToken not defined.');
         }
-        if (p === 'GITHUB') {
-          const url = `${options[p].accessTokenUrl}?client_id=${options[p].clientID}&code=${requestToken}&client_secret=${options[p].clientSecret}`;
-          console.log('url: ', url);
-          const data = (await got.post(url).json()) as {access_token: string};
-          console.log('data: ', data);
-          req.session.accessToken = data.access_token;
-          const user = await getGithubUserInfo(data.access_token);
-          req.session.user = user;
-        }
+        const oauth2 = OAuth2Factory.get(p);
+        const accessToken = await oauth2.getAccessToken(
+          requestToken,
+          options[p]
+        );
 
-        if (p === 'AZUREAD') {
-          const url = `${options[p].accessTokenUrl}`;
-          const body: {[key: string]: string} = {
-            grant_type: 'authorization_code',
-            client_id: options[p].clientID,
-            client_secret: options[p].clientSecret,
-            code: '' + requestToken,
-            redirect_uri: `http://localhost:4200${config[p].redirectUri}`,
-          };
-          const data: {access_token: string} = await got(url, {
-            method: 'POST',
-            form: body,
-            // throwHttpErrors: false,
-          }).json();
-          console.log('data: ', data);
-
-          const user = await getAzureADUserInfo(data.access_token);
-          req.session.user = user;
-        }
+        const user = await oauth2.getUserInfo(accessToken);
+        req.session.user = user;
         res.redirect(req.session.afterLoginRoute || '/');
       } catch (error) {
         console.log('error: ', error);
