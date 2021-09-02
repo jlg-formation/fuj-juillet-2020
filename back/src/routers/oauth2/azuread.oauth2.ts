@@ -7,19 +7,17 @@ export const getAzureADUserInfo = async (
   const data = await got
     .get('https://graph.microsoft.com/v1.0/me', {
       headers: {
-        // This header informs the Github API about the API version
-        Accept: 'application/vnd.github.v3+json',
         // Include the token in the Authorization header
         Authorization: 'Bearer ' + access_token,
       },
     })
-    .json<{name: string; email: string; login: string}>();
+    .json<{displayName: string; userPrincipalName: string; surname: string}>();
   console.log('azure ad data: ', data);
   const user = {
-    displayName: data.name,
-    email: data.email,
-    id: data.login,
-    resourceServer: 'github',
+    displayName: data.displayName,
+    email: data.userPrincipalName,
+    id: data.surname,
+    resourceServer: 'azure AD',
   };
   console.log('user: ', user);
   return user;
