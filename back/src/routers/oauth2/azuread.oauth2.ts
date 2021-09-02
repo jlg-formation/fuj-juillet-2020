@@ -3,6 +3,8 @@ import {OAuth2ProviderOptions} from '../../interfaces/OAuth2';
 import {User} from '../../interfaces/User';
 import {OAuth2} from './OAuth2';
 
+const domain = process.env.DOMAIN_URL || 'http://localhost:4200';
+
 export class AzureADOAuth2 extends OAuth2 {
   async getAccessToken(
     requestToken: string,
@@ -14,7 +16,7 @@ export class AzureADOAuth2 extends OAuth2 {
       client_id: options.clientID,
       client_secret: options.clientSecret,
       code: '' + requestToken,
-      redirect_uri: 'http://localhost:4200/api/oauth/redirect/AZUREAD',
+      redirect_uri: domain + '/api/oauth/redirect/AZUREAD',
     };
     const data: {access_token: string} = await got(url, {
       method: 'POST',
