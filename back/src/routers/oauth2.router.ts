@@ -3,6 +3,7 @@ import got from 'got';
 
 import {OAuth2Options} from '../interfaces/OAuth2Options';
 import {User} from '../interfaces/User';
+import {getUserInfo} from './oauth2/github.oauth2';
 
 declare module 'express-session' {
   interface SessionData {
@@ -54,22 +55,12 @@ export const oAuth2Router = (options: OAuth2Options) => {
         console.log('data: ', data);
         req.session.accessToken = data.access_token;
 
-        // get the user info
-        const user = await got
-          .get('https://api.github.com/user', {
-            headers: {
-              // This header informs the Github API about the API version
-              Accept: 'application/vnd.github.v3+json',
-              // Include the token in the Authorization header
-              Authorization: 'token ' + data.access_token,
-            },
-          })
-          .json<{name: string; email: string; login: string}>();
-        console.log('user: ', user);
+        const user = await getUserInfo(data.access_token);
         req.session.user = {
           displayName: user.name,
           email: user.email,
           id: user.login,
+          resourceServer: 'github',
         };
         res.redirect(req.session.afterLoginRoute || '/');
       } catch (error) {
