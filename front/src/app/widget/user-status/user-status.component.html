@@ -2,7 +2,7 @@
   <a
     *ngIf="!(userService.user$ | async)"
     class="login"
-    [href]="oauth2Service.getConnectUrl()"
+    routerLink="/user/login"
   >
     Se connecter
   </a>
