@@ -1,7 +1,7 @@
 import got from 'got';
 import {User} from '../../interfaces/User';
 
-export const getUserInfo = async (access_token: string): User => {
+export const getUserInfo = async (access_token: string): Promise<User> => {
   const data = await got
     .get('https://api.github.com/user', {
       headers: {
