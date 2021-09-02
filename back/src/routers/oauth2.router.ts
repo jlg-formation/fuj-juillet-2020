@@ -3,16 +3,8 @@ import {Router} from 'express';
 import got from 'got';
 
 import '../modules';
-import {OAuth2Options} from '../interfaces/OAuth2Options';
+import {Oauth2Config, OAuth2Options} from '../interfaces/OAuth2';
 import {getGithubUserInfo} from './oauth2/github.oauth2';
-
-export interface Oauth2Config {
-  [provider: string]: {
-    authorizationUrl: string;
-    clientId: string;
-    redirectUri: string;
-  };
-}
 
 export const getOAuth2Options = (): OAuth2Options => {
   const providerList = process.env.OAUTH2_PROVIDER_LIST;

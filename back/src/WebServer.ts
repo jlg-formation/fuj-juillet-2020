@@ -8,7 +8,7 @@ import serveIndex from 'serve-index';
 import {getOAuth2Options, oAuth2Router} from './routers/oauth2.router';
 import {articleRouter} from './routers/articles.router';
 import {DbServer, DbServerOptions} from './DbServer';
-import {OAuth2Options} from './interfaces/OAuth2Options';
+import {OAuth2Options} from './interfaces/OAuth2';
 
 interface WebServerOptions {
   port: number;
