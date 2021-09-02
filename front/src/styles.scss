@@ -26,8 +26,12 @@ main {
   margin: 0 auto;
 }
 
-button {
+button,
+.button {
   padding: 0.5em 1em;
+  text-align: center;
+  color: inherit;
+  text-decoration: inherit;
   &:not(:disabled) {
     cursor: pointer;
 
@@ -59,11 +63,6 @@ button {
         background: #555;
       }
     }
-  }
-
-  a {
-    text-decoration: inherit;
-    color: inherit;
   }
 }
 

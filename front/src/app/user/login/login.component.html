@@ -1,15 +1,12 @@
 <main>
   <h1>Page de connexion</h1>
   <nav>
-    <button>
-      <a [href]="oauth2Service.getConnectUrl('GITHUB')"
-        >Connexion avec Github</a
-      >
-    </button>
-    <button>
-      <a [href]="oauth2Service.getConnectUrl('AZUREAD')">
-        Connexion avec Azure AD
-      </a>
-    </button>
+    <a class="button" [href]="oauth2Service.getConnectUrl('GITHUB')">
+      Connexion avec Github
+    </a>
+
+    <a class="button" [href]="oauth2Service.getConnectUrl('AZUREAD')">
+      Connexion avec Azure AD
+    </a>
   </nav>
 </main>
