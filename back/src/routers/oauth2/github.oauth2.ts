@@ -30,7 +30,7 @@ export class GithubOAuth2 extends OAuth2 {
       displayName: data.name,
       email: data.email,
       id: data.login,
-      resourceServer: 'github',
+      identityProvider: 'github',
     };
     console.log('user: ', user);
     return user;

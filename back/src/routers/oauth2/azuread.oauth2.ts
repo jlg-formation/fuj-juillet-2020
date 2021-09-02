@@ -45,7 +45,7 @@ export class AzureADOAuth2 extends OAuth2 {
       displayName: data.displayName,
       email: data.userPrincipalName,
       id: data.surname,
-      resourceServer: 'azure AD',
+      identityProvider: 'azure AD',
     };
     console.log('user: ', user);
     return user;

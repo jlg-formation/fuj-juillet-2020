@@ -26,7 +26,7 @@ export const oAuth2Router = (options: OAuth2Options) => {
       try {
         const requestToken = req.query.code as string;
         if (!requestToken) {
-          throw new Error('requestToken not defined.');
+          throw new Error('The requestToken is not defined.');
         }
         const oauth2 = OAuth2Factory.get(p);
         const accessToken = await oauth2.getAccessToken(
