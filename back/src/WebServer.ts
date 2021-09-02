@@ -1,4 +1,4 @@
-import {authRouter} from './routers/auth.router';
+import {authRouter} from './routers/oauth2/auth.router';
 import cors from 'cors';
 import express, {Express} from 'express';
 import session from 'express-session';
