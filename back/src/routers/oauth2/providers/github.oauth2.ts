@@ -1,7 +1,7 @@
 import got from 'got';
-import {OAuth2ProviderOptions} from '../../interfaces/OAuth2';
-import {User} from '../../interfaces/User';
-import {OAuth2} from './OAuth2';
+import {OAuth2ProviderOptions} from '../../../interfaces/OAuth2';
+import {User} from '../../../interfaces/User';
+import {OAuth2} from '../OAuth2';
 
 export class GithubOAuth2 extends OAuth2 {
   async getAccessToken(

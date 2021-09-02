@@ -1,5 +1,5 @@
-import {AzureADOAuth2} from './azuread.oauth2';
-import {GithubOAuth2} from './github.oauth2';
+import {AzureADOAuth2} from './providers/azuread.oauth2';
+import {GithubOAuth2} from './providers/github.oauth2';
 import {OAuth2} from './OAuth2';
 
 export class OAuth2Factory {

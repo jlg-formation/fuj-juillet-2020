@@ -1,7 +1,7 @@
 import got from 'got';
-import {OAuth2ProviderOptions} from '../../interfaces/OAuth2';
-import {User} from '../../interfaces/User';
-import {OAuth2} from './OAuth2';
+import {OAuth2ProviderOptions} from '../../../interfaces/OAuth2';
+import {User} from '../../../interfaces/User';
+import {OAuth2} from '../OAuth2';
 
 const domain = process.env.DOMAIN_URL || 'http://localhost:4200';
 

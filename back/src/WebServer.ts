@@ -5,7 +5,7 @@ import session from 'express-session';
 import {Server} from 'http';
 import serveIndex from 'serve-index';
 
-import {oAuth2Router} from './routers/oauth2.router';
+import {oAuth2Router} from './routers/oauth2/oauth2.router';
 import {articleRouter} from './routers/articles.router';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
