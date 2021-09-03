@@ -29,3 +29,13 @@ app.post('/disconnect', (req, res) => {
   req.session.afterLoginRoute = undefined;
   res.status(204).end();
 });
+
+app.post('/afterLoginRoute', (req, res) => {
+  try {
+    const {url} = req.body as {url: string};
+    req.session.afterLoginRoute = url;
+    res.status(201).end();
+  } catch (err) {
+    res.status(500).end();
+  }
+});
