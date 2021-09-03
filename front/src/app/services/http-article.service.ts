@@ -1,11 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './article.service';
 
-import { map } from 'rxjs/operators';
-
-const url = 'http://localhost:3000/api/articles';
+const url = '/api/articles';
 
 @Injectable({
   providedIn: 'root',
