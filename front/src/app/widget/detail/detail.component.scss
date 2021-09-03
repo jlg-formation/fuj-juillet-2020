@@ -1,0 +1,17 @@
+table {
+  border-collapse: collapse;
+  border: 0.1em solid #eee;
+  margin: 1em 0;
+
+  td {
+    padding: 0.5em 1em;
+  }
+
+  tr:nth-child(even) {
+    background-color: #eee;
+  }
+
+  td.value {
+    font-weight: bold;
+  }
+}

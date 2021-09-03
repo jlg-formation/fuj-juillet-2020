@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnChanges {
+  entries$ = new BehaviorSubject<[string, string][]>([]);
+  @Input() object: unknown;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes: ', changes);
+    if (!changes.object.currentValue) {
+      this.entries$.next([]);
+      return;
+    }
+    const object = changes.object.currentValue as { [key: string]: string };
+    const entries = Object.entries(object);
+    this.entries$.next(entries);
   }
 
+  ngOnInit(): void {}
 }

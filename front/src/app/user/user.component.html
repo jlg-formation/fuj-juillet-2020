@@ -1,5 +1,5 @@
 <main>
   <h1>User Information</h1>
-  <p>{{ userService.user$ | async | json }}</p>
-  <button (click)="logout()">Déconnexion</button>
+  <app-detail [object]="userService.user$ | async"></app-detail>
+  <button class="primary" (click)="logout()">Déconnexion</button>
 </main>
