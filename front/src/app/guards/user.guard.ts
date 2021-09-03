@@ -31,6 +31,7 @@ export class UserGuard implements CanActivate {
         console.log('test passed: is connected: ', user);
         if (!user) {
           console.log('not connected');
+          this.userService.setAfterLoginRoute(state.url);
           this.router.navigateByUrl('/user/login');
           return false;
         }

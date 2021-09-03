@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -39,5 +38,15 @@ export class UserService {
   disconnect(): Observable<void> {
     this.user$.next(undefined);
     return this.http.post<void>('/api/auth/disconnect', undefined);
+  }
+
+  setAfterLoginRoute(path: string) {
+    const url = window.location.origin + path;
+    console.log('url: ', url);
+    this.http.post<void>('/api/auth/afterLoginRoute', { url }).subscribe({
+      error: (err) => {
+        console.error('err: ', err);
+      },
+    });
   }
 }

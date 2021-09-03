@@ -11,16 +11,6 @@ export interface Oauth2Config {
   };
 }
 
-function getHost() {
-  const url = window.location.href;
-  const arr = url.split('/');
-  const result = arr[0] + '//' + arr[2];
-  return result;
-}
-
-const host = getHost();
-console.log('host: ', host);
-
 @Injectable({
   providedIn: 'root',
 })
@@ -53,7 +43,7 @@ export class Oauth2Service {
 
     let result =
       providerConfig.authorizationUrl +
-      `?client_id=${providerConfig.clientId}&redirect_uri=${host}${providerConfig.redirectUri}`;
+      `?client_id=${providerConfig.clientId}&redirect_uri=${window.location.origin}${providerConfig.redirectUri}`;
 
     // special case
     if (provider === 'AZUREAD') {
