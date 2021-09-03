@@ -1,7 +1,6 @@
 import {Router} from 'express';
-
-import './modules';
 import {Oauth2Config, OAuth2Options} from './interfaces/OAuth2';
+import './modules';
 import {OAuth2Factory} from './OAuth2Factory';
 
 const app = Router();
@@ -32,7 +31,7 @@ export const oAuth2Router = () => {
     config[p] = {
       authorizationUrl: options[p].authorizationUrl,
       clientId: options[p].clientID,
-      redirectUri: `/api/oauth/redirect/${p}`,
+      redirectUri: `/api/oauth2/redirect/${p}`,
     };
   }
 

@@ -16,7 +16,7 @@ export class AzureADOAuth2 extends OAuth2 {
       client_id: options.clientID,
       client_secret: options.clientSecret,
       code: '' + requestToken,
-      redirect_uri: domain + '/api/oauth/redirect/AZUREAD',
+      redirect_uri: domain + '/api/oauth2/redirect/AZUREAD',
     };
     const data: {access_token: string} = await got(url, {
       method: 'POST',

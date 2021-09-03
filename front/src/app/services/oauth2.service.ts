@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 export interface Oauth2Config {
@@ -29,7 +29,7 @@ export class Oauth2Service {
 
   constructor(private http: HttpClient) {
     this.http
-      .get<Oauth2Config>('/api/oauth/config')
+      .get<Oauth2Config>('/api/oauth2/config')
       .pipe(delay(500))
       .subscribe({
         next: (config) => {

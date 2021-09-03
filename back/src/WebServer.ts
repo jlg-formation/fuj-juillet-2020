@@ -1,26 +1,24 @@
-import {authRouter} from './routers/oauth2/auth.router';
 import cors from 'cors';
 import express, {Express} from 'express';
 import session from 'express-session';
 import {Server} from 'http';
 import serveIndex from 'serve-index';
-
-import {oAuth2Router} from './routers/oauth2/oauth2.router';
-import {articleRouter} from './routers/articles.router';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
+import {articleRouter} from './routers/articles.router';
+import {authRouter} from './routers/oauth2/auth.router';
+import {oAuth2Router} from './routers/oauth2/oauth2.router';
 
 export class WebServer {
+  app: Express;
+  db: DbServer;
   options: WebServerOptions = {
     port: 3000,
     dbOptions: {
       uri: 'mongodb://localhost/gestion-stock',
     },
   };
-
-  app: Express;
   server: Server | undefined;
-  db: DbServer;
 
   constructor(options: Partial<WebServerOptions> = {}) {
     console.log('options: ', options);
@@ -58,7 +56,7 @@ export class WebServer {
     });
 
     app.use('/api/articles', articleRouter(this.db));
-    app.use('/api/oauth', oAuth2Router());
+    app.use('/api/oauth2', oAuth2Router());
     app.use('/api/auth', authRouter);
 
     app.get('/api/date', (req, res) => {
