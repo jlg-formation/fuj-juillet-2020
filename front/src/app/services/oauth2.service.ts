@@ -31,7 +31,7 @@ export class Oauth2Service {
       });
   }
 
-  getConnectUrl(provider: string) {
+  getAuthorizeUrl(provider: string) {
     const config = this.config$.value;
     if (!config) {
       return '';
