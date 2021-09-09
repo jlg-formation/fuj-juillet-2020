@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserGuard } from './guards/user.guard';
+import { Error404Component } from './routes/error404/error404.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
 
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+  },
+  {
+    path: '**',
+    component: Error404Component,
   },
 ];
 
