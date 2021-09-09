@@ -1,8 +1,8 @@
-import { LegalComponent } from './legal/legal.component';
-import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserGuard } from './guards/user.guard';
+import { HomeComponent } from './routes/home/home.component';
+import { LegalComponent } from './routes/legal/legal.component';
 
 const routes: Routes = [
   {

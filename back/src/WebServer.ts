@@ -2,6 +2,7 @@ import cors from 'cors';
 import express, {Express} from 'express';
 import session from 'express-session';
 import {Server} from 'http';
+import path from 'path';
 import serveIndex from 'serve-index';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
@@ -28,7 +29,7 @@ export class WebServer {
     this.db = new DbServer(this.options.dbOptions);
 
     const app = express();
-    const www = '../front/dist/front';
+    const www = path.resolve(process.cwd(), '../front/dist/front');
 
     app.use(
       session({
@@ -73,6 +74,11 @@ export class WebServer {
 
     app.use(express.static(www));
     app.use(serveIndex(www, {icons: true}));
+
+    app.use((req, res) => {
+      res.sendFile(www + '/index.html');
+    });
+
     this.app = app;
   }
 

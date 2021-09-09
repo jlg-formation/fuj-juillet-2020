@@ -1,15 +1,14 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LayoutModule } from './layout/layout.module';
-import { HomeComponent } from './home/home.component';
-import { HttpArticleService } from './services/http-article.service';
-import { LegalComponent } from './legal/legal.component';
-import { ArticleService } from './services/article.service';
 import { CredentialsInterceptor } from './interceptors/credentials.interceptor';
+import { LayoutModule } from './layout/layout.module';
+import { HomeComponent } from './routes/home/home.component';
+import { LegalComponent } from './routes/legal/legal.component';
+import { ArticleService } from './services/article.service';
+import { HttpArticleService } from './services/http-article.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LegalComponent],
