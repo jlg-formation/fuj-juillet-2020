@@ -6,7 +6,7 @@ import serveIndex from 'serve-index';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
 import {articleRouter} from './routers/articles.router';
-import {authRouter} from './routers/oauth2/auth.router';
+import {auth, authRouter} from './routers/oauth2/auth.router';
 import {oAuth2Router} from './routers/oauth2/oauth2.router';
 
 export class WebServer {
@@ -55,7 +55,7 @@ export class WebServer {
       next();
     });
 
-    app.use('/api/articles', articleRouter(this.db));
+    app.use('/api/articles', auth, articleRouter(this.db));
     app.use('/api/oauth2', oAuth2Router());
     app.use('/api/auth', authRouter);
 
