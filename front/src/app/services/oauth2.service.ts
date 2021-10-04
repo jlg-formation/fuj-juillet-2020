@@ -41,15 +41,7 @@ export class Oauth2Service {
       return '';
     }
 
-    let result =
-      providerConfig.authorizationUrl +
-      `?client_id=${providerConfig.clientId}&redirect_uri=${window.location.origin}${providerConfig.redirectUri}`;
-
-    // special case
-    if (provider === 'AZUREAD') {
-      result += '&scope=User.Read&response_type=code';
-    }
-
+    let result = providerConfig.authorizationUrl;
     return result;
   }
 }

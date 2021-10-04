@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@jlguenego/express-oauth2-client": "^0.0.2",
+    "@jlguenego/express-oauth2-client": "^0.0.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.2",

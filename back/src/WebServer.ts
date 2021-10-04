@@ -1,3 +1,4 @@
+import {oauth2Client} from '@jlguenego/express-oauth2-client';
 import cors from 'cors';
 import express, {Express} from 'express';
 import session from 'express-session';
@@ -7,8 +8,6 @@ import serveIndex from 'serve-index';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
 import {articleRouter} from './routers/articles.router';
-import {auth, authRouter} from './routers/oauth2/auth.router';
-import {oAuth2Router} from './routers/oauth2/oauth2.router';
 
 export class WebServer {
   app: Express;
@@ -56,9 +55,8 @@ export class WebServer {
       next();
     });
 
-    app.use('/api/articles', auth, articleRouter(this.db));
-    app.use('/api/oauth2', oAuth2Router());
-    app.use('/api/auth', authRouter);
+    app.use('/api/articles', oauth2Client.auth(), articleRouter(this.db));
+    app.use('/api', oauth2Client.router());
 
     app.get('/api/date', (req, res) => {
       res.json({
