@@ -5,4 +5,7 @@ coverage
 build
 ecosystem.config.js
 .env
+/logs
+access.log
+
 

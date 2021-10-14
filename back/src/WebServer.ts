@@ -1,3 +1,4 @@
+import {accessLog} from './logs/accessLogs';
 import {oauth2Client} from '@jlguenego/express-oauth2-client';
 import cors from 'cors';
 import express, {Express} from 'express';
@@ -42,18 +43,15 @@ export class WebServer {
     app.use(express.json());
     app.use(
       cors((req, callback) => {
-        const options = {
+        const opts = {
           credentials: true,
           origin: req.headers.origin,
         };
-        callback(null, options);
+        callback(null, opts);
       })
     );
 
-    app.use((req, res, next) => {
-      console.log('req: ', req.url);
-      next();
-    });
+    app.use(accessLog);
 
     app.use('/api/articles', oauth2Client.auth(), articleRouter(this.db));
     app.use('/api', oauth2Client.router());
