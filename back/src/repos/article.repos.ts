@@ -1,9 +1,9 @@
 import {DbServer} from '../DbServer';
 import {Article} from '../interfaces/Article';
-import {MongoClient, ObjectId} from 'mongodb';
+import {MongoClient, ObjectId, Document} from 'mongodb';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transform(r: any): Article {
+function transform(r: Document): Article {
   const article = {...r};
   article.id = article._id;
   delete article._id;
@@ -17,7 +17,7 @@ export class ArticleRepos {
   }
 
   async retrieveAll(): Promise<Article[]> {
-    const results = await this.client
+    const results: Document[] = await this.client
       .db()
       .collection('articles')
       .find({})
