@@ -1,11 +1,19 @@
 node_modules
 data/*.json
+
+# Tests
 coverage
 .nyc_output
+
+# Build
 build
+
+# pm2
 ecosystem.config.js
 .env
+
+# Access logs (Morgan)
 /logs
-access.log
+*access.log
 
 
