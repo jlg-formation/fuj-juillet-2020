@@ -4,6 +4,10 @@ import {mkdirSync} from 'fs';
 import path from 'path';
 import {createStream} from 'rotating-file-stream';
 
+morgan.token('proxy-remote-addr', (req): string => {
+  return req.headers['x-forwarded-for'] as string;
+});
+
 const app = Router();
 
 const ACCESSLOG_DIR = path.resolve(process.cwd(), './logs');
@@ -15,7 +19,19 @@ const accessLogStream = createStream('access.log', {
   path: ACCESSLOG_DIR,
 });
 
+app.use((req, res, next) => {
+  console.log('req.headers', req);
+  next();
+});
+
 // setup the logger
-app.use(morgan('combined', {stream: accessLogStream}));
+app.use(
+  morgan(
+    ':proxy-remote-addr :method :url :status :res[content-length] - :response-time ms',
+    {
+      stream: accessLogStream,
+    }
+  )
+);
 
 export const accessLog = app;

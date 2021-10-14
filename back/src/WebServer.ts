@@ -51,10 +51,12 @@ export class WebServer {
       })
     );
 
+    // Access logs
     app.use(accessLog);
 
-    app.use('/api/articles', oauth2Client.auth(), articleRouter(this.db));
+    // Authentication
     app.use('/api', oauth2Client.router());
+    app.use('/api/articles', oauth2Client.auth(), articleRouter(this.db));
 
     app.get('/api/date', (req, res) => {
       res.json({
