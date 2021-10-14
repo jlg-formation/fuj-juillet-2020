@@ -1,3 +1,4 @@
+import {authorization} from './authorization/Authorization';
 import {accessLog} from './logs/accessLogs';
 import {oauth2Client} from '@jlguenego/express-oauth2-client';
 import cors from 'cors';
@@ -56,7 +57,13 @@ export class WebServer {
 
     // Authentication
     app.use('/api', oauth2Client.router());
-    app.use('/api/articles', oauth2Client.auth(), articleRouter(this.db));
+    app.use('/api/articles', oauth2Client.auth());
+
+    // Authorization
+    app.use(authorization);
+
+    // Business logic
+    app.use('/api/articles', articleRouter(this.db));
 
     app.get('/api/date', (req, res) => {
       res.json({
