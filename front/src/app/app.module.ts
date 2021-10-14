@@ -10,9 +10,16 @@ import { LegalComponent } from './routes/legal/legal.component';
 import { ArticleService } from './services/article.service';
 import { HttpArticleService } from './services/http-article.service';
 import { Error404Component } from './routes/error404/error404.component';
+import { Error403Component } from './routes/error403/error403.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LegalComponent, Error404Component],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LegalComponent,
+    Error404Component,
+    Error403Component,
+  ],
   imports: [BrowserModule, AppRoutingModule, LayoutModule, HttpClientModule],
   providers: [
     { provide: ArticleService, useClass: HttpArticleService },

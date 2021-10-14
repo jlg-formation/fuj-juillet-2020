@@ -7,8 +7,6 @@ import { Article } from '../interfaces/article';
 export class ArticleService {
   articles: Article[] = this.getArticles();
 
-  constructor() {}
-
   getArticles(): Article[] {
     const str = localStorage.getItem('articles');
     if (!str) {
