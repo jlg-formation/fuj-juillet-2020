@@ -20,7 +20,7 @@ const accessLogStream = createStream('access.log', {
 });
 
 app.use((req, res, next) => {
-  console.log('req.headers', req);
+  console.log('req.url', req.url);
   next();
 });
 
