@@ -29,7 +29,8 @@
     "mongodb": "^4.1.1",
     "morgan": "^1.10.0",
     "rotating-file-stream": "^2.1.6",
-    "serve-index": "^1.9.1"
+    "serve-index": "^1.9.1",
+    "superstruct": "^0.15.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

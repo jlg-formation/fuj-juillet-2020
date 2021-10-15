@@ -1,5 +1,9 @@
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Article } from '../interfaces/article';
@@ -15,6 +19,20 @@ export class HttpArticleService extends ArticleService {
     super();
     console.log('instantiate http article');
     this.refresh();
+  }
+
+  httpError(err: unknown) {
+    console.log('err: ', err);
+    if (err instanceof HttpErrorResponse) {
+      if (err.status === 403) {
+        this.router.navigateByUrl('/403');
+        return;
+      }
+      if (err.status === 400) {
+        alert('bad request...' + err.error);
+        return;
+      }
+    }
   }
 
   refresh() {
@@ -37,8 +55,7 @@ export class HttpArticleService extends ArticleService {
           this.save();
         },
         error: (err) => {
-          console.log('err: ', err);
-          this.router.navigateByUrl('/403');
+          this.httpError(err);
         },
         complete: () => {
           console.log('complete');
@@ -53,9 +70,7 @@ export class HttpArticleService extends ArticleService {
         this.refresh();
       },
       error: (err) => {
-        console.log('err: ', err);
-        alert('oups! Error from server...');
-        this.refresh();
+        this.httpError(err);
       },
       complete: () => {
         console.log('complete');
@@ -77,7 +92,7 @@ export class HttpArticleService extends ArticleService {
         this.refresh();
       },
       error: (err) => {
-        console.log('err: ', err);
+        this.httpError(err);
         this.refresh();
       },
       complete: () => {

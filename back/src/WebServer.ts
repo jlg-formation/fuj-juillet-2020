@@ -1,3 +1,4 @@
+import {validation} from './validation/validation';
 import {authorization} from './authorization/Authorization';
 import {accessLog} from './logs/accessLogs';
 import {oauth2Client} from '@jlguenego/express-oauth2-client';
@@ -61,6 +62,9 @@ export class WebServer {
 
     // Authorization
     app.use(authorization);
+
+    // Validation
+    app.use(validation);
 
     // Business logic
     app.use('/api/articles', articleRouter(this.db));
