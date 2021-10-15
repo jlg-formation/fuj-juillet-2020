@@ -1,6 +1,4 @@
 describe('first test', () => {
-  beforeEach(() => {});
-
   it('should add an article', () => {
     cy.intercept('GET', '/api/auth/isConnected').as('isConnected');
     cy.visit('http://localhost:4200');
@@ -30,5 +28,6 @@ describe('first test', () => {
     cy.wait('@' + getArticleAlias);
 
     cy.get('main').contains(testname).click();
+    cy.get('main').contains('Supprimer').click();
   });
 });
