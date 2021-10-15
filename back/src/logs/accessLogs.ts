@@ -21,6 +21,9 @@ const accessLogStream = createStream('access.log', {
 
 app.use((req, res, next) => {
   console.log('req.url', req.url);
+  if (req.method === 'POST' && req.body) {
+    console.log('req.body: ', req.body);
+  }
   next();
 });
 
