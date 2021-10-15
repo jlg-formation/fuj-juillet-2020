@@ -9,7 +9,11 @@
       Connexion avec Azure AD
     </a>
 
-    <a class="button" [href]="oauth2Service.getAuthorizeUrl('TESTPROVIDER')">
+    <a
+      [hidden]="!oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
+      class="button"
+      [href]="oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
+    >
       Connexion avec Test Provider
     </a>
   </nav>
