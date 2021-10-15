@@ -24,9 +24,12 @@ export class UserGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('guard start');
-    this.userService.checkConnection(true);
-    return this.userService.user$.pipe(
+    console.log('guard start for state.url', state.url);
+    if (this.userService.user$.value) {
+      return true;
+    }
+
+    return this.userService.isConnected().pipe(
       map((user) => {
         console.log('test passed: is connected: ', user);
         if (!user) {
