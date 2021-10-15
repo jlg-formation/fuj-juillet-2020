@@ -1,19 +1,22 @@
 describe('first test', () => {
-  const isConnectedAlias = 'isConnected';
-
-  beforeEach(() => {
-    cy.intercept('GET', '/api/auth/isConnected').as(isConnectedAlias);
-    cy.visit('http://localhost:4200');
-    cy.wait('@' + isConnectedAlias);
-  });
+  beforeEach(() => {});
 
   it('should add an article', () => {
+    cy.intercept('GET', '/api/auth/isConnected').as('isConnected');
+    cy.visit('http://localhost:4200');
+    cy.wait('@isConnected');
+    cy.get('@isConnected').its('response.statusCode').should('eq', 401);
+
     const uuid = () => Cypress._.random(0, 1e6);
     const testname = `Testname${uuid()}`;
 
     cy.get('header').contains('Se connecter');
     cy.get('main').contains('Voir le stock').click();
     cy.get('main').contains('Connexion avec Test Provider').click();
+    cy.wait('@isConnected');
+    cy.get('@isConnected.2')
+      .its('response.statusCode')
+      .should('be.oneOf', [200, 304]);
 
     cy.log('should show the stocks');
     cy.get('main').contains('Ajouter').click();

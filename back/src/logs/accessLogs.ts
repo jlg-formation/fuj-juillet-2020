@@ -37,4 +37,6 @@ app.use(
   )
 );
 
+app.use(morgan('tiny'));
+
 export const accessLog = app;
