@@ -8,7 +8,7 @@ import { AutofocusDirective } from './autofocus.directive';
     <input type="text" name="truc" appAutofocus />
   </div> `,
 })
-export class TestComponent {}
+class TestComponent {}
 
 describe('AutofocusDirective', () => {
   beforeEach(async () => {
@@ -22,7 +22,10 @@ describe('AutofocusDirective', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const inputElt = compiled.querySelector('input');
-    const focusElt = document.activeElement;
+    const focusElt = document.activeElement as HTMLInputElement;
     expect(inputElt === focusElt).toBeTrue();
+
+    // or
+    expect(inputElt).toBe(focusElt);
   });
 });
