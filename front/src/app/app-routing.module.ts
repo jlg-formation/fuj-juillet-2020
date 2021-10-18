@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthorizationGuard } from './guards/authorization.guard';
 import { UserGuard } from './guards/user.guard';
 import { Error403Component } from './routes/error403/error403.component';
 import { HomeComponent } from './routes/home/home.component';
@@ -16,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'stock',
-    canActivate: [UserGuard],
+    canActivate: [UserGuard, AuthorizationGuard],
     loadChildren: () =>
       import('./stock/stock.module').then((m) => m.StockModule),
   },
