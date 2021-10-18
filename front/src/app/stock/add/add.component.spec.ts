@@ -1,3 +1,4 @@
+import { StockModule } from './../stock.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -9,7 +10,7 @@ describe('AddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, StockModule],
       declarations: [AddComponent],
     }).compileComponents();
   });

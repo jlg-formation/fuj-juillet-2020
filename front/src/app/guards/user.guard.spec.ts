@@ -1,5 +1,7 @@
+import { LayoutModule } from './../layout/layout.module';
+import { UserModule } from './../user/user.module';
+import { LoginComponent } from './../user/login/login.component';
 import { Observable } from 'rxjs';
-import { User } from './../interfaces/user';
 import { UserService } from './../services/user.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
@@ -9,14 +11,19 @@ import {
 import { TestBed } from '@angular/core/testing';
 
 import { UserGuard } from './user.guard';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Routes,
+} from '@angular/router';
+import { user } from 'src/test/user';
 
-const user: User = {
-  displayName: 'John Doe',
-  email: 'truc@truc.com',
-  id: 'john',
-  identityProvider: 'test',
-};
+const routes: Routes = [
+  {
+    path: 'user/login',
+    component: LoginComponent,
+  },
+];
 
 describe('UserGuard', () => {
   let guard: UserGuard;
@@ -28,7 +35,12 @@ describe('UserGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes(routes),
+        UserModule,
+        LayoutModule,
+      ],
     });
     guard = TestBed.inject(UserGuard);
     route = {} as ActivatedRouteSnapshot;

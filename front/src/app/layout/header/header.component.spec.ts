@@ -1,3 +1,5 @@
+import { RouterTestingModule } from '@angular/router/testing';
+import { LayoutModule } from './../layout.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -9,7 +11,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, LayoutModule, RouterTestingModule],
       declarations: [HeaderComponent],
     }).compileComponents();
   });
