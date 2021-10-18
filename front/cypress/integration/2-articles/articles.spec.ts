@@ -10,7 +10,10 @@ describe('first test', () => {
 
     cy.get('header').contains('Se connecter');
     cy.get('main').contains('Voir le stock').click();
-    cy.get('main').contains('Connexion avec Test Provider').click();
+    cy.contains('Connexion avec Test Provider', { timeout: 10000 })
+      .should('be.visible')
+      .click();
+
     cy.wait('@isConnected');
     cy.get('@isConnected.2')
       .its('response.statusCode')
