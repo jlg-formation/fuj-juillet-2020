@@ -10,7 +10,7 @@ describe('UserStatusComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ UserStatusComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

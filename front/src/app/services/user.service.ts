@@ -20,7 +20,7 @@ export class UserService {
         console.log('isConnected user body', u);
         return u || undefined;
       }),
-      catchError((err) => of(undefined)),
+      catchError(() => of(undefined)),
       tap((u) => {
         if (!u && !this.user$.value) {
           return;

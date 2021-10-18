@@ -18,7 +18,7 @@ export class AuthorizationGuard implements CanActivate {
   constructor(private http: HttpClient, private userService: UserService) {
     this.userService.user$.subscribe({
       next: (user) => {
-        this.http.get('/api/authz/config').subscribe({
+        this.http.get(`/api/authz/config/${user?.id}`).subscribe({
           next: (authConfig: AuthorizationConfig) => {
             this.authConfig$.next(authConfig);
           },

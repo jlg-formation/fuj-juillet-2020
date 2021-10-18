@@ -6,7 +6,7 @@ describe('CredentialsInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       CredentialsInterceptor
-      ]
+    ]
   }));
 
   it('should be created', () => {

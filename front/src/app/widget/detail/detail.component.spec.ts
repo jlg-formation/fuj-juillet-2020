@@ -10,7 +10,7 @@ describe('DetailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ DetailComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

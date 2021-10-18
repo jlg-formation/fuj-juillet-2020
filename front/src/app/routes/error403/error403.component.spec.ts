@@ -10,7 +10,7 @@ describe('Error403Component', () => {
     await TestBed.configureTestingModule({
       declarations: [ Error403Component ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

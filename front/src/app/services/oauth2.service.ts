@@ -41,7 +41,7 @@ export class Oauth2Service {
       return '';
     }
 
-    let result = providerConfig.authorizationUrl;
+    const result = providerConfig.authorizationUrl;
     return result;
   }
 }

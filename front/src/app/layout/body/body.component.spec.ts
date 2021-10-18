@@ -10,7 +10,7 @@ describe('BodyComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ BodyComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
