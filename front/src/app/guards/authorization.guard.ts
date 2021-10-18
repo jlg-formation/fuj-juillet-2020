@@ -14,15 +14,17 @@ import { AuthorizationConfig } from '../interfaces/authorization-config';
   providedIn: 'root',
 })
 export class AuthorizationGuard implements CanActivate {
-  authConfig$ = new BehaviorSubject<AuthorizationConfig>({});
+  authConfig$ = new BehaviorSubject<AuthorizationConfig>({ truc: 'titi' });
   constructor(private http: HttpClient, private userService: UserService) {
     this.userService.user$.subscribe({
       next: (user) => {
-        this.http.get(`/api/authz/config/${user?.id}`).subscribe({
-          next: (authConfig: AuthorizationConfig) => {
-            this.authConfig$.next(authConfig);
-          },
-        });
+        this.http
+          .get<AuthorizationConfig>(`/api/authz/config/${user?.id}`)
+          .subscribe({
+            next: (authConfig: AuthorizationConfig) => {
+              this.authConfig$.next(authConfig);
+            },
+          });
       },
     });
   }

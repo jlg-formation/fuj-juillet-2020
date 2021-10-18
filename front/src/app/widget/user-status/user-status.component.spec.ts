@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserStatusComponent } from './user-status.component';
@@ -8,9 +9,9 @@ describe('UserStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserStatusComponent ]
-    })
-      .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [UserStatusComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
