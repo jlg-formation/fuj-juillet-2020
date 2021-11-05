@@ -11,6 +11,7 @@ import serveIndex from 'serve-index';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
 import {articleRouter} from './routers/articles.router';
+import {api} from './api';
 
 export class WebServer {
   app: Express;
@@ -69,17 +70,8 @@ export class WebServer {
     // Business logic
     app.use('/api/articles', articleRouter(this.db));
 
-    app.get('/api/date', (req, res) => {
-      res.json({
-        date: new Date(),
-      });
-    });
-
-    app.get('/api/crash', () => {
-      (async () => {
-        throw new Error('bam! Crash...');
-      })();
-    });
+    // Misc
+    app.use('/api', api);
 
     app.use(express.static(www));
     app.use(serveIndex(www, {icons: true}));

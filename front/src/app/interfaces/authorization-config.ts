@@ -1,3 +1,4 @@
 export interface AuthorizationConfig {
-  truc: string;
+  forbiddenPath?: string[];
+  onlyAllowedPath?: string[];
 }
