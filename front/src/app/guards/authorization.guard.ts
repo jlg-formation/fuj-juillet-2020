@@ -12,8 +12,35 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthorizationConfig } from '../interfaces/authorization-config';
 import { UserService } from './../services/user.service';
 
-function isAuthorized(path: string, authzConfig: AuthorizationConfig): boolean {
+function whiteListFilter(path: string, whiteList: string[] | undefined) {
+  if (!whiteList) {
+    return true;
+  }
+  for (const pathRegexp of whiteList) {
+    if (path.match(pathRegexp)) {
+      return true;
+    }
+  }
   return false;
+}
+
+function blackListFilter(path: string, blackList: string[] | undefined) {
+  if (!blackList) {
+    return true;
+  }
+  for (const pathRegexp of blackList) {
+    if (path.match(pathRegexp)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isAuthorized(path: string, authzConfig: AuthorizationConfig): boolean {
+  return (
+    whiteListFilter(path, authzConfig.onlyAllowedPath) &&
+    blackListFilter(path, authzConfig.onlyAllowedPath)
+  );
 }
 
 const authorize = (

@@ -12,6 +12,7 @@ import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
 import {articleRouter} from './routers/articles.router';
 import {api} from './api';
+import {authzConfigRouter} from './authorization/Config';
 
 export class WebServer {
   app: Express;
@@ -63,6 +64,7 @@ export class WebServer {
 
     // Authorization
     app.use(authorization);
+    app.use('/api', authzConfigRouter);
 
     // Validation
     app.use(validation);
