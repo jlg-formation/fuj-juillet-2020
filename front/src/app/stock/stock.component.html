@@ -2,17 +2,22 @@
   <h1>Liste des articles</h1>
   <div class="content">
     <nav>
-      <button routerLink="add">Ajouter</button>
+      <button
+        [disabled]="!(authorizationService.can('stock.add') | async)"
+        routerLink="add"
+      >
+        Ajouter
+      </button>
       <button [hidden]="selectedArticles.size === 0" (click)="remove()">
         Supprimer
       </button>
     </nav>
-    <table>
+    <table aria-label="Liste des articles">
       <thead>
         <tr>
-          <th class="name">Nom</th>
-          <th class="price">Prix</th>
-          <th class="qty">Quantité</th>
+          <th scope="col" class="name">Nom</th>
+          <th scope="col" class="price">Prix</th>
+          <th scope="col" class="qty">Quantité</th>
         </tr>
       </thead>
       <tbody>

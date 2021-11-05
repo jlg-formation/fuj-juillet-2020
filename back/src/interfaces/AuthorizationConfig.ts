@@ -1,11 +1,16 @@
 export interface AuthorizationConfig {
-  forbiddenPath?: PathSpecifier[];
-  onlyAllowedPath?: PathSpecifier[];
+  path: BlackAndWhiteList;
+  privilege: BlackAndWhiteList;
 }
 
-export interface PathSpecifierObject {
+export interface BlackAndWhiteList {
+  blackList?: Specifier[];
+  whiteList?: Specifier[];
+}
+
+export interface SpecifierObject {
   type: 'regexp' | 'string';
   path: string;
 }
 
-export type PathSpecifier = PathSpecifierObject | string;
+export type Specifier = SpecifierObject | string;

@@ -5,7 +5,12 @@ const app = Router();
 app.get('/authz/config/:userid', (req, res) => {
   console.log('req: ', req.params);
   res.json({
-    onlyAllowedPath: ['/stock'],
+    path: {
+      whiteList: ['/stock'],
+    },
+    privilege: {
+      blackList: ['stock.add'],
+    },
   } as AuthorizationConfig);
 });
 

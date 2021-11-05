@@ -31,9 +31,9 @@ button,
 .button {
   padding: 0.5em 1em;
   text-align: center;
-  color: inherit;
   text-decoration: inherit;
   &:not(:disabled) {
+    color: inherit;
     cursor: pointer;
 
     border: 0.1em solid #eee;
