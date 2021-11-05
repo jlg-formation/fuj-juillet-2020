@@ -9,28 +9,55 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { AuthorizationConfig } from '../interfaces/authorization-config';
+import {
+  AuthorizationConfig,
+  PathSpecifier,
+} from '../interfaces/authorization-config';
+import { PathSpecifierObject } from './../interfaces/authorization-config';
 import { UserService } from './../services/user.service';
 
-function whiteListFilter(path: string, whiteList: string[] | undefined) {
+function whiteListFilter(path: string, whiteList: PathSpecifier[] | undefined) {
+  console.log('path: ', path);
   if (!whiteList) {
     return true;
   }
-  for (const pathRegexp of whiteList) {
-    if (path.match(pathRegexp)) {
-      return true;
+  for (const pathSpecifier of whiteList) {
+    console.log('pathSpecifier: ', pathSpecifier);
+
+    if (typeof pathSpecifier === 'string') {
+      if (path === pathSpecifier) {
+        return true;
+      }
+    }
+
+    const pathSpeciferObject = pathSpecifier as PathSpecifierObject;
+
+    if (pathSpeciferObject.type === 'regexp') {
+      if (path.match(pathSpeciferObject.path)) {
+        return true;
+      }
     }
   }
   return false;
 }
 
-function blackListFilter(path: string, blackList: string[] | undefined) {
+function blackListFilter(path: string, blackList: PathSpecifier[] | undefined) {
   if (!blackList) {
     return true;
   }
-  for (const pathRegexp of blackList) {
-    if (path.match(pathRegexp)) {
-      return false;
+  for (const pathSpecifier of blackList) {
+    if (typeof pathSpecifier === 'string') {
+      if (path === pathSpecifier) {
+        return false;
+      }
+    }
+
+    const pathSpeciferObject = pathSpecifier as PathSpecifierObject;
+
+    if (pathSpeciferObject.type === 'regexp') {
+      if (path.match(pathSpeciferObject.path)) {
+        return false;
+      }
     }
   }
   return true;
@@ -39,7 +66,7 @@ function blackListFilter(path: string, blackList: string[] | undefined) {
 function isAuthorized(path: string, authzConfig: AuthorizationConfig): boolean {
   return (
     whiteListFilter(path, authzConfig.onlyAllowedPath) &&
-    blackListFilter(path, authzConfig.onlyAllowedPath)
+    blackListFilter(path, authzConfig.forbiddenPath)
   );
 }
 
