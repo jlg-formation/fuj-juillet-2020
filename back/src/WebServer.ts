@@ -1,27 +1,23 @@
-import {validation} from './validation/validation';
-import {authorization} from './authorization/Authorization';
-import {accessLog} from './logs/accessLogs';
 import {oauth2Client} from '@jlguenego/express-oauth2-client';
 import cors from 'cors';
+import {crudity} from 'crudity';
 import express, {Express} from 'express';
 import session from 'express-session';
 import {createServer, Server} from 'http';
 import path from 'path';
 import serveIndex from 'serve-index';
-import {DbServer} from './DbServer';
-import {WebServerOptions} from './interfaces/WebServerOptions';
 import {api} from './api';
+import {authorization} from './authorization/Authorization';
 import {authzConfigRouter} from './authorization/authorization-config.router';
-import {crudity} from 'crudity';
+import {WebServerOptions} from './interfaces/WebServerOptions';
+import {accessLog} from './logs/accessLogs';
+import {validation} from './validation/validation';
 
 export class WebServer {
   app: Express;
-  db: DbServer;
   options: WebServerOptions = {
     port: 3000,
-    dbOptions: {
-      uri: 'mongodb://localhost/gestion-stock',
-    },
+    dbUri: 'mongodb://localhost/gestion-stock',
   };
   server: Server;
 
@@ -29,8 +25,6 @@ export class WebServer {
     console.log('options: ', options);
     this.options = {...this.options, ...options};
     console.log('this.options: ', this.options);
-
-    this.db = new DbServer(this.options.dbOptions);
 
     const app = express();
     this.app = app;
@@ -78,7 +72,7 @@ export class WebServer {
         pageSize: 10,
         storage: {
           type: 'mongodb',
-          uri: this.options.dbOptions.uri,
+          uri: this.options.dbUri,
         },
       })
     );
@@ -99,7 +93,6 @@ export class WebServer {
     return new Promise<void>((resolve, reject) => {
       (async () => {
         try {
-          await this.db.start();
           this.server = this.app.listen(this.options.port, () => {
             console.log(
               `Example app listening at http://localhost:${this.options.port}`
@@ -109,7 +102,6 @@ export class WebServer {
           });
           this.server.on('error', async err => {
             if (!isStarted) {
-              await this.db.stop();
               reject(err);
             }
           });
@@ -124,8 +116,7 @@ export class WebServer {
     return new Promise<void>((resolve, reject) => {
       (async () => {
         try {
-          await this.db.stop();
-          this.server?.close(err => {
+          this.server.close(err => {
             if (err) {
               reject(err);
               return;
