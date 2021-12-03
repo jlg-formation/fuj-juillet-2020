@@ -1,4 +1,4 @@
-import {ArticleModel} from './model';
+import {ArticleModel} from './article.model';
 import {Router} from 'express';
 import {assert} from 'superstruct';
 
