@@ -6,7 +6,7 @@ app.get('/authz/config/:userid', (req, res) => {
   console.log('req: ', req.params);
   res.json({
     path: {
-      whiteList: ['/stock'],
+      whiteList: ['/stock', '/stock/add'],
     },
     privilege: {
       // blackList: ['stock.add'],
