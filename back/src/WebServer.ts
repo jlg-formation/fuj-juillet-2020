@@ -5,14 +5,14 @@ import {oauth2Client} from '@jlguenego/express-oauth2-client';
 import cors from 'cors';
 import express, {Express} from 'express';
 import session from 'express-session';
-import {Server} from 'http';
+import {createServer, Server} from 'http';
 import path from 'path';
 import serveIndex from 'serve-index';
 import {DbServer} from './DbServer';
 import {WebServerOptions} from './interfaces/WebServerOptions';
-import {articleRouter} from './routers/articles.router';
 import {api} from './api';
 import {authzConfigRouter} from './authorization/authorization-config.router';
+import {crudity} from 'crudity';
 
 export class WebServer {
   app: Express;
@@ -23,7 +23,7 @@ export class WebServer {
       uri: 'mongodb://localhost/gestion-stock',
     },
   };
-  server: Server | undefined;
+  server: Server;
 
   constructor(options: Partial<WebServerOptions> = {}) {
     console.log('options: ', options);
@@ -33,6 +33,8 @@ export class WebServer {
     this.db = new DbServer(this.options.dbOptions);
 
     const app = express();
+    this.app = app;
+    this.server = createServer(app);
     const www = path.resolve(process.cwd(), '../front/dist/front');
 
     app.use(
@@ -69,8 +71,17 @@ export class WebServer {
     // Validation
     app.use(validation);
 
-    // Business logic
-    app.use('/api/articles', articleRouter(this.db));
+    // Business logic with crudity
+    app.use(
+      '/api/articles',
+      crudity(this.server, 'articles', {
+        pageSize: 10,
+        storage: {
+          type: 'mongodb',
+          uri: this.options.dbOptions.uri,
+        },
+      })
+    );
 
     // Misc
     app.use('/api', api);
@@ -81,8 +92,6 @@ export class WebServer {
     app.use((req, res) => {
       res.sendFile(www + '/index.html');
     });
-
-    this.app = app;
   }
 
   async start() {

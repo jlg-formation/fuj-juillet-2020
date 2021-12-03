@@ -9,7 +9,7 @@ app.get('/authz/config/:userid', (req, res) => {
       whiteList: ['/stock'],
     },
     privilege: {
-      blackList: ['stock.add'],
+      // blackList: ['stock.add'],
     },
   } as AuthorizationConfig);
 });
