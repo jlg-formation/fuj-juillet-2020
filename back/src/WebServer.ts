@@ -65,6 +65,8 @@ export class WebServer {
     // Validation
     app.use(validation);
 
+    // async validation (nothing for the time being)
+
     // Business logic with crudity
     app.use(
       '/api/articles',
@@ -74,6 +76,12 @@ export class WebServer {
           type: 'mongodb',
           uri: this.options.dbUri,
         },
+        validators: [
+          {
+            name: 'unique',
+            args: ['name'],
+          },
+        ],
       })
     );
 

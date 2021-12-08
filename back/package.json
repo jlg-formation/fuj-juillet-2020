@@ -23,7 +23,7 @@
   "dependencies": {
     "@jlguenego/express-oauth2-client": "^0.0.5",
     "cors": "^2.8.5",
-    "crudity": "^2.0.3",
+    "crudity": "^2.0.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "got": "^11.8.2",
