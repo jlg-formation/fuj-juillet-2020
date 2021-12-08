@@ -1,11 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 import { Article } from '../interfaces/article';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
-  articles: Article[] = this.getArticles();
+  articles$ = new BehaviorSubject<Article[]>([]);
+
+  constructor() {
+    this.articles$.subscribe((articles) => {
+      localStorage.setItem('articles', JSON.stringify(articles));
+    });
+  }
+
+  add(article: Article): Observable<void> {
+    const articles = [...this.articles$.value, article];
+    this.articles$.next(articles);
+    return of(undefined);
+  }
 
   getArticles(): Article[] {
     const str = localStorage.getItem('articles');
@@ -15,17 +29,20 @@ export class ArticleService {
     return JSON.parse(str) as Article[];
   }
 
-  save() {
-    localStorage.setItem('articles', JSON.stringify(this.articles));
+  remove(selectedArticles: Set<Article>): Observable<void> {
+    const articles = this.articles$.value.filter(
+      (a) => !selectedArticles.has(a)
+    );
+    this.articles$.next(articles);
+    return of(undefined).pipe(delay(2000));
   }
 
-  add(article: Article) {
-    this.articles.push(article);
-    this.save();
-  }
-
-  remove(selectedArticles: Set<Article>) {
-    this.articles = this.articles.filter((a) => !selectedArticles.has(a));
-    this.save();
+  retrieveAll(): Observable<void> {
+    return of(undefined).pipe(
+      delay(2000),
+      tap(() => {
+        this.articles$.next(this.getArticles());
+      })
+    );
   }
 }

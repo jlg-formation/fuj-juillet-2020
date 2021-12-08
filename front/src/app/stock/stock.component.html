@@ -9,10 +9,11 @@
         Ajouter
       </button>
       <button [hidden]="selectedArticles.size === 0" (click)="remove()">
-        Supprimer
+        {{ isRemoving ? "Running..." : "Supprimer" }}
       </button>
     </nav>
-    <table aria-label="Liste des articles">
+    <p *ngIf="isLoading">Loading...</p>
+    <table *ngIf="!isLoading" aria-label="Liste des articles">
       <thead>
         <tr>
           <th scope="col" class="name">Nom</th>
@@ -24,7 +25,7 @@
         <tr
           [class.selected]="selectedArticles.has(a)"
           (click)="toggle(a)"
-          *ngFor="let a of articleService.articles"
+          *ngFor="let a of articleService.articles$ | async"
         >
           <td class="name">{{ a.name }}</td>
           <td class="price">{{ a.price }} €</td>
