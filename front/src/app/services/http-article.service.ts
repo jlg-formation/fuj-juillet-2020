@@ -39,6 +39,7 @@ export class HttpArticleService extends ArticleService {
   }
 
   remove(selectedArticles: Set<Article>): Observable<void> {
+    super.remove(selectedArticles).subscribe();
     const ids = [...selectedArticles].map((a) => a.id);
     const options = {
       headers: new HttpHeaders({
