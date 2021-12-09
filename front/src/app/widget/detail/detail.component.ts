@@ -20,11 +20,11 @@ export class DetailComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('changes: ', changes);
-    if (!changes.object.currentValue) {
+    if (!changes['object'].currentValue) {
       this.entries$.next([]);
       return;
     }
-    const object = changes.object.currentValue as { [key: string]: string };
+    const object = changes['object'].currentValue as { [key: string]: string };
     const entries = Object.entries(object);
     this.entries$.next(entries);
   }

@@ -34,11 +34,11 @@ export class HttpArticleService extends ArticleService {
     }
   }
 
-  add(article: Article) {
+  override add(article: Article) {
     return this.http.post<void>(url, article).pipe(delay(2000), timeout(5000));
   }
 
-  remove(selectedArticles: Set<Article>): Observable<void> {
+  override remove(selectedArticles: Set<Article>): Observable<void> {
     super.remove(selectedArticles).subscribe();
     const ids = [...selectedArticles].map((a) => a.id);
     const options = {
@@ -52,7 +52,7 @@ export class HttpArticleService extends ArticleService {
       .pipe(delay(2000), timeout(5000));
   }
 
-  retrieveAll(): Observable<void> {
+  override retrieveAll(): Observable<void> {
     return this.http.get<Article[]>(url).pipe(
       delay(2000),
       timeout(5000),
