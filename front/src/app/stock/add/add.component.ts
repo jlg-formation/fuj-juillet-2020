@@ -1,4 +1,4 @@
-import { OtherValidators } from './../../validators/OtherValidators';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from './../../services/article.service';
-import { ArticleValidatorService } from 'src/app/validators/article-validator.service';
+import { OtherValidators } from './../../validators/OtherValidators';
 
 @Component({
   selector: 'app-add',
@@ -23,7 +23,12 @@ export class AddComponent implements OnInit {
     name: new FormControl(
       'toto',
       [Validators.required, Validators.maxLength(10), Validators.minLength(3)],
-      [this.articleValidatorService.validate.bind(this.articleValidatorService)]
+      [
+        OtherValidators.duplicate(
+          this.http,
+          (val: string) => '/api/articles?filter[name]=' + val
+        ),
+      ]
     ),
     price: new FormControl(1.23, [Validators.required]),
     qty: new FormControl(1, [Validators.required, OtherValidators.integer]),
@@ -33,7 +38,7 @@ export class AddComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private articleValidatorService: ArticleValidatorService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {}

@@ -10,8 +10,6 @@
       caractères min).
     </div>
     <div *ngIf="errors['integer']">Le champ doit être un entier.</div>
-    <div *ngIf="errors['articleNameDuplicate']">
-      Ce nom d'article existe déjà en base
-    </div>
+    <div *ngIf="errors['duplicate']">Cette valeur est déjà prise en base.</div>
   </ng-container>
 </div>
