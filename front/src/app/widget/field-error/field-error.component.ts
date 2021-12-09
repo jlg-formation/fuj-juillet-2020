@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, ValidationErrors } from '@angular/forms';
-import { merge, timer } from 'rxjs';
+import {
+  FormGroup,
+  ValidationErrors,
+  FormControl,
+  AbstractControl,
+} from '@angular/forms';
+import { interval, merge, take, timer } from 'rxjs';
 
 @Component({
   selector: 'app-field-error',
@@ -11,12 +16,14 @@ export class FieldErrorComponent implements OnInit {
   @Input() fg!: FormGroup;
   @Input() name!: string;
 
+  fc!: AbstractControl;
   errors!: ValidationErrors | null;
 
   constructor() {}
 
   ngOnInit(): void {
-    merge(this.fg.statusChanges, timer(300)).subscribe(() => {
+    this.fc = this.fg.controls[this.name];
+    merge(this.fg.statusChanges, interval(300).pipe(take(10))).subscribe(() => {
       this.errors = this.fg.controls[this.name].errors;
     });
   }

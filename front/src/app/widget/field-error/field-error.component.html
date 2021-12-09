@@ -1,5 +1,5 @@
 <div class="error">
-  <ng-container *ngIf="errors">
+  <ng-container *ngIf="errors && fc.dirty && fc.touched">
     <div *ngIf="errors['required']">Champ requis</div>
     <div *ngIf="errors['maxlength']">
       Champ trop long ({{ errors["maxlength"].actualLength }} >
@@ -10,6 +10,8 @@
       caractères min).
     </div>
     <div *ngIf="errors['integer']">Le champ doit être un entier.</div>
+  </ng-container>
+  <ng-container *ngIf="errors">
     <div *ngIf="errors['duplicate']">Cette valeur est déjà prise en base.</div>
   </ng-container>
 </div>

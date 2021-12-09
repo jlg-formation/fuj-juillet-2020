@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
 import {
   AbstractControl,
-  ValidationErrors,
   AsyncValidatorFn,
+  ValidationErrors,
 } from '@angular/forms';
+import { map, Observable, of } from 'rxjs';
 
 export class OtherValidators {
   static integer(control: AbstractControl): ValidationErrors | null {
@@ -24,17 +24,15 @@ export class OtherValidators {
       if (!control.value) {
         return of(null);
       }
-      return http
-        .get<unknown[]>('/api/articles?filter[name]=' + control.value)
-        .pipe(
-          map((resources) => {
-            console.log('resources: ', resources);
-            if (resources.length > 0) {
-              return { duplicate: { value: control.value } };
-            }
-            return null;
-          })
-        );
+      return http.get<unknown[]>(makeUrl(control.value)).pipe(
+        map((resources) => {
+          console.log('resources: ', resources);
+          if (resources.length > 0) {
+            return { duplicate: { value: control.value } };
+          }
+          return null;
+        })
+      );
     };
   }
 }
