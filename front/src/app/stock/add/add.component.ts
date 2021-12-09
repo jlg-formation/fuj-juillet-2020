@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { lastValueFrom } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from './../../services/article.service';
 
@@ -35,8 +36,7 @@ export class AddComponent implements OnInit {
       try {
         console.log('submit');
         this.isAdding = true;
-        await this.articleService.add(this.f.value as Article).toPromise();
-
+        await lastValueFrom(this.articleService.add(this.f.value as Article));
         this.router.navigate(['..'], { relativeTo: this.route });
         this.isAdding = false;
       } catch (err) {
