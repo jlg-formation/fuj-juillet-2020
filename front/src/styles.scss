@@ -74,11 +74,19 @@ form {
   max-width: 25em;
   label {
     padding-bottom: 0.5em;
-  }
-  input {
-    padding: 0.5em 1em;
-    border: 0.1em solid #ddd;
-    width: 100%;
+
+    input {
+      padding: 0.5em 1em;
+      border: 0.1em solid #ddd;
+      width: 100%;
+    }
+
+    .error {
+      display: flex;
+      align-items: center;
+      height: 1.2em;
+      font-weight: bold;
+    }
   }
 
   button {

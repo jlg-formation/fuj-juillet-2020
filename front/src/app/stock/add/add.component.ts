@@ -18,7 +18,11 @@ export class AddComponent implements OnInit {
   isAdding = false;
   error = '';
   f = new FormGroup({
-    name: new FormControl('toto', [Validators.required]),
+    name: new FormControl('toto', [
+      Validators.required,
+      Validators.maxLength(10),
+      Validators.minLength(3),
+    ]),
     price: new FormControl(1.23, [Validators.required]),
     qty: new FormControl(1, [Validators.required]),
   });
