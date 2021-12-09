@@ -1,0 +1,13 @@
+<div class="error">
+  <ng-container *ngIf="errors">
+    <div *ngIf="errors['required']">Le champ est requis</div>
+    <div *ngIf="errors['maxlength']">
+      Le champ est trop long ({{ errors["maxlength"].actualLength }} >
+      {{ errors["maxlength"].requiredLength }} caractères max).
+    </div>
+    <div *ngIf="errors['minlength']">
+      Le champ est trop petit ({{ errors["minlength"].requiredLength }}
+      caractères min).
+    </div>
+  </ng-container>
+</div>
