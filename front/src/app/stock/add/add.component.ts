@@ -6,6 +6,7 @@ import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from './../../services/article.service';
+import { ArticleValidatorService } from 'src/app/validators/article-validator.service';
 
 @Component({
   selector: 'app-add',
@@ -19,11 +20,11 @@ export class AddComponent implements OnInit {
   isAdding = false;
   error = '';
   f = new FormGroup({
-    name: new FormControl('toto', [
-      Validators.required,
-      Validators.maxLength(10),
-      Validators.minLength(3),
-    ]),
+    name: new FormControl(
+      'toto',
+      [Validators.required, Validators.maxLength(10), Validators.minLength(3)],
+      [this.articleValidatorService.validate.bind(this.articleValidatorService)]
+    ),
     price: new FormControl(1.23, [Validators.required]),
     qty: new FormControl(1, [Validators.required, OtherValidators.integer]),
   });
@@ -31,7 +32,8 @@ export class AddComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private articleValidatorService: ArticleValidatorService
   ) {}
 
   ngOnInit(): void {}
