@@ -26,7 +26,9 @@ export class OtherValidators {
       }
       return timer(1000).pipe(
         tap(() => {
-          console.log('je lance la requete de test duplicate');
+          console.log(
+            'debounce fini. je lance vraiment la requete de test duplicate'
+          );
         }),
         switchMap(() => http.get<unknown[]>(makeUrl(control.value))),
         map((resources) => {
