@@ -31,11 +31,50 @@ table {
     tr.selected {
       background-color: #ccc;
     }
+
+    .name {
+      width: 10em;
+    }
+
+    .price {
+      width: 5em;
+    }
+
+    .qty {
+      width: 5em;
+    }
   }
 
   .qty,
   .price {
     text-align: right;
     white-space: nowrap;
+  }
+
+  tbody.skeleton {
+    cursor: inherit;
+    tr {
+      td {
+        background-color: #ddd;
+        background-clip: content-box;
+        color: #ddd;
+        animation: skeleton 2s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes skeleton {
+  0% {
+    background-color: #ddd;
+    color: #ddd;
+  }
+  50% {
+    background-color: #ccc;
+    color: #ccc;
+  }
+  100% {
+    background-color: #ddd;
+    color: #ddd;
   }
 }

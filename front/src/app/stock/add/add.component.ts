@@ -1,8 +1,9 @@
-import { ArticleService } from './../../services/article.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Article } from 'src/app/interfaces/article';
+import { ArticleService } from './../../services/article.service';
 
 @Component({
   selector: 'app-add',
@@ -10,6 +11,9 @@ import { Article } from 'src/app/interfaces/article';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent implements OnInit {
+  faPlus = faPlus;
+  faCircleNotch = faCircleNotch;
+
   isAdding = false;
   error = '';
   f = new FormGroup({

@@ -2,8 +2,8 @@
   <h1>Liste des articles</h1>
   <div class="content">
     <nav>
-      <button aria-label="Raffraichir">
-        <fa-icon [icon]="faSync"></fa-icon>
+      <button aria-label="Raffraichir" (click)="refresh()">
+        <fa-icon [icon]="faSync" [spin]="isLoading"></fa-icon>
       </button>
       <button
         [disabled]="!(authorizationService.can('stock.add') | async)"
@@ -24,8 +24,8 @@
         ></fa-icon>
       </button>
     </nav>
-    <p *ngIf="isLoading">Loading...</p>
-    <table *ngIf="!isLoading" aria-label="Liste des articles">
+
+    <table aria-label="Liste des articles">
       <thead>
         <tr>
           <th scope="col" class="name">Nom</th>
@@ -33,7 +33,7 @@
           <th scope="col" class="qty">Quantité</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="!isLoading">
         <tr
           [class.selected]="selectedArticles.has(a)"
           (click)="toggle(a)"
@@ -42,6 +42,13 @@
           <td class="name">{{ a.name }}</td>
           <td class="price">{{ a.price }} €</td>
           <td class="qty">{{ a.qty }}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="isLoading" class="skeleton">
+        <tr *ngFor="let a of [1, 2, 3]">
+          <td class="name">x</td>
+          <td class="price">x</td>
+          <td class="qty">x</td>
         </tr>
       </tbody>
     </table>
