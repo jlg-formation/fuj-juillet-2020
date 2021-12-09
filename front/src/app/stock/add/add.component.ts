@@ -1,3 +1,4 @@
+import { OtherValidators } from './../../validators/OtherValidators';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +25,7 @@ export class AddComponent implements OnInit {
       Validators.minLength(3),
     ]),
     price: new FormControl(1.23, [Validators.required]),
-    qty: new FormControl(1, [Validators.required]),
+    qty: new FormControl(1, [Validators.required, OtherValidators.integer]),
   });
 
   constructor(

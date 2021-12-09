@@ -9,5 +9,6 @@
       Champ trop court ({{ errors["minlength"].requiredLength }}
       caractères min).
     </div>
+    <div *ngIf="errors['integer']">Le champ doit être un entier.</div>
   </ng-container>
 </div>
