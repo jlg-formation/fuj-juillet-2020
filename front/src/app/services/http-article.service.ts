@@ -1,14 +1,14 @@
-import { Router } from '@angular/router';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, switchMap, tap, timeout } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Observable, timer } from 'rxjs';
+import { map, switchMap, timeout } from 'rxjs/operators';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './article.service';
-import { defer, Observable, timer } from 'rxjs';
 
 const url = '/api/articles';
 
@@ -35,7 +35,7 @@ export class HttpArticleService extends ArticleService {
   }
 
   override add(article: Article) {
-    return defer(() => timer(2000)).pipe(
+    return timer(2000).pipe(
       switchMap(() => this.http.post<void>(url, article).pipe(timeout(5000)))
     );
   }
@@ -49,15 +49,14 @@ export class HttpArticleService extends ArticleService {
       }),
       body: ids,
     };
-    return this.http
-      .delete<void>(url, options)
-      .pipe(delay(2000), timeout(5000));
+    return timer(2000).pipe(
+      switchMap(() => this.http.delete<void>(url, options).pipe(timeout(5000)))
+    );
   }
 
   override retrieveAll(): Observable<void> {
-    return this.http.get<Article[]>(url).pipe(
-      delay(2000),
-      timeout(5000),
+    return timer(2000).pipe(
+      switchMap(() => this.http.get<Article[]>(url).pipe(timeout(5000))),
       map((articles) => {
         this.articles$.next(articles);
         return undefined;

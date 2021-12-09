@@ -24,11 +24,7 @@ table {
       background-color: #eee;
     }
 
-    tr:hover {
-      background-color: #ddd;
-    }
-
-    tr.selected {
+    &.selected {
       background-color: #ccc;
     }
 
@@ -51,8 +47,15 @@ table {
     white-space: nowrap;
   }
 
+  tbody:not(.skeleton) {
+    tr:hover {
+      background-color: #ddd;
+    }
+  }
+
   tbody.skeleton {
     cursor: inherit;
+
     tr {
       td {
         background-color: #ddd;

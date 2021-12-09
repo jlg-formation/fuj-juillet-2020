@@ -2,7 +2,11 @@
   <h1>Liste des articles</h1>
   <div class="content">
     <nav>
-      <button aria-label="Raffraichir" (click)="refresh()">
+      <button
+        aria-label="Raffraichir"
+        (click)="refresh()"
+        [disabled]="isLoading"
+      >
         <fa-icon [icon]="faSync" [spin]="isLoading"></fa-icon>
       </button>
       <button
