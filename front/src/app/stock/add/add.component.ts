@@ -41,7 +41,7 @@ export class AddComponent implements OnInit {
         this.isAdding = false;
       } catch (err) {
         this.isAdding = false;
-        this.error = (err as Error).message;
+        alert('Erreur du serveur :\n' + (err as Error).message);
       }
     })();
   }

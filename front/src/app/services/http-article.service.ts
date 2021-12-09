@@ -5,8 +5,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, timer } from 'rxjs';
-import { map, switchMap, timeout } from 'rxjs/operators';
+import { Observable, throwError, timer } from 'rxjs';
+import { catchError, map, switchMap, timeout } from 'rxjs/operators';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './article.service';
 
@@ -35,8 +35,16 @@ export class HttpArticleService extends ArticleService {
   }
 
   override add(article: Article) {
-    return timer(2000).pipe(
-      switchMap(() => this.http.post<void>(url, article).pipe(timeout(5000)))
+    return timer(300).pipe(
+      switchMap(() =>
+        this.http.post<void>(url, article).pipe(
+          timeout(5000),
+          catchError((err) => {
+            console.log('err: ', err);
+            return throwError(() => new Error(err.error));
+          })
+        )
+      )
     );
   }
 
@@ -49,13 +57,13 @@ export class HttpArticleService extends ArticleService {
       }),
       body: ids,
     };
-    return timer(2000).pipe(
+    return timer(300).pipe(
       switchMap(() => this.http.delete<void>(url, options).pipe(timeout(5000)))
     );
   }
 
   override retrieveAll(): Observable<void> {
-    return timer(2000).pipe(
+    return timer(300).pipe(
       switchMap(() => this.http.get<Article[]>(url).pipe(timeout(5000))),
       map((articles) => {
         this.articles$.next(articles);

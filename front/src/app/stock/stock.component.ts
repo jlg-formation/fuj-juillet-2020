@@ -5,6 +5,7 @@ import {
   faSync,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
 import { AuthorizationService } from './../services/authorization.service';
@@ -38,7 +39,7 @@ export class StockComponent implements OnInit {
     (async () => {
       try {
         this.isLoading = true;
-        await this.articleService.retrieveAll().toPromise();
+        await lastValueFrom(this.articleService.retrieveAll());
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;

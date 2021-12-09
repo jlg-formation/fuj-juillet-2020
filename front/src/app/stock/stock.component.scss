@@ -24,10 +24,6 @@ table {
       background-color: #eee;
     }
 
-    &.selected {
-      background-color: #ccc;
-    }
-
     .name {
       width: 10em;
     }
@@ -50,6 +46,9 @@ table {
   tbody:not(.skeleton) {
     tr:hover {
       background-color: #ddd;
+    }
+    tr.selected {
+      background-color: #ccc;
     }
   }
 
