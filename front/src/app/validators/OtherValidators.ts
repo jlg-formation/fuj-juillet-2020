@@ -4,7 +4,7 @@ import {
   AsyncValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, switchMap, tap, timer } from 'rxjs';
 
 export class OtherValidators {
   static integer(control: AbstractControl): ValidationErrors | null {
@@ -24,7 +24,11 @@ export class OtherValidators {
       if (!control.value) {
         return of(null);
       }
-      return http.get<unknown[]>(makeUrl(control.value)).pipe(
+      return timer(1000).pipe(
+        tap(() => {
+          console.log('je lance la requete de test duplicate');
+        }),
+        switchMap(() => http.get<unknown[]>(makeUrl(control.value))),
         map((resources) => {
           console.log('resources: ', resources);
           if (resources.length > 0) {

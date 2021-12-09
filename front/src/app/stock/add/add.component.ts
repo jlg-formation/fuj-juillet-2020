@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  AsyncValidator,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom } from 'rxjs';
@@ -20,16 +25,19 @@ export class AddComponent implements OnInit {
   isAdding = false;
   error = '';
   f = new FormGroup({
-    name: new FormControl(
-      'toto',
-      [Validators.required, Validators.maxLength(10), Validators.minLength(3)],
-      [
+    name: new FormControl('toto', {
+      validators: [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.minLength(3),
+      ],
+      asyncValidators: [
         OtherValidators.duplicate(
           this.http,
           (val: string) => '/api/articles?filter[name]=' + val
         ),
-      ]
-    ),
+      ],
+    }),
     price: new FormControl(1.23, [Validators.required]),
     qty: new FormControl(1, [Validators.required, OtherValidators.integer]),
   });
