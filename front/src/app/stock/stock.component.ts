@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  faCircleNotch,
+  faPlus,
+  faSync,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
 import { AuthorizationService } from './../services/authorization.service';
@@ -13,6 +19,11 @@ export class StockComponent implements OnInit {
   isLoading = false;
   isRemoving = false;
   selectedArticles = new Set<Article>();
+
+  faSync = faSync;
+  faPlus = faPlus;
+  faTrashAlt = faTrashAlt;
+  faCircleNotch = faCircleNotch;
 
   constructor(
     public articleService: ArticleService,

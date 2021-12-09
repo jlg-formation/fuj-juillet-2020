@@ -2,14 +2,26 @@
   <h1>Liste des articles</h1>
   <div class="content">
     <nav>
+      <button aria-label="Raffraichir">
+        <fa-icon [icon]="faSync"></fa-icon>
+      </button>
       <button
         [disabled]="!(authorizationService.can('stock.add') | async)"
         routerLink="add"
+        aria-label="Ajouter"
       >
-        Ajouter
+        <fa-icon [icon]="faPlus"></fa-icon>
       </button>
-      <button [hidden]="selectedArticles.size === 0" (click)="remove()">
-        {{ isRemoving ? "Running..." : "Supprimer" }}
+      <button
+        aria-label="Supprimer"
+        [hidden]="selectedArticles.size === 0"
+        (click)="remove()"
+        [disabled]="isRemoving"
+      >
+        <fa-icon
+          [icon]="isRemoving ? faCircleNotch : faTrashAlt"
+          [spin]="isRemoving"
+        ></fa-icon>
       </button>
     </nav>
     <p *ngIf="isLoading">Loading...</p>
