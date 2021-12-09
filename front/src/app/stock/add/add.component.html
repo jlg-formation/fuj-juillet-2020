@@ -4,18 +4,17 @@
     <label>
       <div>Nom</div>
       <input type="text" appAutofocus formControlName="name" />
-      <app-field-error
-        [errors]="f.controls['name'].errors"
-        name="Nom"
-      ></app-field-error>
+      <app-field-error [fg]="f" name="name"></app-field-error>
     </label>
     <label>
       <div>Prix</div>
       <input type="number" step="0.01" min="0" formControlName="price" />
+      <app-field-error [fg]="f" name="price"></app-field-error>
     </label>
     <label>
       <div>Quantité</div>
       <input type="number" step="1" min="1" formControlName="qty" />
+      <app-field-error [fg]="f" name="qty"></app-field-error>
     </label>
     <button class="primary" [disabled]="f.invalid">
       <fa-icon
@@ -25,5 +24,5 @@
       Ajouter
     </button>
   </form>
-  {{ f.controls["name"].errors | json }}
+  <!-- {{ f.controls["name"].errors | json }} -->
 </main>

@@ -1,26 +1,22 @@
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-field-error',
   templateUrl: './field-error.component.html',
   styleUrls: ['./field-error.component.scss'],
 })
-export class FieldErrorComponent implements OnInit, OnChanges {
-  @Input() errors!: ValidationErrors | null;
+export class FieldErrorComponent implements OnInit {
+  @Input() fg!: FormGroup;
   @Input() name!: string;
+
+  errors!: ValidationErrors | null;
 
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes: ', changes);
+  ngOnInit(): void {
+    this.fg.valueChanges.subscribe(() => {
+      this.errors = this.fg.controls[this.name].errors;
+    });
   }
-
-  ngOnInit(): void {}
 }
