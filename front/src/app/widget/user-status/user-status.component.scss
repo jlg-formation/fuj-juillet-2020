@@ -2,8 +2,24 @@
   display: flex;
   justify-content: flex-end;
 
+  .loading {
+    color: gray;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+
   a {
     text-align: right;
     text-overflow: ellipsis;
+    text-decoration: inherit;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

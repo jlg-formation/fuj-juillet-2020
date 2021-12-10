@@ -1,15 +1,16 @@
 <ng-container *ngIf="oauth2Service.config$ | async">
-  <a
-    *ngIf="(userService.user$ | async) === undefined"
-    class="login"
-    routerLink="/user/login"
-  >
-    Se connecter
-  </a>
-  <a *ngIf="userService.user$ | async" class="login" routerLink="/user">
-    {{ (userService.user$ | async)?.displayName }}
-  </a>
+  <div class="user" *ngIf="(userService.user$ | async) === undefined">
+    <fa-icon [icon]="faSignInAlt"></fa-icon>
+    <a class="login" routerLink="/user/login"> Se connecter </a>
+  </div>
+
+  <div class="user" *ngIf="userService.user$ | async">
+    <fa-icon [icon]="faUserCircle"></fa-icon>
+    <a class="login" routerLink="/user">
+      {{ (userService.user$ | async)?.displayName }}
+    </a>
+  </div>
 </ng-container>
-<ng-container *ngIf="(oauth2Service.config$ | async) === undefined">
-  ...
-</ng-container>
+<div class="loading" *ngIf="(oauth2Service.config$ | async) === undefined">
+  <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+</div>
