@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -11,15 +10,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthorizationConfig } from '../interfaces/authorization-config';
 import { AuthorizationService } from '../services/authorization.service';
-import { UserService } from './../services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorizationGuard implements CanActivate {
   constructor(
-    private http: HttpClient,
-    private userService: UserService,
     private authorizationService: AuthorizationService,
     private router: Router
   ) {}
