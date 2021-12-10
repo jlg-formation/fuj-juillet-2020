@@ -1,6 +1,6 @@
 <ng-container *ngIf="oauth2Service.config$ | async">
   <a
-    *ngIf="!(userService.user$ | async)"
+    *ngIf="(userService.user$ | async) === undefined"
     class="login"
     routerLink="/user/login"
   >
@@ -10,4 +10,6 @@
     {{ (userService.user$ | async)?.displayName }}
   </a>
 </ng-container>
-<ng-container *ngIf="!(oauth2Service.config$ | async)"> ... </ng-container>
+<ng-container *ngIf="(oauth2Service.config$ | async) === undefined">
+  ...
+</ng-container>

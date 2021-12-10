@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnInit, OnChanges {
+export class DetailComponent implements OnChanges {
   entries$ = new BehaviorSubject<[string, string][]>([]);
   @Input() object: unknown;
 
@@ -28,6 +28,4 @@ export class DetailComponent implements OnInit, OnChanges {
     const entries = Object.entries(object);
     this.entries$.next(entries);
   }
-
-  ngOnInit(): void {}
 }

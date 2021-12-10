@@ -7,11 +7,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './user-status.component.html',
   styleUrls: ['./user-status.component.scss'],
 })
-export class UserStatusComponent implements OnInit {
+export class UserStatusComponent {
   constructor(
     public userService: UserService,
     public oauth2Service: Oauth2Service
   ) {}
-
-  ngOnInit(): void {}
 }

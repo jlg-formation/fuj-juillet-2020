@@ -18,7 +18,7 @@ import { OtherValidators } from './../../validators/OtherValidators';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss'],
 })
-export class AddComponent implements OnInit {
+export class AddComponent {
   faPlus = faPlus;
   faCircleNotch = faCircleNotch;
 
@@ -48,8 +48,6 @@ export class AddComponent implements OnInit {
     private articleService: ArticleService,
     private http: HttpClient
   ) {}
-
-  ngOnInit(): void {}
 
   submit(): void {
     (async () => {

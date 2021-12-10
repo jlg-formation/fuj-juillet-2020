@@ -6,8 +6,6 @@ import { Oauth2Service } from '../../services/oauth2.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   constructor(public oauth2Service: Oauth2Service) {}
-
-  ngOnInit(): void {}
 }

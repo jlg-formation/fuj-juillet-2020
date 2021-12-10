@@ -7,10 +7,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
   constructor(public userService: UserService, private router: Router) {}
-
-  ngOnInit(): void {}
 
   logout(): void {
     console.log('about to logout');

@@ -1,28 +1,50 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true,
-    "mocha": true,
-    "cypress/globals": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2021,
-    "sourceType": "module"
-  },
-  "plugins": ["@typescript-eslint", "cypress"],
-  "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "semi": ["error", "always"],
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/ban-ts-comment": "off"
-  }
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
 }
