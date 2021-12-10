@@ -3,10 +3,13 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  JlgValidators,
+  DuplicateAsyncValidatorService,
+} from '@jlguenego/angular-tools';
 import { lastValueFrom } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from './../../services/article.service';
-import { OtherValidators } from './../../validators/OtherValidators';
 
 @Component({
   selector: 'app-add',
@@ -27,21 +30,20 @@ export class AddComponent {
         Validators.minLength(3),
       ],
       asyncValidators: [
-        OtherValidators.duplicate(
-          this.http,
+        this.duplicateAsyncValidatorService.validate(
           (val: string) => '/api/articles?filter[name]=' + val
         ),
       ],
     }),
     price: new FormControl(1.23, [Validators.required]),
-    qty: new FormControl(1, [Validators.required, OtherValidators.integer]),
+    qty: new FormControl(1, [Validators.required, JlgValidators.integer]),
   });
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private http: HttpClient
+    private duplicateAsyncValidatorService: DuplicateAsyncValidatorService
   ) {}
 
   submit(): void {
