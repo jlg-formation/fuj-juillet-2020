@@ -3,7 +3,7 @@
   <form [formGroup]="f" (ngSubmit)="submit()">
     <label>
       <div>Nom</div>
-      <input type="text" appAutofocus formControlName="name" />
+      <input type="text" jlgAutofocus="select" formControlName="name" />
       <app-field-error [fg]="f" name="name"></app-field-error>
     </label>
     <label>
