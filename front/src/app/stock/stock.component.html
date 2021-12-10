@@ -51,7 +51,8 @@
           class="empty"
           *ngIf="(articleService.articles$ | async)?.length === 0"
         >
-          <td rowspan="3">Pas d'article.</td>
+          <td colspan="3" *ngIf="!error">Pas d'article.</td>
+          <td colspan="3" *ngIf="error">Erreur: {{ error }}.</td>
         </tr>
       </tbody>
       <tbody *ngIf="isLoading" class="skeleton">

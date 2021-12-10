@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   faCircleNotch,
@@ -43,6 +44,13 @@ export class StockComponent implements OnInit {
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
+        console.log('err: ', err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 403) {
+            this.error = "Désolé mais vous n'êtes pas autorisé...";
+            return;
+          }
+        }
         this.error = (err as Error).message;
       }
     })();
