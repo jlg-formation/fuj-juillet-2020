@@ -1,3 +1,4 @@
+import { ColorSchemeService } from '@jlguenego/angular-tools';
 import { Router } from '@angular/router';
 import { UserService } from './../services/user.service';
 import { Component } from '@angular/core';
@@ -8,7 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
-  constructor(public userService: UserService, private router: Router) {}
+  constructor(
+    public userService: UserService,
+    private router: Router,
+    public colorSchemeService: ColorSchemeService
+  ) {}
 
   logout(): void {
     console.log('about to logout');

@@ -1,5 +1,18 @@
 <main>
   <h1>User Information</h1>
-  <app-detail [object]="userService.user$ | async"></app-detail>
-  <button class="primary" (click)="logout()">Déconnexion</button>
+  <div>
+    <app-detail [object]="userService.user$ | async"></app-detail>
+
+    <nav>
+      <button class="theme" (click)="colorSchemeService.toggleColorScheme()">
+        Mettre le thème
+        {{
+          (colorSchemeService.colorScheme$ | async) === "dark"
+            ? "lumineux"
+            : "sombre"
+        }}
+      </button>
+      <button class="primary" (click)="logout()">Déconnexion</button>
+    </nav>
+  </div>
 </main>
