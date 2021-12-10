@@ -54,6 +54,13 @@ function blackListFilter(value: string, blackList: Specifier[] | undefined) {
   return true;
 }
 
+const isAuthorized = (value: string, bwList: BlackAndWhiteList): boolean => {
+  return (
+    whiteListFilter(value, bwList.whiteList) &&
+    blackListFilter(value, bwList.blackList)
+  );
+};
+
 const doNotAllowAnythingConfig: AuthorizationConfig = {
   path: { whiteList: [] },
   privilege: { whiteList: [] },
@@ -74,7 +81,9 @@ export class AuthorizationService {
           return;
         }
         this.http
-          .get<AuthorizationConfig>(`/api/authz/config/${user?.id}`)
+          .get<AuthorizationConfig>(
+            `/api/authz/config/${user.identityProvider}/${user.id}`
+          )
           .subscribe({
             next: (authConfig) => {
               this.authConfig = authConfig;
@@ -91,7 +100,15 @@ export class AuthorizationService {
   can(privilege: string): Observable<boolean> {
     return this.getAuthConfig().pipe(
       map((authzConfig) => {
-        return this.isAuthorized(privilege, authzConfig.privilege);
+        return isAuthorized(privilege, authzConfig.privilege);
+      })
+    );
+  }
+
+  canGoToPath(path: string): Observable<boolean> {
+    return this.getAuthConfig().pipe(
+      map((authzConfig) => {
+        return isAuthorized(path, authzConfig.path);
       })
     );
   }
@@ -101,12 +118,5 @@ export class AuthorizationService {
       return of(this.authConfig);
     }
     return this.authConfig$;
-  }
-
-  isAuthorized(value: string, bwList: BlackAndWhiteList): boolean {
-    return (
-      whiteListFilter(value, bwList.whiteList) &&
-      blackListFilter(value, bwList.blackList)
-    );
   }
 }

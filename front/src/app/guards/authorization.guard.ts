@@ -7,8 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { AuthorizationConfig } from '../interfaces/authorization-config';
+import { tap } from 'rxjs/operators';
 import { AuthorizationService } from '../services/authorization.service';
 
 @Injectable({
@@ -28,15 +27,11 @@ export class AuthorizationGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authorizationService.getAuthConfig().pipe(
-      map((authConfig: AuthorizationConfig) => {
-        if (
-          !this.authorizationService.isAuthorized(state.url, authConfig.path)
-        ) {
+    return this.authorizationService.canGoToPath(state.url).pipe(
+      tap((isAuthorized: boolean) => {
+        if (!isAuthorized) {
           this.router.navigateByUrl('/403');
-          return false;
         }
-        return true;
       })
     );
   }
