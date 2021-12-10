@@ -2,10 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   ValidationErrors,
-  FormControl,
   AbstractControl,
 } from '@angular/forms';
-import { interval, merge, take, timer } from 'rxjs';
+import { interval, merge, take } from 'rxjs';
 
 @Component({
   selector: 'app-field-error',

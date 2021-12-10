@@ -1,6 +1,6 @@
 import { Oauth2Service } from './../../services/oauth2.service';
 import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   faSignInAlt,
   faUserCircle,
