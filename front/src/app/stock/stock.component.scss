@@ -9,6 +9,19 @@ nav {
 table {
   border: 0.1em solid #bbb;
   border-collapse: collapse;
+
+  .name {
+    width: 10em;
+  }
+
+  .price {
+    width: 5em;
+  }
+
+  .qty {
+    width: 5em;
+  }
+
   th,
   td {
     padding: 0.5em 1em;
@@ -22,18 +35,6 @@ table {
     cursor: pointer;
     tr:nth-child(even) {
       background-color: #eee;
-    }
-
-    .name {
-      width: 10em;
-    }
-
-    .price {
-      width: 5em;
-    }
-
-    .qty {
-      width: 5em;
     }
   }
 

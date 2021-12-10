@@ -47,6 +47,12 @@
           <td class="price">{{ a.price }} €</td>
           <td class="qty">{{ a.qty }}</td>
         </tr>
+        <tr
+          class="empty"
+          *ngIf="(articleService.articles$ | async)?.length === 0"
+        >
+          <td rowspan="3">Pas d'article.</td>
+        </tr>
       </tbody>
       <tbody *ngIf="isLoading" class="skeleton">
         <tr *ngFor="let a of [1, 2, 3]">
