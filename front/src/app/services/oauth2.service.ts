@@ -1,6 +1,7 @@
+import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 export interface Oauth2Config {
@@ -17,18 +18,18 @@ export interface Oauth2Config {
 export class Oauth2Service {
   config$ = new BehaviorSubject<Oauth2Config | undefined>(undefined);
 
-  constructor(private http: HttpClient) {
-    this.http
-      .get<Oauth2Config>('/api/oauth2/config')
-      .pipe(delay(500))
-      .subscribe({
-        next: (config) => {
-          this.config$.next(config);
-        },
-        error: (err) => {
-          console.log('err: ', err);
-        },
-      });
+  constructor(private http: HttpClient, private userService: UserService) {
+    (async () => {
+      try {
+        await lastValueFrom(this.userService.setAfterLoginRoute('/'));
+        const config = await lastValueFrom(
+          this.http.get<Oauth2Config>('/api/oauth2/config').pipe(delay(500))
+        );
+        this.config$.next(config);
+      } catch (err) {
+        console.log('err: ', err);
+      }
+    })();
   }
 
   getAuthorizeUrl(provider: string) {

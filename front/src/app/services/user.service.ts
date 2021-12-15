@@ -38,13 +38,15 @@ export class UserService {
     return this.http.post<void>('/api/auth/disconnect', undefined);
   }
 
-  setAfterLoginRoute(path: string) {
+  setAfterLoginRoute(path: string): Observable<void> {
     const url = window.location.origin + path;
     console.log('url: ', url);
-    this.http.post<void>('/api/auth/afterLoginRoute', { url }).subscribe({
-      error: (err) => {
-        console.error('err: ', err);
-      },
-    });
+    return this.http.post<void>('/api/auth/afterLoginRoute', { url }).pipe(
+      tap({
+        error: (err) => {
+          console.log('err: ', err);
+        },
+      })
+    );
   }
 }

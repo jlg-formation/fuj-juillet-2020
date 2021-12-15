@@ -5,6 +5,7 @@ import {
   faSignInAlt,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import { lastValueFrom } from 'rxjs';
 import { Oauth2Service } from './../../services/oauth2.service';
 import { UserService } from './../../services/user.service';
 
@@ -25,7 +26,15 @@ export class UserStatusComponent {
 
   connect() {
     console.log('this.router.url: ', this.router.url);
-    this.userService.setAfterLoginRoute(this.router.url);
-    this.router.navigateByUrl('/user/login');
+    (async () => {
+      try {
+        await lastValueFrom(
+          this.userService.setAfterLoginRoute(this.router.url)
+        );
+        this.router.navigateByUrl('/user/login');
+      } catch (err) {
+        console.log('err: ', err);
+      }
+    })();
   }
 }
