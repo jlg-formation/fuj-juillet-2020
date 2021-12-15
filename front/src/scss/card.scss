@@ -16,6 +16,12 @@ table.card {
       cursor: pointer;
       display: flex;
       flex-flow: column;
+      &:hover {
+        background-color: #eee;
+      }
+      &.selected {
+        background-color: #ddd;
+      }
       td {
         display: flex;
         flex-flow: column;
