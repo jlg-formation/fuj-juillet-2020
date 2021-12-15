@@ -5,5 +5,5 @@ export const ArticleModel = object({
   name: string(),
   price: number(),
   qty: integer(),
-  image: string(),
+  image: optional(string()),
 });
