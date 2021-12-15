@@ -1,11 +1,12 @@
-import { Oauth2Service } from './../../services/oauth2.service';
-import { UserService } from './../../services/user.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
+  faCircleNotch,
   faSignInAlt,
   faUserCircle,
-  faCircleNotch,
 } from '@fortawesome/free-solid-svg-icons';
+import { Oauth2Service } from './../../services/oauth2.service';
+import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-user-status',
@@ -17,7 +18,14 @@ export class UserStatusComponent {
   faSignInAlt = faSignInAlt;
   faCircleNotch = faCircleNotch;
   constructor(
+    private router: Router,
     public userService: UserService,
     public oauth2Service: Oauth2Service
   ) {}
+
+  connect() {
+    console.log('this.router.url: ', this.router.url);
+    this.userService.setAfterLoginRoute(this.router.url);
+    this.router.navigateByUrl('/user/login');
+  }
 }
