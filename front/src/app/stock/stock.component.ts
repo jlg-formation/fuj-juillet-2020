@@ -41,6 +41,7 @@ export class StockComponent implements OnInit {
 
   toggleShowMode() {
     this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
+    console.log(this.selectedArticles);
   }
 
   ngOnInit(): void {
@@ -88,5 +89,9 @@ export class StockComponent implements OnInit {
       return;
     }
     this.selectedArticles.add(a);
+  }
+
+  onImgError(event: Event) {
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 }

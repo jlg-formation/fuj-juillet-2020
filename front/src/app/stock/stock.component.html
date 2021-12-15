@@ -45,6 +45,7 @@
     >
       <thead>
         <tr>
+          <th scope="col" class="image">Image</th>
           <th scope="col" class="name">Nom</th>
           <th scope="col" class="price">Prix</th>
           <th scope="col" class="qty">Quantité</th>
@@ -56,6 +57,13 @@
           (click)="toggle(a)"
           *ngFor="let a of articleService.articles$ | async"
         >
+          <td class="image">
+            <img
+              [src]="'/api/upload/' + a.image"
+              [alt]="a.image"
+              (error)="onImgError($event)"
+            />
+          </td>
           <td class="name">{{ a.name }}</td>
           <td class="price">{{ a.price }} €</td>
           <td class="qty">{{ a.qty }}</td>

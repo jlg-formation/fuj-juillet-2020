@@ -37,7 +37,6 @@ export class AddComponent {
     }),
     price: new FormControl(1.23, [Validators.required]),
     qty: new FormControl(1, [Validators.required, JlgValidators.integer]),
-    image: new FormControl('', []),
   });
   file!: File;
 
@@ -52,7 +51,7 @@ export class AddComponent {
   onFileChange(event: any) {
     console.log('event: ', event);
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+      const file = event.target.files[0] as File;
       console.log('file: ', file);
       this.file = file;
     }
@@ -63,12 +62,14 @@ export class AddComponent {
       try {
         console.log('submit');
         this.isAdding = true;
+        const article = this.f.value as Article;
         if (this.file) {
-          await lastValueFrom(this.fileService.add(this.file).pipe(delay(20)));
+          const { url } = await lastValueFrom(
+            this.fileService.add(this.file).pipe(delay(20))
+          );
+          article.image = url;
         }
-        await lastValueFrom(
-          this.articleService.add(this.f.value as Article).pipe(delay(20))
-        );
+        await lastValueFrom(this.articleService.add(article).pipe(delay(20)));
         this.router.navigate(['..'], { relativeTo: this.route });
         this.isAdding = false;
       } catch (err) {

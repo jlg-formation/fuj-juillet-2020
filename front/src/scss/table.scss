@@ -2,6 +2,14 @@ table.detail {
   border: 0.1em solid #bbb;
   border-collapse: collapse;
 
+  .image {
+    width: 3em;
+    display: flex;
+    img {
+      width: 100%;
+    }
+  }
+
   .name {
     width: 10em;
   }

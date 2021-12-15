@@ -18,11 +18,7 @@
     </label>
     <label>
       <div>Photo (option)</div>
-      <input
-        type="file"
-        formControlName="image"
-        (change)="onFileChange($event)"
-      />
+      <input type="file" (change)="onFileChange($event)" />
       <app-field-error [fg]="f" name="image"></app-field-error>
     </label>
     <button class="primary" [disabled]="f.invalid">
