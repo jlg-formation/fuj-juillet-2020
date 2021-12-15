@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
+  faAddressCard,
   faCircleNotch,
+  faList,
   faPlus,
   faSync,
   faTrashAlt,
@@ -10,6 +12,8 @@ import { lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
 import { AuthorizationService } from './../services/authorization.service';
+
+type ShowMode = 'detail' | 'card';
 
 @Component({
   selector: 'app-stock',
@@ -21,16 +25,23 @@ export class StockComponent implements OnInit {
   isLoading = false;
   isRemoving = false;
   selectedArticles = new Set<Article>();
+  showMode: ShowMode = 'detail';
 
   faSync = faSync;
   faPlus = faPlus;
   faTrashAlt = faTrashAlt;
   faCircleNotch = faCircleNotch;
+  faList = faList;
+  faAddressCard = faAddressCard;
 
   constructor(
     public articleService: ArticleService,
     public authorizationService: AuthorizationService
   ) {}
+
+  toggleShowMode() {
+    this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
+  }
 
   ngOnInit(): void {
     this.refresh();

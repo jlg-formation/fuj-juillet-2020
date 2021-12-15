@@ -1,35 +1,44 @@
 <main>
   <h1>Liste des articles</h1>
   <div class="content">
-    <nav>
-      <button
-        aria-label="Raffraichir"
-        (click)="refresh()"
-        [disabled]="isLoading"
-      >
-        <fa-icon [icon]="faSync" [spin]="isLoading"></fa-icon>
-      </button>
-      <button
-        [disabled]="(authorizationService.can('stock.add') | async) === false"
-        routerLink="add"
-        aria-label="Ajouter"
-      >
-        <fa-icon [icon]="faPlus"></fa-icon>
-      </button>
-      <button
-        aria-label="Supprimer"
-        [hidden]="selectedArticles.size === 0"
-        (click)="remove()"
-        [disabled]="isRemoving"
-      >
-        <fa-icon
-          [icon]="isRemoving ? faCircleNotch : faTrashAlt"
-          [spin]="isRemoving"
-        ></fa-icon>
-      </button>
-    </nav>
+    <div class="navigation">
+      <nav>
+        <button
+          aria-label="Raffraichir"
+          (click)="refresh()"
+          [disabled]="isLoading"
+        >
+          <fa-icon [icon]="faSync" [spin]="isLoading"></fa-icon>
+        </button>
+        <button
+          [disabled]="(authorizationService.can('stock.add') | async) === false"
+          routerLink="add"
+          aria-label="Ajouter"
+        >
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+        <button
+          aria-label="Supprimer"
+          [hidden]="selectedArticles.size === 0"
+          (click)="remove()"
+          [disabled]="isRemoving"
+        >
+          <fa-icon
+            [icon]="isRemoving ? faCircleNotch : faTrashAlt"
+            [spin]="isRemoving"
+          ></fa-icon>
+        </button>
+      </nav>
+      <nav>
+        <button (click)="toggleShowMode()">
+          <fa-icon
+            [icon]="showMode === 'card' ? faList : faAddressCard"
+          ></fa-icon>
+        </button>
+      </nav>
+    </div>
 
-    <table aria-label="Liste des articles">
+    <table aria-label="Liste des articles" [class.card]="showMode === 'card'">
       <thead>
         <tr>
           <th scope="col" class="name">Nom</th>
