@@ -57,7 +57,7 @@ export class AddComponent {
         this.isAdding = false;
       } catch (err) {
         this.isAdding = false;
-        alert('Erreur du serveur :\n' + (err as Error).message);
+        alert('Réponse du serveur :\n' + (err as Error).message);
       }
     })();
   }
