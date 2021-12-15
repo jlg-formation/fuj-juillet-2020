@@ -12,15 +12,24 @@ const routes: Routes = [
   {
     path: 'legal',
     component: LegalComponent,
+    data: {
+      title: 'Mentions Legales',
+    },
   },
   {
     path: 'stock',
     loadChildren: () =>
       import('./stock/stock.module').then((m) => m.StockModule),
+    data: {
+      title: 'Stock',
+    },
   },
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+    data: {
+      title: 'User',
+    },
   },
   {
     path: '403',

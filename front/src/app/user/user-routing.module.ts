@@ -6,7 +6,13 @@ import { UserComponent } from './user.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent, canActivate: [UserGuard] },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {
+      title: 'Login',
+    },
+  },
 ];
 
 @NgModule({

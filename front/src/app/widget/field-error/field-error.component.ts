@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  ValidationErrors,
-  AbstractControl,
-} from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { interval, merge, take } from 'rxjs';
 
 @Component({
@@ -11,19 +7,16 @@ import { interval, merge, take } from 'rxjs';
   templateUrl: './field-error.component.html',
   styleUrls: ['./field-error.component.scss'],
 })
-export class FieldErrorComponent implements OnInit {
+export class FieldErrorComponent {
   @Input() fg!: FormGroup;
   @Input() name!: string;
 
-  fc!: AbstractControl;
-  errors!: ValidationErrors | null;
+  get fc(): AbstractControl {
+    return this.fg.controls[this.name];
+  }
+  get errors(): ValidationErrors | null {
+    return this.fc.errors;
+  }
 
   constructor() {}
-
-  ngOnInit(): void {
-    this.fc = this.fg.controls[this.name];
-    merge(this.fg.statusChanges, interval(300).pipe(take(10))).subscribe(() => {
-      this.errors = this.fg.controls[this.name].errors;
-    });
-  }
 }

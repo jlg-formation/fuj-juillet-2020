@@ -19,7 +19,6 @@
     <label>
       <div>Photo (option)</div>
       <input type="file" (change)="onFileChange($event)" />
-      <app-field-error [fg]="f" name="image"></app-field-error>
     </label>
     <button class="primary" [disabled]="f.invalid">
       <fa-icon
@@ -29,5 +28,5 @@
       Ajouter
     </button>
   </form>
-  {{ f.value | json }}
+  <!-- {{ f.value | json }} -->
 </main>
