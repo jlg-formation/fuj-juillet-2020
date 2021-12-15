@@ -38,7 +38,11 @@
       </nav>
     </div>
 
-    <table aria-label="Liste des articles" [class.card]="showMode === 'card'">
+    <table
+      aria-label="Liste des articles"
+      [class.card]="showMode === 'card'"
+      [class.detail]="showMode === 'detail'"
+    >
       <thead>
         <tr>
           <th scope="col" class="name">Nom</th>

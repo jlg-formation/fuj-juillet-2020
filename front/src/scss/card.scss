@@ -1,0 +1,39 @@
+table.card {
+  display: flex;
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    max-width: 38.5em;
+    tr {
+      width: 19em;
+      border: 0.1em solid #eee;
+      cursor: pointer;
+      display: flex;
+      flex-flow: column;
+      td {
+        display: flex;
+        flex-flow: column;
+        padding: 0.5em 1em;
+      }
+    }
+  }
+
+  tbody.skeleton {
+    cursor: inherit;
+
+    tr {
+      td {
+        background-color: #ddd;
+        background-clip: content-box;
+        color: #ddd;
+        animation: skeleton 2s ease-in-out infinite;
+      }
+    }
+  }
+}

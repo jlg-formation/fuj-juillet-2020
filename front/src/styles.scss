@@ -2,6 +2,10 @@
 
 @import "../node_modules/normalize.css/normalize.css";
 
+@import "./scss/skeleton.scss";
+@import "./scss/table.scss";
+@import "./scss/card.scss";
+
 *,
 *::before,
 *::after {

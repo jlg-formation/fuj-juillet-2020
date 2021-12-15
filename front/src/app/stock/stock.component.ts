@@ -25,7 +25,7 @@ export class StockComponent implements OnInit {
   isLoading = false;
   isRemoving = false;
   selectedArticles = new Set<Article>();
-  showMode: ShowMode = 'detail';
+  showMode: ShowMode = 'card';
 
   faSync = faSync;
   faPlus = faPlus;

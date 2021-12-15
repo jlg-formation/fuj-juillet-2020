@@ -1,0 +1,60 @@
+table.detail {
+  border: 0.1em solid #bbb;
+  border-collapse: collapse;
+
+  .name {
+    width: 10em;
+  }
+
+  .price {
+    width: 5em;
+  }
+
+  .qty {
+    width: 5em;
+  }
+
+  th,
+  td {
+    padding: 0.5em 1em;
+  }
+
+  thead {
+    background-color: #bbb;
+  }
+
+  tbody {
+    cursor: pointer;
+    tr:nth-child(even) {
+      background-color: #eee;
+    }
+  }
+
+  .qty,
+  .price {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  tbody:not(.skeleton) {
+    tr:hover {
+      background-color: #ddd;
+    }
+    tr.selected {
+      background-color: #ccc;
+    }
+  }
+
+  tbody.skeleton {
+    cursor: inherit;
+
+    tr {
+      td {
+        background-color: #ddd;
+        background-clip: content-box;
+        color: #ddd;
+        animation: skeleton 2s ease-in-out infinite;
+      }
+    }
+  }
+}
