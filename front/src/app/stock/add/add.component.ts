@@ -6,7 +6,7 @@ import {
   JlgValidators,
   DuplicateAsyncValidatorService,
 } from '@jlguenego/angular-tools';
-import { lastValueFrom } from 'rxjs';
+import { delay, lastValueFrom } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from './../../services/article.service';
 
@@ -50,7 +50,9 @@ export class AddComponent {
       try {
         console.log('submit');
         this.isAdding = true;
-        await lastValueFrom(this.articleService.add(this.f.value as Article));
+        await lastValueFrom(
+          this.articleService.add(this.f.value as Article).pipe(delay(20))
+        );
         this.router.navigate(['..'], { relativeTo: this.route });
         this.isAdding = false;
       } catch (err) {
