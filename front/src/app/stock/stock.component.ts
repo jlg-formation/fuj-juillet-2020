@@ -60,10 +60,10 @@ export class StockComponent implements OnInit {
     (async () => {
       try {
         this.isRemoving = true;
-        await this.articleService.remove(this.selectedArticles).toPromise();
+        await lastValueFrom(this.articleService.remove(this.selectedArticles));
         this.selectedArticles.clear();
         this.isRemoving = false;
-        await this.articleService.retrieveAll().toPromise();
+        await lastValueFrom(this.articleService.retrieveAll());
       } catch (err) {
         this.isRemoving = false;
         this.error = (err as Error).message;
