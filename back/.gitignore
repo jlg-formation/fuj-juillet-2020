@@ -17,3 +17,8 @@ ecosystem.config.js
 *access.log
 
 
+# Upload files
+/uploads
+
+
+

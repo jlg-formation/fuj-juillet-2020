@@ -11,6 +11,7 @@ import {authorization} from './authorization/Authorization';
 import {authzConfigRouter} from './authorization/authorization-config.router';
 import {WebServerOptions} from './interfaces/WebServerOptions';
 import {accessLog} from './logs/accessLogs';
+import {upload} from './upload/upload.router';
 import {validation} from './validation/validation';
 
 export class WebServer {
@@ -66,6 +67,9 @@ export class WebServer {
     app.use(validation);
 
     // async validation (nothing for the time being)
+
+    // file upload
+    app.use('/api/upload', upload);
 
     // Business logic with crudity
     app.use(

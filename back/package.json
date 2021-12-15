@@ -29,6 +29,7 @@
     "got": "^11.8.2",
     "mongodb": "^4.1.1",
     "morgan": "^1.10.0",
+    "multer": "^1.4.4",
     "rotating-file-stream": "^2.1.6",
     "serve-index": "^1.9.1",
     "superstruct": "^0.15.3"
@@ -40,6 +41,7 @@
     "@types/mocha": "^9.0.0",
     "@types/mongodb": "^4.0.7",
     "@types/morgan": "^1.9.3",
+    "@types/multer": "^1.4.7",
     "@types/node": "^16.3.2",
     "@types/serve-index": "^1.9.1",
     "dotenv": "^10.0.0",
