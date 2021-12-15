@@ -16,6 +16,15 @@
       <input type="number" step="1" min="1" formControlName="qty" />
       <app-field-error [fg]="f" name="qty"></app-field-error>
     </label>
+    <label>
+      <div>Photo (option)</div>
+      <input
+        type="file"
+        formControlName="image"
+        (change)="onFileChange($event)"
+      />
+      <app-field-error [fg]="f" name="image"></app-field-error>
+    </label>
     <button class="primary" [disabled]="f.invalid">
       <fa-icon
         [icon]="isAdding ? faCircleNotch : faPlus"
@@ -24,5 +33,5 @@
       Ajouter
     </button>
   </form>
-  <!-- {{ f.controls["name"].errors | json }} -->
+  {{ f.value | json }}
 </main>
