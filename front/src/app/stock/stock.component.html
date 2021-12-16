@@ -65,14 +65,14 @@
               *ngIf="a.image"
               [src]="'/api/upload/' + a.image"
               alt="Image d'illustration de l'article"
-              (error)="onImgError($event)"
+              (error)="onImgError($event, a)"
             />
-            <img
+            <fa-icon
+              class="not-found"
               *ngIf="!a.image"
-              src="assets/image-not-found.svg"
-              alt="Pas d'image"
-              (error)="onImgError($event)"
-            />
+              [icon]="faImage"
+              role="none"
+            ></fa-icon>
           </td>
           <td class="name">{{ a.name }}</td>
           <td class="price">{{ a.price }} €</td>

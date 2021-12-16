@@ -1,20 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "../node_modules/normalize.css/normalize.css";
+@import "../node_modules/sanitize.css/sanitize.css";
 
+@import "./assets/fonts/custom-font/css/fontello.css";
+@import "./assets/fonts/custom-font/css/animation.css";
+
+@import "../node_modules/@jlguenego/angular-tools/src/assets/themes.css";
 @import "./scss/skeleton.scss";
 @import "./scss/table.scss";
 @import "./scss/card.scss";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 body {
   min-width: 320px;
   font-family: sans-serif;
+  color: var(--fg-color);
+  background-color: var(--bg-color);
 }
 
 h1 {

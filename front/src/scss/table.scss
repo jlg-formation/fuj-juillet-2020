@@ -10,6 +10,10 @@ table.detail {
       width: 100%;
     }
 
+    .not-found {
+      color: #ccc;
+    }
+
     @media screen and (max-width: 400px) {
       display: none;
     }

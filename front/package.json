@@ -29,6 +29,7 @@
     "@jlguenego/angular-tools": "file:../../angular-tools/dist/jlg",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.4.0",
+    "sanitize.css": "^13.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

@@ -49,6 +49,10 @@ table.card {
           img {
             height: 100%;
           }
+          .not-found {
+            color: #ccc;
+            font-size: 8em;
+          }
         }
 
         &.name {

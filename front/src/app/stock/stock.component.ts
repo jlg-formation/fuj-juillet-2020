@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   faAddressCard,
   faCircleNotch,
+  faImage,
   faList,
   faPlus,
   faSync,
@@ -33,6 +34,7 @@ export class StockComponent implements OnInit {
   faCircleNotch = faCircleNotch;
   faList = faList;
   faAddressCard = faAddressCard;
+  faImage = faImage;
 
   constructor(
     public articleService: ArticleService,
@@ -91,8 +93,9 @@ export class StockComponent implements OnInit {
     this.selectedArticles.add(a);
   }
 
-  onImgError(event: Event) {
+  onImgError(event: Event, a: Article) {
     // (event.target as HTMLImageElement).style.display = 'none';
-    (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
+    // (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
+    a.image = undefined;
   }
 }
