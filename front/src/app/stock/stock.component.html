@@ -59,8 +59,15 @@
         >
           <td class="image">
             <img
+              *ngIf="a.image"
               [src]="'/api/upload/' + a.image"
               [alt]="a.image"
+              (error)="onImgError($event)"
+            />
+            <img
+              *ngIf="!a.image"
+              src="assets/image-not-found.svg"
+              alt="Pas d'image"
               (error)="onImgError($event)"
             />
           </td>
