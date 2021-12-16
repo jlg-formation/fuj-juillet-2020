@@ -55,7 +55,7 @@
         <tr
           [class.selected]="selectedArticles.has(a)"
           (click)="toggle(a)"
-          *ngFor="let a of articleService.articles$ | async"
+          *ngFor="let a of articleService.documents$ | async"
         >
           <td class="image">
             <img
@@ -70,7 +70,7 @@
         </tr>
         <tr
           class="empty"
-          *ngIf="(articleService.articles$ | async)?.length === 0"
+          *ngIf="(articleService.documents$ | async)?.length === 0"
         >
           <td colspan="3" *ngIf="!error">Pas d'article.</td>
           <td colspan="3" *ngIf="error">Erreur: {{ error }}.</td>
