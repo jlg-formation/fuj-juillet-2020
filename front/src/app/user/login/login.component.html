@@ -1,12 +1,12 @@
 <main>
   <h1>Page de connexion</h1>
   <nav>
-    <a class="button" [href]="oauth2Service.getAuthorizeUrl('GITHUB')">
-      Connexion avec Github
+    <a [href]="oauth2Service.getAuthorizeUrl('GITHUB')">
+      <button>Connexion avec Github</button>
     </a>
 
     <a class="button" [href]="oauth2Service.getAuthorizeUrl('AZUREAD')">
-      Connexion avec Azure AD
+      <button>Connexion avec Azure AD</button>
     </a>
 
     <a
@@ -14,7 +14,7 @@
       class="button"
       [href]="oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
     >
-      Connexion avec Test Provider
+      <button>Connexion avec Test Provider</button>
     </a>
   </nav>
 </main>

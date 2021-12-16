@@ -3,5 +3,9 @@ nav {
   flex-flow: column;
   a {
     margin: 0.4em;
+    display: flex;
+    flex-flow: column;
+    text-decoration: inherit;
+    color: inherit;
   }
 }
