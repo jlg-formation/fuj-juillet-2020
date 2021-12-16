@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
-  DuplicateAsyncValidatorService,
+  DuplicateAsyncValidator,
   JlgValidators,
 } from '@jlguenego/angular-tools';
 import { delay, lastValueFrom } from 'rxjs';
@@ -30,7 +30,7 @@ export class AddComponent {
         Validators.minLength(3),
       ],
       asyncValidators: [
-        this.duplicateAsyncValidatorService.validate(
+        this.duplicateAsyncValidator.validate(
           (val: string) => '/api/articles?filter[name]=' + val
         ),
       ],
@@ -44,7 +44,7 @@ export class AddComponent {
     private router: Router,
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private duplicateAsyncValidatorService: DuplicateAsyncValidatorService,
+    private duplicateAsyncValidator: DuplicateAsyncValidator,
     private fileService: FileService
   ) {}
 
