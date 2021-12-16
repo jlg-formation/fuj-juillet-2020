@@ -92,6 +92,7 @@ export class StockComponent implements OnInit {
   }
 
   onImgError(event: Event) {
-    (event.target as HTMLImageElement).style.display = 'none';
+    // (event.target as HTMLImageElement).style.display = 'none';
+    (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
   }
 }

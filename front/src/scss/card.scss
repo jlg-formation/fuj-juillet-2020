@@ -31,10 +31,17 @@ table.card {
           display: flex;
           justify-content: center;
           align-items: center;
+          background-color: #eee;
+          padding: 0;
+          overflow: hidden;
+          height: 14em;
           img {
-            max-width: 100%;
-            max-height: 15em;
+            height: 100%;
           }
+        }
+
+        &.name {
+          font-weight: bold;
         }
       }
     }
