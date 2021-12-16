@@ -61,7 +61,7 @@
             <img
               *ngIf="a.image"
               [src]="'/api/upload/' + a.image"
-              [alt]="a.image"
+              alt="Image d'illustration de l'article"
               (error)="onImgError($event)"
             />
             <img
