@@ -3,18 +3,25 @@
     class="user"
     *ngIf="(userService.user$ | async) === undefined"
     (click)="connect()"
+    aria-label="Se connecter"
   >
     <fa-icon [icon]="faSignInAlt"></fa-icon>
-    Se connecter
+    <span class="text"> Se connecter </span>
   </button>
 
   <div class="user" *ngIf="userService.user$ | async">
-    <fa-icon [icon]="faUserCircle"></fa-icon>
-    <a class="login" routerLink="/user">
-      {{ (userService.user$ | async)?.displayName }}
-    </a>
+    <button
+      class="login"
+      routerLink="/user"
+      [attr.aria-label]="(userService.user$ | async)?.displayName"
+    >
+      <fa-icon [icon]="faUserCircle"></fa-icon>
+      <span class="text">{{ (userService.user$ | async)?.displayName }}</span>
+    </button>
   </div>
 </ng-container>
 <div class="loading" *ngIf="(oauth2Service.config$ | async) === undefined">
-  <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  <button disabled>
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </button>
 </div>

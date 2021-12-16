@@ -6,20 +6,18 @@
     color: gray;
   }
 
-  .user {
+  button {
     display: flex;
     align-items: center;
     gap: 0.3em;
-  }
-
-  a {
+    white-space: nowrap;
     text-align: right;
     text-overflow: ellipsis;
-    text-decoration: inherit;
-    color: inherit;
+  }
+}
 
-    &:hover {
-      text-decoration: underline;
-    }
+@media screen and (max-width: 400px) {
+  .text {
+    display: none;
   }
 }

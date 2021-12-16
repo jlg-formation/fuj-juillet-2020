@@ -11,12 +11,12 @@ table.card {
     gap: 0.5em;
     width: 100%;
 
-    @media screen and (min-width: 0px) and (max-width: 800px) {
+    @media screen and (max-width: 800px) {
       flex-flow: column nowrap;
       align-items: stretch;
     }
     tr {
-      @media screen and (min-width: 0px) and (max-width: 800px) {
+      @media screen and (max-width: 800px) {
         width: 100%;
       }
       width: 19em;
