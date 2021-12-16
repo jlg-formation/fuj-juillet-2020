@@ -2,7 +2,17 @@
   <h1>User Information</h1>
   <div>
     <app-detail [object]="userService.user$ | async"></app-detail>
-
+    <label>
+      <div>Hue: {{ hue.value }}</div>
+      <input
+        type="range"
+        [formControl]="hue"
+        min="0"
+        max="360"
+        step="1"
+        (input)="updateHue()"
+      />
+    </label>
     <nav>
       <button class="theme" (click)="colorSchemeService.toggleColorScheme()">
         Mettre le thème

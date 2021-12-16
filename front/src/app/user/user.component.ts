@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { ColorSchemeService } from '@jlguenego/angular-tools';
 import { Router } from '@angular/router';
 import { UserService } from './../services/user.service';
@@ -9,6 +10,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
+  hue = new FormControl(this.getHue());
   constructor(
     public userService: UserService,
     private router: Router,
@@ -22,5 +24,14 @@ export class UserComponent {
         this.router.navigateByUrl('/');
       },
     });
+  }
+
+  getHue() {
+    return this.colorSchemeService.hue$.value;
+  }
+
+  updateHue() {
+    const hue = +this.hue.value;
+    this.colorSchemeService.updateHue(hue);
   }
 }
