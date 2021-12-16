@@ -30,7 +30,10 @@
         </button>
       </nav>
       <nav>
-        <button (click)="toggleShowMode()">
+        <button
+          (click)="toggleShowMode()"
+          aria-label="Voir les articles par carte ou table"
+        >
           <fa-icon
             [icon]="showMode === 'card' ? faList : faAddressCard"
           ></fa-icon>
