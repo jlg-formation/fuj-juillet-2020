@@ -8,9 +8,14 @@
 
 @import "../node_modules/@jlguenego/angular-tools/src/assets/themes.css";
 @import "./scss/button.scss";
+@import "./scss/form.scss";
 @import "./scss/skeleton.scss";
 @import "./scss/table.scss";
 @import "./scss/card.scss";
+
+:root {
+  --primary-hue: 240;
+}
 
 body {
   min-width: 320px;
@@ -32,31 +37,4 @@ main {
   max-width: 50em;
   width: 100%;
   margin: 0 auto;
-}
-
-form {
-  display: flex;
-  flex-flow: column;
-  width: 100%;
-  max-width: 25em;
-  label {
-    padding-bottom: 0.5em;
-
-    input {
-      padding: 0.5em 1em;
-      border: 0.1em solid var(--gray-8);
-      width: 100%;
-    }
-
-    .error {
-      display: flex;
-      align-items: center;
-      height: 1.2em;
-      font-weight: bold;
-    }
-  }
-
-  button {
-    margin-top: 2em;
-  }
 }
