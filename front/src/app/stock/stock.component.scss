@@ -10,13 +10,24 @@ div.navigation {
   nav {
     display: flex;
     gap: 0.3em;
-    margin-bottom: 0.5em;
+    margin: 0.5em 0;
 
     button:not([hidden]) {
       width: 3em;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  div.navigation {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    nav {
+      margin: 0.5em;
     }
   }
 }
