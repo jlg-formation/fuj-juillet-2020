@@ -20,17 +20,17 @@ table.card {
         width: 100%;
       }
       width: 19em;
-      border: 0.1em solid #eee;
+      border: 0.1em solid var(--gray-6);
       cursor: pointer;
       display: flex;
       flex-flow: column;
       &:hover {
-        background-color: #eee;
+        background-color: var(--gray-8);
       }
       &.selected {
-        background-color: #ddd;
+        background-color: var(--gray-7);
         .image {
-          background-color: #ddd;
+          background-color: var(--gray-7);
         }
       }
       td {
@@ -42,7 +42,7 @@ table.card {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #eee;
+          background-color: var(--gray-9);
           padding: 0;
           overflow: hidden;
           height: 14em;
@@ -50,7 +50,7 @@ table.card {
             height: 100%;
           }
           .not-found {
-            color: #ccc;
+            color: var(--gray-5);
             font-size: 8em;
           }
         }
@@ -66,11 +66,18 @@ table.card {
     cursor: inherit;
 
     tr {
-      td {
-        background-color: #ddd;
+      td:not(.image) {
+        background-color: var(--gray-8);
         background-clip: content-box;
-        color: #ddd;
+        color: var(--gray-8);
         animation: skeleton 2s ease-in-out infinite;
+      }
+
+      td.image {
+        .not-found {
+          color: var(--gray-8);
+          animation: skeleton-image 2s ease-in-out infinite;
+        }
       }
     }
   }

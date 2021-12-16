@@ -1,14 +1,26 @@
 @keyframes skeleton {
   0% {
-    background-color: #ddd;
-    color: #ddd;
+    background-color: var(--gray-8);
+    color: var(--gray-8);
   }
   50% {
-    background-color: #ccc;
-    color: #ccc;
+    background-color: var(--gray-7);
+    color: var(--gray-7);
   }
   100% {
-    background-color: #ddd;
-    color: #ddd;
+    background-color: var(--gray-8);
+    color: var(--gray-8);
+  }
+}
+
+@keyframes skeleton-image {
+  0% {
+    color: var(--gray-8);
+  }
+  50% {
+    color: var(--gray-7);
+  }
+  100% {
+    color: var(--gray-8);
   }
 }

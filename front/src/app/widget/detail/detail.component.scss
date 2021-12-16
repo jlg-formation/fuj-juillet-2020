@@ -1,6 +1,6 @@
 table {
   border-collapse: collapse;
-  border: 0.1em solid #ddd;
+  border: 0.1em solid var(--gray-8);
   margin: 1em 0;
 
   td {
@@ -9,13 +9,13 @@ table {
 
   @media screen and (min-width: 601px) {
     td:first-child {
-      border-right: 0.1em solid #ddd;
+      border-right: 0.1em solid var(--gray-8);
       text-align: right;
     }
   }
 
   tr:nth-child(even) {
-    background-color: #eee;
+    background-color: var(--gray-9);
   }
 
   td.value {

@@ -6,47 +6,44 @@ button {
     color: inherit;
     cursor: pointer;
 
-    border: 0.1em solid var(--button-border-color);
-    background: var(--button-bg-color);
+    border: 0.1em solid var(--gray-9);
+    background: var(--gray-9);
 
     &:hover {
-      border-color: var(--button-border-color);
-      background: var(--button-hover-bg-color);
+      border-color: var(--gray-8);
+      background: var(--gray-8);
     }
 
     &:active {
-      border-color: var(--button-border-color);
-      background: var(--button-active-bg-color);
+      border-color: var(--gray-7);
+      background: var(--gray-7);
     }
 
     &.primary {
-      border: 0.1em solid var(--button-primary-bg-color);
-      background: var(--button-primary-bg-color);
-      color: #fff;
-
+      border: 0.1em solid var(--primary-3);
+      background: var(--primary-3);
+      color: var(--gray-10);
       &:hover {
-        border-color: var(--button-primary-hover-bg-color);
-        background: var(--button-primary-hover-bg-color);
+        border-color: var(--primary-4);
+        background: var(--primary-4);
       }
 
       &:active {
-        border-color: var(--button-primary-active-bg-color);
-        background: var(--button-primary-active-bg-color);
+        border-color: var(--primary-3);
+        background: var(--primary-3);
       }
     }
 
     &.quiet {
-      border: 0.1em solid var(--button-quiet-bg-color);
-      background: var(--button-quiet-bg-color);
+      border: 0.1em solid var(--transparent-0);
+      background: var(--transparent-0);
 
       &:hover {
-        // border-color: var(--button-quiet-hover-bg-color);
-        background: var(--button-quiet-hover-bg-color);
+        background: var(--transparent-1);
       }
 
       &:active {
-        // border-color: var(--button-quiet-active-bg-color);
-        background: var(--button-quiet-active-bg-color);
+        background: var(--transparent-2);
       }
     }
   }

@@ -9,8 +9,8 @@
 >
   <style>
     path {
-      stroke: #ccc;
-      fill: #ccc;
+      stroke: var(--gray-7);
+      fill: var(--gray-7);
     }
   </style>
   <path

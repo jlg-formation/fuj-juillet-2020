@@ -1,5 +1,5 @@
 table.detail {
-  border: 0.1em solid #bbb;
+  border: 0.1em solid var(--gray-6);
   border-collapse: collapse;
   width: 100%;
 
@@ -11,7 +11,7 @@ table.detail {
     }
 
     .not-found {
-      color: #ccc;
+      color: var(--gray-5);
     }
 
     @media screen and (max-width: 400px) {
@@ -38,13 +38,13 @@ table.detail {
   }
 
   thead {
-    background-color: #bbb;
+    background-color: var(--gray-6);
   }
 
   tbody {
     cursor: pointer;
     tr:nth-child(even) {
-      background-color: #eee;
+      background-color: var(--gray-9);
     }
   }
 
@@ -56,10 +56,10 @@ table.detail {
 
   tbody:not(.skeleton) {
     tr:hover {
-      background-color: #ddd;
+      background-color: var(--gray-8);
     }
     tr.selected {
-      background-color: #ccc;
+      background-color: var(--gray-7);
     }
   }
 
@@ -68,9 +68,9 @@ table.detail {
 
     tr {
       td {
-        background-color: #ddd;
+        background-color: var(--gray-8);
         background-clip: content-box;
-        color: #ddd;
+        color: var(--gray-8);
         animation: skeleton 2s ease-in-out infinite;
       }
     }
