@@ -9,8 +9,8 @@
 >
   <style>
     path {
-      stroke: #ddd;
-      fill: #ddd;
+      stroke: #ccc;
+      fill: #ccc;
     }
   </style>
   <path

@@ -1,6 +1,7 @@
 table.detail {
   border: 0.1em solid #bbb;
   border-collapse: collapse;
+  width: 100%;
 
   .image {
     width: 3em;
@@ -9,13 +10,14 @@ table.detail {
       width: 100%;
     }
 
-    @media screen and (max-width: 400px) {
+    @media screen and (min-width: 0px) and (max-width: 400px) {
       display: none;
     }
   }
 
   .name {
-    width: 10em;
+    min-width: 8em;
+    text-align: left;
   }
 
   .price {
