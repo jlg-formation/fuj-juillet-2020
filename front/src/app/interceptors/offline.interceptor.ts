@@ -22,7 +22,7 @@ export class OfflineInterceptor implements HttpInterceptor {
         error: (error) => {
           console.log('offline interceptor response: ', error);
           if (error instanceof HttpErrorResponse) {
-            if (error.status === 504) {
+            if ([0, 504].includes(error.status)) {
               console.log('response.status: ', error.status);
               this.offlineService.set('offline');
               return;

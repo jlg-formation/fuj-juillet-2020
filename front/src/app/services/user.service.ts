@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, defer, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 
@@ -16,12 +16,10 @@ export class UserService {
   }
 
   disconnect(): Observable<void> {
-    return this.http.post<void>('/api/auth/disconnect', undefined).pipe(
-      catchError((err) => of(undefined)),
-      tap(() => {
-        this.user$.next(undefined);
-      })
-    );
+    return defer(() => {
+      this.user$.next(undefined);
+      return this.http.post<void>('/api/auth/disconnect', undefined);
+    }).pipe(catchError((err) => of(undefined)));
   }
 
   getOfflineUser(): User | undefined {
