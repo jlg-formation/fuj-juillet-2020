@@ -16,10 +16,12 @@ export class UserService {
   }
 
   disconnect(): Observable<void> {
-    this.user$.next(undefined);
-    return this.http
-      .post<void>('/api/auth/disconnect', undefined)
-      .pipe(catchError((err) => of(undefined)));
+    return this.http.post<void>('/api/auth/disconnect', undefined).pipe(
+      catchError((err) => of(undefined)),
+      tap(() => {
+        this.user$.next(undefined);
+      })
+    );
   }
 
   getOfflineUser(): User | undefined {
