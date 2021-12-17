@@ -19,6 +19,10 @@ export class OfflineInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       tap({
+        next: (response) => {
+          console.log('offline interceptor response: ', response);
+          this.offlineService.set('online');
+        },
         error: (error) => {
           console.log('offline interceptor response: ', error);
           if (error instanceof HttpErrorResponse) {
