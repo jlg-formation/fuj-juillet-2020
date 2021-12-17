@@ -1,5 +1,5 @@
+import { OfflineService } from './../../services/offline.service';
 import { Component } from '@angular/core';
-import { ColorSchemeService } from '@jlguenego/angular-tools';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +7,5 @@ import { ColorSchemeService } from '@jlguenego/angular-tools';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-  constructor(public colorSchemeService: ColorSchemeService) {}
+  constructor(public offlineService: OfflineService) {}
 }

@@ -1,4 +1,5 @@
 <footer>
   <a routerLink="/legal"> Mentions Légales </a>
   <app-color-scheme></app-color-scheme>
+  <span>{{ offlineService.connectionStatus$ | async }}</span>
 </footer>
