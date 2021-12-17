@@ -9,6 +9,8 @@ import { Error403Component } from './routes/error403/error403.component';
 import { Error404Component } from './routes/error404/error404.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,12 @@ import { LegalComponent } from './routes/legal/legal.component';
     Error404Component,
     Error403Component,
   ],
-  imports: [BrowserModule, AppRoutingModule, LayoutModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, LayoutModule, HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  enabled: environment.production,
+  // Register the ServiceWorker as soon as the app is stable
+  // or after 30 seconds (whichever comes first).
+  registrationStrategy: 'registerWhenStable:30000'
+})],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
