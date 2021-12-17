@@ -39,10 +39,18 @@ export class Oauth2Service {
     })();
   }
 
-  syncOfflineConfig() {
-    this.config$.subscribe((config) => {
-      localStorage.setItem('oauth2Config', JSON.stringify(config));
-    });
+  getAuthorizeUrl(provider: string) {
+    const config = this.config$.value;
+    if (!config) {
+      return '';
+    }
+    const providerConfig = config[provider];
+    if (!providerConfig) {
+      return '';
+    }
+
+    const result = providerConfig.authorizationUrl;
+    return result;
   }
 
   getOfflineConfig(): Oauth2Config | undefined {
@@ -58,17 +66,9 @@ export class Oauth2Service {
     }
   }
 
-  getAuthorizeUrl(provider: string) {
-    const config = this.config$.value;
-    if (!config) {
-      return '';
-    }
-    const providerConfig = config[provider];
-    if (!providerConfig) {
-      return '';
-    }
-
-    const result = providerConfig.authorizationUrl;
-    return result;
+  syncOfflineConfig() {
+    this.config$.subscribe((config) => {
+      localStorage.setItem('oauth2Config', JSON.stringify(config));
+    });
   }
 }
