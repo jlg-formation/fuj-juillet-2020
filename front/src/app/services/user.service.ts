@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -11,7 +11,14 @@ export class UserService {
   user$ = new BehaviorSubject<User | undefined>(undefined);
 
   constructor(private http: HttpClient) {
+    this.syncOfflineUser();
     this.isConnected().subscribe();
+  }
+
+  syncOfflineUser() {
+    this.user$.subscribe((user) => {
+      localStorage.setItem('user', JSON.stringify(user));
+    });
   }
 
   isConnected(): Observable<User | undefined> {
@@ -20,7 +27,20 @@ export class UserService {
         console.log('isConnected user body', u);
         return u || undefined;
       }),
-      catchError(() => of(undefined)),
+      catchError((err) => {
+        console.log('err: ', err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            return of(undefined);
+          }
+          // other errors means no clear answer from the server.
+          // consider we are offline
+          const user = this.getOfflineUser();
+          console.log('offline user: ', user);
+          return of(user);
+        }
+        return of(undefined);
+      }),
       tap((u) => {
         if (!u && !this.user$.value) {
           return;
@@ -40,7 +60,6 @@ export class UserService {
 
   setAfterLoginRoute(path: string): Observable<void> {
     const url = window.location.origin + path;
-    console.log('url: ', url);
     return this.http.post<void>('/api/auth/afterLoginRoute', { url }).pipe(
       tap({
         error: (err) => {
@@ -48,5 +67,21 @@ export class UserService {
         },
       })
     );
+  }
+
+  getOfflineUser(): User | undefined {
+    try {
+      const str = localStorage.getItem('user');
+      if (!str) {
+        return undefined;
+      }
+      const user = JSON.parse(str) as User;
+      if (!user.displayName) {
+        return undefined;
+      }
+      return user;
+    } catch (err) {
+      return undefined;
+    }
   }
 }

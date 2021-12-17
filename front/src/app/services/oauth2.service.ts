@@ -27,7 +27,7 @@ export class Oauth2Service {
         );
         this.config$.next(config);
       } catch (err) {
-        console.log('err: ', err);
+        console.log('cannot setup the auth2 service: ', err);
       }
     })();
   }
