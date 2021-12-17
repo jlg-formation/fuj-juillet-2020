@@ -6,20 +6,15 @@ table.card {
   }
 
   tbody {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+
     width: 100%;
 
-    @media screen and (max-width: 800px) {
-      flex-flow: column nowrap;
-      align-items: stretch;
-    }
     tr {
-      @media screen and (max-width: 800px) {
-        width: 100%;
-      }
-      width: 19em;
       border: 0.1em solid var(--gray-6);
       cursor: pointer;
       display: flex;
@@ -48,6 +43,8 @@ table.card {
           height: 14em;
           img {
             height: 100%;
+            width: 100%;
+            object-fit: cover;
           }
           .not-found {
             color: var(--gray-5);
