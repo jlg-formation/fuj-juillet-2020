@@ -17,7 +17,9 @@ export class UserService {
 
   disconnect(): Observable<void> {
     this.user$.next(undefined);
-    return this.http.post<void>('/api/auth/disconnect', undefined);
+    return this.http
+      .post<void>('/api/auth/disconnect', undefined)
+      .pipe(catchError((err) => of(undefined)));
   }
 
   getOfflineUser(): User | undefined {
