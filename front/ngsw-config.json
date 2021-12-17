@@ -10,6 +10,16 @@
       }
     },
     {
+      "name": "fontello",
+      "installMode": "prefetch",
+      "resources": {
+        "files": ["/fontello*"]
+      },
+      "cacheQueryOptions": {
+        "ignoreSearch": true
+      }
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
