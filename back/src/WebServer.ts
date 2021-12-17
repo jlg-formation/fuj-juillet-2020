@@ -54,6 +54,10 @@ export class WebServer {
 
     // Access logs
     app.use(accessLog);
+    app.use((req, res, next) => {
+      console.log('req: ', req.session);
+      next();
+    });
 
     // Authentication
     app.use('/api', oauth2Client.router());
