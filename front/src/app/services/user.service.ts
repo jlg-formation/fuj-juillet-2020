@@ -8,17 +8,32 @@ import { User } from '../interfaces/user';
   providedIn: 'root',
 })
 export class UserService {
-  user$ = new BehaviorSubject<User | undefined>(undefined);
+  user$ = new BehaviorSubject<User | undefined>(this.getOfflineUser());
 
   constructor(private http: HttpClient) {
     this.syncOfflineUser();
     this.isConnected().subscribe();
   }
 
-  syncOfflineUser() {
-    this.user$.subscribe((user) => {
-      localStorage.setItem('user', JSON.stringify(user));
-    });
+  disconnect(): Observable<void> {
+    this.user$.next(undefined);
+    return this.http.post<void>('/api/auth/disconnect', undefined);
+  }
+
+  getOfflineUser(): User | undefined {
+    try {
+      const str = localStorage.getItem('user');
+      if (!str) {
+        return undefined;
+      }
+      const user = JSON.parse(str) as User;
+      if (!user.displayName) {
+        return undefined;
+      }
+      return user;
+    } catch (err) {
+      return undefined;
+    }
   }
 
   isConnected(): Observable<User | undefined> {
@@ -53,11 +68,6 @@ export class UserService {
     );
   }
 
-  disconnect(): Observable<void> {
-    this.user$.next(undefined);
-    return this.http.post<void>('/api/auth/disconnect', undefined);
-  }
-
   setAfterLoginRoute(path: string): Observable<void> {
     const url = window.location.origin + path;
     return this.http.post<void>('/api/auth/afterLoginRoute', { url }).pipe(
@@ -69,19 +79,9 @@ export class UserService {
     );
   }
 
-  getOfflineUser(): User | undefined {
-    try {
-      const str = localStorage.getItem('user');
-      if (!str) {
-        return undefined;
-      }
-      const user = JSON.parse(str) as User;
-      if (!user.displayName) {
-        return undefined;
-      }
-      return user;
-    } catch (err) {
-      return undefined;
-    }
+  syncOfflineUser() {
+    this.user$.subscribe((user) => {
+      localStorage.setItem('user', JSON.stringify(user));
+    });
   }
 }
