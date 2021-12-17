@@ -37,4 +37,10 @@ header {
       white-space: nowrap;
     }
   }
+
+  .utilities {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

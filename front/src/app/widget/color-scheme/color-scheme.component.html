@@ -1,0 +1,7 @@
+<button class="quiet" (click)="colorSchemeService.toggleColorScheme()">
+  <fa-icon
+    [icon]="
+      (colorSchemeService.colorScheme$ | async) === 'light' ? faSun : faMoon
+    "
+  ></fa-icon>
+</button>
