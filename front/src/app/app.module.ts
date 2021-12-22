@@ -1,3 +1,5 @@
+import { IdbArticleService } from './services/idb-article.service';
+import { ArticleService } from './services/article.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,6 +46,7 @@ import { OfflineInterceptor } from './interceptors/offline.interceptor';
       useClass: OfflineInterceptor,
       multi: true,
     },
+    { provide: ArticleService, useClass: IdbArticleService },
   ],
   bootstrap: [AppComponent],
 })
