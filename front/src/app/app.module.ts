@@ -1,19 +1,17 @@
-import { IdbArticleService } from './services/idb-article.service';
-import { ArticleService } from './services/article.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { CredentialsInterceptor } from '@jlguenego/angular-tools';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { OfflineInterceptor } from './interceptors/offline.interceptor';
 import { LayoutModule } from './layout/layout.module';
 import { Error403Component } from './routes/error403/error403.component';
 import { Error404Component } from './routes/error404/error404.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { OfflineInterceptor } from './interceptors/offline.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +44,6 @@ import { OfflineInterceptor } from './interceptors/offline.interceptor';
       useClass: OfflineInterceptor,
       multi: true,
     },
-    { provide: ArticleService, useClass: IdbArticleService },
   ],
   bootstrap: [AppComponent],
 })
