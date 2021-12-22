@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   firstValueFrom,
+  lastValueFrom,
   map,
   Observable,
   ReplaySubject,
@@ -40,6 +41,7 @@ export class IdbArticleService {
       // Create an objectStore for this database
       db.createObjectStore('articles', {
         keyPath: 'id',
+        autoIncrement: true,
       });
     };
     request.onsuccess = (successEvent) => {
@@ -50,18 +52,72 @@ export class IdbArticleService {
   }
 
   add(document: Article): Observable<void> {
-    return timer(300).pipe(map(() => {}));
+    const subject = new Subject<void>();
+    (async () => {
+      await lastValueFrom(timer(300));
+      const db = await firstValueFrom(this.db$);
+      console.log('db: ', db);
+
+      const transaction = db.transaction([OBJECT_STORE_NAME], 'readwrite');
+      const objectStore = transaction.objectStore(OBJECT_STORE_NAME);
+      const request = objectStore.add(document);
+      request.onerror = (errorEvent) => {
+        console.error('add errorEvent: ', errorEvent);
+        subject.error(errorEvent);
+      };
+      request.onsuccess = (successEvent) => {
+        console.log('add successEvent: ', successEvent);
+        const articles = request.result;
+        subject.next();
+        subject.complete();
+      };
+    })();
+
+    return subject;
   }
 
   remove(selectedDocuments: Set<Article>): Observable<void> {
-    const ids = [...selectedDocuments].map((a) => a.id);
+    const subject = new Subject<void>();
+    (async () => {
+      try {
+        await lastValueFrom(timer(300));
+        const db = await firstValueFrom(this.db$);
+        console.log('db: ', db);
 
-    return timer(300).pipe(map(() => {}));
+        const transaction = db.transaction([OBJECT_STORE_NAME], 'readwrite');
+        const objectStore = transaction.objectStore(OBJECT_STORE_NAME);
+
+        const removeOne = (id: string) => {
+          return new Promise<void>((resolve, reject) => {
+            const request = objectStore.delete(id);
+            request.onerror = (errorEvent) => {
+              console.error('add errorEvent: ', errorEvent);
+              reject(errorEvent);
+            };
+            request.onsuccess = (successEvent) => {
+              console.log('remove successEvent: ', successEvent);
+              resolve();
+            };
+          });
+        };
+
+        for (const id of [...selectedDocuments].map((d) => d.id)) {
+          await removeOne(id);
+        }
+      } catch (err) {
+        subject.error(err);
+      }
+      subject.next();
+      subject.complete();
+    })();
+
+    return subject;
   }
 
   retrieveAll(): Observable<void> {
     const subject = new Subject<void>();
     (async () => {
+      await lastValueFrom(timer(300));
       const db = await firstValueFrom(this.db$);
       console.log('db: ', db);
 
