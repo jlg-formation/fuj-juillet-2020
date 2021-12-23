@@ -1,5 +1,5 @@
-import { OfflineService } from './../../services/offline.service';
 import { Component } from '@angular/core';
+import { OfflineService } from '@jlguenego/angular-tools';
 
 @Component({
   selector: 'app-footer',

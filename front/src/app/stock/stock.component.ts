@@ -74,7 +74,8 @@ export class StockComponent implements OnInit {
     (async () => {
       try {
         this.isRemoving = true;
-        await lastValueFrom(this.articleService.remove(this.selectedArticles));
+        const ids = [...this.selectedArticles].map((a) => a.id);
+        await lastValueFrom(this.articleService.remove(ids));
         this.selectedArticles.clear();
         this.isRemoving = false;
         await lastValueFrom(this.articleService.retrieveAll());

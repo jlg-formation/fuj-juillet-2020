@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { OfflineService } from '../services/offline.service';
+import { OfflineService } from '@jlguenego/angular-tools';
 
 @Injectable()
 export class OfflineInterceptor implements HttpInterceptor {
@@ -21,10 +21,13 @@ export class OfflineInterceptor implements HttpInterceptor {
       tap({
         next: (response) => {
           console.log('offline interceptor response: ', response);
+          if (response.type === 0) {
+            return;
+          }
           this.offlineService.set('online');
         },
         error: (error) => {
-          console.log('offline interceptor response: ', error);
+          console.log('offline interceptor error: ', error);
           if (error instanceof HttpErrorResponse) {
             if ([0, 504].includes(error.status)) {
               console.log('response.status: ', error.status);
