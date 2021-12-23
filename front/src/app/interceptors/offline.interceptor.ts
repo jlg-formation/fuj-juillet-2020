@@ -1,6 +1,7 @@
 import {
   HttpErrorResponse,
   HttpEvent,
+  HttpEventType,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
@@ -21,7 +22,9 @@ export class OfflineInterceptor implements HttpInterceptor {
       tap({
         next: (response) => {
           console.log('offline interceptor response: ', response);
-          if (response.type === 0) {
+          if (
+            [HttpEventType.Sent, HttpEventType.User].includes(response.type)
+          ) {
             return;
           }
           this.offlineService.set('online');
