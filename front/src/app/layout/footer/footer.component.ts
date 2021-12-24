@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OfflineService } from '@jlguenego/angular-tools';
+import { NetworkService } from '@jlguenego/angular-tools';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +7,5 @@ import { OfflineService } from '@jlguenego/angular-tools';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-  constructor(public offlineService: OfflineService) {}
+  constructor(public networkService: NetworkService) {}
 }

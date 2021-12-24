@@ -8,11 +8,11 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { OfflineService } from '@jlguenego/angular-tools';
+import { NetworkService } from '@jlguenego/angular-tools';
 
 @Injectable()
 export class OfflineInterceptor implements HttpInterceptor {
-  constructor(private offlineService: OfflineService) {}
+  constructor(private networkService: NetworkService) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -27,17 +27,17 @@ export class OfflineInterceptor implements HttpInterceptor {
           ) {
             return;
           }
-          this.offlineService.set('online');
+          this.networkService.set('online');
         },
         error: (error) => {
           console.log('offline interceptor error: ', error);
           if (error instanceof HttpErrorResponse) {
             if ([0, 504].includes(error.status)) {
               console.log('response.status: ', error.status);
-              this.offlineService.set('offline');
+              this.networkService.set('offline');
               return;
             }
-            this.offlineService.set('online');
+            this.networkService.set('online');
           }
         },
       })
