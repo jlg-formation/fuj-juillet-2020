@@ -19,7 +19,8 @@ const app = express.Router();
 app.post('/', multer({storage}).single('file'), (req, res) => {
   console.log('req.body: ', req.body);
   console.log('req.file: ', req.file);
-  res.status(201).json({url: req.file?.filename});
+  console.log('req.baseUrl: ', req.baseUrl);
+  res.status(201).json({url: req.baseUrl + '/' + req.file?.filename});
 });
 
 app.use(express.static(uploadDir));

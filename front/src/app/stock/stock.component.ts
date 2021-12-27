@@ -39,7 +39,11 @@ export class StockComponent implements OnInit {
   constructor(
     public articleService: ArticleService,
     public authorizationService: AuthorizationService
-  ) {}
+  ) {
+    this.articleService.documents$.subscribe((documents) => {
+      console.log('emit documents', documents);
+    });
+  }
 
   toggleShowMode() {
     this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
@@ -98,5 +102,10 @@ export class StockComponent implements OnInit {
     // (event.target as HTMLImageElement).style.display = 'none';
     // (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
     a.image = undefined;
+  }
+
+  getImage(url: string) {
+    console.log('getImage: ', url);
+    return url;
   }
 }
