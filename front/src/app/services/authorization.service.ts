@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   AuthorizationConfig,
@@ -70,14 +70,13 @@ const doNotAllowAnythingConfig: AuthorizationConfig = {
   providedIn: 'root',
 })
 export class AuthorizationService {
-  private authConfig: AuthorizationConfig | undefined;
-  private authConfig$ = new Subject<AuthorizationConfig>();
+  private authConfig$ = new ReplaySubject<AuthorizationConfig>();
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.userService.user$.subscribe({
       next: (user) => {
         if (!user) {
-          this.authConfig = undefined;
+          this.authConfig$.next(doNotAllowAnythingConfig);
           return;
         }
         this.http
@@ -86,11 +85,10 @@ export class AuthorizationService {
           )
           .subscribe({
             next: (authConfig) => {
-              this.authConfig = authConfig;
               this.authConfig$.next(authConfig);
             },
             error: (err) => {
-              this.authConfig = doNotAllowAnythingConfig;
+              this.authConfig$.next(doNotAllowAnythingConfig);
             },
           });
       },
@@ -114,9 +112,6 @@ export class AuthorizationService {
   }
 
   getAuthConfig(): Observable<AuthorizationConfig> {
-    if (this.authConfig) {
-      return of(this.authConfig);
-    }
     return this.authConfig$;
   }
 }
