@@ -1,4 +1,7 @@
-<fa-icon
-  [icon]="isOnline ? faLink : faUnlink"
-  [title]="isOnline ? 'Online' : 'Offline'"
-></fa-icon>
+<button class="quiet" [disabled]="isLoading" (click)="ping()">
+  <fa-icon
+    [icon]="isLoading ? faSync : isOnline ? faLink : faUnlink"
+    [spin]="isLoading"
+    [title]="isOnline ? 'Online' : 'Offline'"
+  ></fa-icon>
+</button>
