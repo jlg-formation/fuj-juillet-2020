@@ -9,7 +9,6 @@ export class FileService {
   constructor(private http: HttpClient) {}
 
   add(image: File): Observable<{ url: string }> {
-    console.log('image: ', image);
     const formData = new FormData();
     formData.append('file', image);
     return this.http.post<{ url: string }>('/api/upload', formData);
