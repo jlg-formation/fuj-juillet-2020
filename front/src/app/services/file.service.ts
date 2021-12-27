@@ -14,4 +14,8 @@ export class FileService {
     formData.append('file', image);
     return this.http.post<{ url: string }>('/api/upload', formData);
   }
+
+  getName(name: string): string {
+    return '/api/upload/' + name;
+  }
 }

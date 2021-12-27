@@ -9,6 +9,7 @@ import {
   faSync,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { CacheService } from '@jlguenego/angular-tools';
 import { delay, lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
@@ -38,7 +39,8 @@ export class StockComponent implements OnInit {
 
   constructor(
     public articleService: ArticleService,
-    public authorizationService: AuthorizationService
+    public authorizationService: AuthorizationService,
+    public cacheService: CacheService
   ) {
     this.articleService.documents$.subscribe((documents) => {
       console.log('emit documents', documents);
@@ -99,9 +101,15 @@ export class StockComponent implements OnInit {
   }
 
   onImgError(event: Event, a: Article) {
+    console.log('event: ', event);
     // (event.target as HTMLImageElement).style.display = 'none';
     // (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
-    a.image = undefined;
+    console.log('onImgError');
+    const img = event.target as HTMLImageElement;
+    if (!a.image) {
+      return;
+    }
+    this.cacheService.loadImage(img, a.image);
   }
 
   getImage(url: string) {

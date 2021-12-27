@@ -64,10 +64,18 @@ export class AddComponent {
         this.isAdding = true;
         const article = this.f.value as Article;
         if (this.file) {
-          const { url } = await lastValueFrom(
-            this.fileService.add(this.file).pipe(delay(20))
+          const newName =
+            'file-' +
+            Date.now() +
+            '-' +
+            Math.floor(Math.random() * 1e9) +
+            '.' +
+            getExtension(this.file.type);
+          const renamedFile = new File([this.file], newName);
+          await lastValueFrom(
+            this.fileService.add(renamedFile).pipe(delay(20))
           );
-          article.image = url;
+          article.image = this.fileService.getName(newName);
         }
         await lastValueFrom(this.articleService.add(article).pipe(delay(20)));
         this.router.navigate(['..'], { relativeTo: this.route });
@@ -79,3 +87,10 @@ export class AddComponent {
     })();
   }
 }
+
+const getExtension = (mimeType: string) => {
+  const dico: { [key: string]: string } = {
+    'image/jpeg': 'jpg',
+  };
+  return dico[mimeType];
+};
