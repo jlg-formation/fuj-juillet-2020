@@ -31,7 +31,7 @@ export class NetworkStatusComponent {
       try {
         this.isLoading = true;
         await lastValueFrom(timer(300));
-        await lastValueFrom(this.http.get('/ping-url'));
+        await lastValueFrom(this.http.get('/api/ping-url'));
       } catch (err) {
       } finally {
         this.isLoading = false;
