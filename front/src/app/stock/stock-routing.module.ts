@@ -2,19 +2,19 @@ import { AddComponent } from './add/add.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StockComponent } from './stock.component';
-import { UserGuard } from '../guards/user.guard';
 import { AuthorizationGuard } from '../guards/authorization.guard';
+import { AuthenticationGuard } from '@jlguenego/angular-tools';
 
 const routes: Routes = [
   {
     path: '',
     component: StockComponent,
-    canActivate: [UserGuard, AuthorizationGuard],
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
   },
   {
     path: 'add',
     component: AddComponent,
-    canActivate: [UserGuard, AuthorizationGuard],
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
   },
 ];
 
