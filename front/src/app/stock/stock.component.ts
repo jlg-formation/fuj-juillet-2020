@@ -9,11 +9,10 @@ import {
   faSync,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { CacheService } from '@jlguenego/angular-tools';
+import { AuthorizationService, CacheService } from '@jlguenego/angular-tools';
 import { delay, lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
-import { AuthorizationService } from './../services/authorization.service';
 
 type ShowMode = 'detail' | 'card';
 
