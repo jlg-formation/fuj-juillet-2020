@@ -49,10 +49,9 @@ export class AddComponent {
   ) {}
 
   onFileChange(event: any) {
-    console.log('event: ', event);
     if (event.target.files.length > 0) {
       const file = event.target.files[0] as File;
-      console.log('file: ', file);
+
       this.file = file;
     }
   }
@@ -60,7 +59,6 @@ export class AddComponent {
   submit(): void {
     (async () => {
       try {
-        console.log('submit');
         this.isAdding = true;
         const article = this.f.value as Article;
         if (this.file) {
