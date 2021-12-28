@@ -1,7 +1,7 @@
 <ng-container *ngIf="oauth2Service.config$ | async">
   <button
     class="quiet"
-    *ngIf="(userService.user$ | async) === undefined"
+    *ngIf="(authenticationService.user$ | async) === undefined"
     (click)="connect()"
     aria-label="Se connecter"
   >
@@ -10,13 +10,15 @@
   </button>
 
   <button
-    *ngIf="userService.user$ | async"
+    *ngIf="authenticationService.user$ | async"
     class="quiet"
     routerLink="/user"
-    [attr.aria-label]="(userService.user$ | async)?.displayName"
+    [attr.aria-label]="(authenticationService.user$ | async)?.displayName"
   >
     <fa-icon [icon]="faUserCircle"></fa-icon>
-    <span class="text">{{ (userService.user$ | async)?.displayName }}</span>
+    <span class="text">{{
+      (authenticationService.user$ | async)?.displayName
+    }}</span>
   </button>
 </ng-container>
 <div class="loading" *ngIf="(oauth2Service.config$ | async) === undefined">

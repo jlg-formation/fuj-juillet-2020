@@ -1,7 +1,9 @@
 import { FormControl } from '@angular/forms';
-import { ColorSchemeService } from '@jlguenego/angular-tools';
+import {
+  ColorSchemeService,
+  AuthenticationService,
+} from '@jlguenego/angular-tools';
 import { Router } from '@angular/router';
-import { UserService } from './../services/user.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -12,14 +14,14 @@ import { Component } from '@angular/core';
 export class UserComponent {
   hue = new FormControl(this.getHue());
   constructor(
-    public userService: UserService,
+    public authenticationService: AuthenticationService,
     private router: Router,
     public colorSchemeService: ColorSchemeService
   ) {}
 
   logout(): void {
     console.log('about to logout');
-    this.userService.disconnect().subscribe({
+    this.authenticationService.disconnect().subscribe({
       next: () => {
         this.router.navigateByUrl('/');
       },

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthenticationService } from '@jlguenego/angular-tools';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -8,7 +9,6 @@ import {
   Specifier,
   SpecifierObject,
 } from '../interfaces/authorization-config';
-import { UserService } from './user.service';
 
 function whiteListFilter(value: string, whiteList: Specifier[] | undefined) {
   if (!whiteList) {
@@ -72,8 +72,11 @@ const doNotAllowAnythingConfig: AuthorizationConfig = {
 export class AuthorizationService {
   private authConfig$ = new ReplaySubject<AuthorizationConfig>();
 
-  constructor(private http: HttpClient, private userService: UserService) {
-    this.userService.user$.subscribe({
+  constructor(
+    private http: HttpClient,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.user$.subscribe({
       next: (user) => {
         if (!user) {
           return;

@@ -1,7 +1,7 @@
 <main>
   <h1>User Information</h1>
   <div>
-    <app-detail [object]="userService.user$ | async"></app-detail>
+    <app-detail [object]="authenticationService.user$ | async"></app-detail>
     <label>
       <div>Hue: {{ hue.value }}</div>
       <input

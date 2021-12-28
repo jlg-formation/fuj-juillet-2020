@@ -1,6 +1,6 @@
-import { UserService } from './user.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthenticationService } from '@jlguenego/angular-tools';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -20,11 +20,14 @@ export class Oauth2Service {
     this.getOfflineConfig()
   );
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    private authenticationService: AuthenticationService
+  ) {
     this.syncOfflineConfig();
     (async () => {
       try {
-        await lastValueFrom(this.userService.setAfterLoginRoute('/'));
+        await lastValueFrom(this.authenticationService.setAfterLoginRoute('/'));
         const config = await lastValueFrom(
           this.http.get<Oauth2Config>('/api/oauth2/config').pipe(delay(500))
         );

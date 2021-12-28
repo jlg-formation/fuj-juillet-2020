@@ -5,9 +5,9 @@ import {
   faSignInAlt,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '@jlguenego/angular-tools';
 import { lastValueFrom } from 'rxjs';
 import { Oauth2Service } from './../../services/oauth2.service';
-import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-user-status',
@@ -20,7 +20,7 @@ export class UserStatusComponent {
   faCircleNotch = faCircleNotch;
   constructor(
     private router: Router,
-    public userService: UserService,
+    public authenticationService: AuthenticationService,
     public oauth2Service: Oauth2Service
   ) {}
 
@@ -29,7 +29,7 @@ export class UserStatusComponent {
     (async () => {
       try {
         await lastValueFrom(
-          this.userService.setAfterLoginRoute(this.router.url)
+          this.authenticationService.setAfterLoginRoute(this.router.url)
         );
         this.router.navigateByUrl('/user/login');
       } catch (err) {

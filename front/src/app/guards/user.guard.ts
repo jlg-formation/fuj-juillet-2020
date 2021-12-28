@@ -6,15 +6,18 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { AuthenticationService } from '@jlguenego/angular-tools';
 import { lastValueFrom, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,16 +28,18 @@ export class UserGuard implements CanActivate {
     | boolean
     | UrlTree {
     console.log('guard start for state.url', state.url);
-    if (this.userService.user$.value) {
+    if (this.authenticationService.user$.value) {
       return true;
     }
 
-    return this.userService.isConnected().pipe(
+    return this.authenticationService.isConnected().pipe(
       switchMap(async (user) => {
         console.log('test passed: is connected: ', user);
         if (!user) {
           console.log('not connected');
-          await lastValueFrom(this.userService.setAfterLoginRoute(state.url));
+          await lastValueFrom(
+            this.authenticationService.setAfterLoginRoute(state.url)
+          );
           await this.router.navigateByUrl('/user/login');
           return false;
         }
