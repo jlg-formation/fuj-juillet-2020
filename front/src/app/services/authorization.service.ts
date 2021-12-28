@@ -76,7 +76,6 @@ export class AuthorizationService {
     this.userService.user$.subscribe({
       next: (user) => {
         if (!user) {
-          this.authConfig$.next(doNotAllowAnythingConfig);
           return;
         }
         this.http
@@ -106,6 +105,7 @@ export class AuthorizationService {
   canGoToPath(path: string): Observable<boolean> {
     return this.getAuthConfig().pipe(
       map((authzConfig) => {
+        console.log('authzConfig: ', authzConfig);
         return isAuthorized(path, authzConfig.path);
       })
     );

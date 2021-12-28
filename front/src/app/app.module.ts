@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {
+  AngularToolsConfigService,
   CredentialsInterceptor,
   NetworkInterceptor,
+  TimeoutInterceptor,
 } from '@jlguenego/angular-tools';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +16,7 @@ import { Error403Component } from './routes/error403/error403.component';
 import { Error404Component } from './routes/error404/error404.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
+import { CustomAngularToolsConfigService } from './services/custom-angular-tools-config.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,15 @@ import { LegalComponent } from './routes/legal/legal.component';
       provide: HTTP_INTERCEPTORS,
       useClass: NetworkInterceptor,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimeoutInterceptor,
+      multi: true,
+    },
+    {
+      provide: AngularToolsConfigService,
+      useClass: CustomAngularToolsConfigService,
     },
   ],
   bootstrap: [AppComponent],
