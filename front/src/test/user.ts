@@ -1,4 +1,4 @@
-import { User } from 'src/app/interfaces/user';
+import { User } from '@jlguenego/angular-tools';
 
 export const user: User = {
   displayName: 'John Doe',
