@@ -17,10 +17,6 @@ import { FileService } from '../../services/file.service';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent {
-  faPlus = faPlus;
-  faCircleNotch = faCircleNotch;
-
-  isAdding = false;
   error = '';
   f = new FormGroup({
     name: new FormControl('toto', {
@@ -38,7 +34,10 @@ export class AddComponent {
     price: new FormControl(1.23, [Validators.required]),
     qty: new FormControl(1, [Validators.required, JlgValidators.integer]),
   });
+  faCircleNotch = faCircleNotch;
+  faPlus = faPlus;
   file!: File;
+  isAdding = false;
 
   constructor(
     private router: Router,
