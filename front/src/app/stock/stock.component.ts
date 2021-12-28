@@ -24,18 +24,17 @@ type ShowMode = 'detail' | 'card';
 })
 export class StockComponent implements OnInit {
   error = '';
+  faAddressCard = faAddressCard;
+  faCircleNotch = faCircleNotch;
+  faImage = faImage;
+  faList = faList;
+  faPlus = faPlus;
+  faSync = faSync;
+  faTrashAlt = faTrashAlt;
   isLoading = false;
   isRemoving = false;
   selectedArticles = new Set<Article>();
   showMode: ShowMode = 'card';
-
-  faSync = faSync;
-  faPlus = faPlus;
-  faTrashAlt = faTrashAlt;
-  faCircleNotch = faCircleNotch;
-  faList = faList;
-  faAddressCard = faAddressCard;
-  faImage = faImage;
 
   constructor(
     public articleService: ArticleService,
@@ -47,13 +46,25 @@ export class StockComponent implements OnInit {
     });
   }
 
-  toggleShowMode() {
-    this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
-    console.log(this.selectedArticles);
+  getImage(url: string) {
+    console.log('getImage: ', url);
+    return url;
   }
 
   ngOnInit(): void {
     this.refresh();
+  }
+
+  onImgError(event: Event, a: Article) {
+    console.log('event: ', event);
+    // (event.target as HTMLImageElement).style.display = 'none';
+    // (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
+    console.log('onImgError');
+    const img = event.target as HTMLImageElement;
+    if (!a.image) {
+      return;
+    }
+    this.cacheService.loadImage(img, a.image);
   }
 
   refresh() {
@@ -100,20 +111,8 @@ export class StockComponent implements OnInit {
     this.selectedArticles.add(a);
   }
 
-  onImgError(event: Event, a: Article) {
-    console.log('event: ', event);
-    // (event.target as HTMLImageElement).style.display = 'none';
-    // (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
-    console.log('onImgError');
-    const img = event.target as HTMLImageElement;
-    if (!a.image) {
-      return;
-    }
-    this.cacheService.loadImage(img, a.image);
-  }
-
-  getImage(url: string) {
-    console.log('getImage: ', url);
-    return url;
+  toggleShowMode() {
+    this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
+    console.log(this.selectedArticles);
   }
 }

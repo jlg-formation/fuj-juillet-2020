@@ -6,6 +6,7 @@ import {
   AngularToolsConfigService,
   CredentialsInterceptor,
   NetworkInterceptor,
+  OfflineStorageModule,
   TimeoutInterceptor,
 } from '@jlguenego/angular-tools';
 import { environment } from '../environments/environment';
@@ -37,6 +38,7 @@ import { CustomAngularToolsConfigService } from './services/custom-angular-tools
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    OfflineStorageModule.forRoot(),
   ],
   providers: [
     {
