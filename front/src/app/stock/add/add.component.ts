@@ -4,12 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   DuplicateAsyncValidator,
+  FileService,
   JlgValidators,
 } from '@jlguenego/angular-tools';
 import { delay, lastValueFrom } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-add',
