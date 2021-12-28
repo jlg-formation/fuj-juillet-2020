@@ -5,7 +5,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import {
   AngularToolsConfigService,
   CredentialsInterceptor,
-  NetworkInterceptor,
   OfflineStorageModule,
   TimeoutInterceptor,
 } from '@jlguenego/angular-tools';
@@ -44,11 +43,6 @@ import { CustomAngularToolsConfigService } from './services/custom-angular-tools
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CredentialsInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NetworkInterceptor,
       multi: true,
     },
     {
