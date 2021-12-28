@@ -75,7 +75,7 @@ export class AddComponent {
           await lastValueFrom(
             this.fileService.add(renamedFile).pipe(delay(20))
           );
-          article.image = this.fileService.getName(newName);
+          article.image = this.fileService.getUrl(newName);
         }
         await lastValueFrom(this.articleService.add(article).pipe(delay(20)));
         this.router.navigate(['..'], { relativeTo: this.route });

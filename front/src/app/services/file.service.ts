@@ -14,7 +14,7 @@ export class FileService {
     return this.http.post<{ url: string }>('/api/upload', formData);
   }
 
-  getName(name: string): string {
+  getUrl(name: string): string {
     return '/api/upload/' + name;
   }
 }
