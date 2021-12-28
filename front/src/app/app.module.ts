@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {
-  AngularToolsConfigService,
+  AngularToolsModule,
   CredentialsInterceptor,
   OfflineStorageModule,
   TimeoutInterceptor,
@@ -16,7 +16,6 @@ import { Error403Component } from './routes/error403/error403.component';
 import { Error404Component } from './routes/error404/error404.component';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
-import { CustomAngularToolsConfigService } from './services/custom-angular-tools-config.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +36,9 @@ import { CustomAngularToolsConfigService } from './services/custom-angular-tools
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    AngularToolsModule.forRoot({
+      timeoutMsg: `Le serveur n'a pas répondu dans le délai imparti de 5000ms.`,
+    }),
     OfflineStorageModule.forRoot(),
   ],
   providers: [
@@ -49,10 +51,6 @@ import { CustomAngularToolsConfigService } from './services/custom-angular-tools
       provide: HTTP_INTERCEPTORS,
       useClass: TimeoutInterceptor,
       multi: true,
-    },
-    {
-      provide: AngularToolsConfigService,
-      useClass: CustomAngularToolsConfigService,
     },
   ],
   bootstrap: [AppComponent],
