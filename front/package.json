@@ -27,7 +27,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@jlguenego/angular-tools": "^0.0.4",
+    "@jlguenego/angular-tools": "^0.0.5",
     "localforage": "^1.10.0",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.4.0",
