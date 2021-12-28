@@ -5,9 +5,8 @@ import {
   faSignInAlt,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthenticationService } from '@jlguenego/angular-tools';
+import { AuthenticationService, Oauth2Service } from '@jlguenego/angular-tools';
 import { lastValueFrom } from 'rxjs';
-import { Oauth2Service } from './../../services/oauth2.service';
 
 @Component({
   selector: 'app-user-status',

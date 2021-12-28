@@ -1,5 +1,5 @@
-import { Oauth2Service } from './../../services/oauth2.service';
 import { Component } from '@angular/core';
+import { Oauth2Service } from '@jlguenego/angular-tools';
 
 @Component({
   selector: 'app-header',
