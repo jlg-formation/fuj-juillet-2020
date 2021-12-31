@@ -341,6 +341,48 @@ npm run compile
 
 ## Start the project with PM2
 
+Create an `ecosystem.config.js` file in the `fuj-juillet-2020/back` directory.
+Example:
+
+```js
+module.exports = {
+  apps: [
+    {
+      name: "Wiame API Node Server",
+      script: "build/src/index.js",
+      env: {
+        WIAME_NODESERVER_PORT: 3050,
+      },
+      env_production: {
+        WIAME_NODESERVER_PORT: 3333,
+        OAUTH2_PROVIDER_LIST: "GITHUB,AZUREAD,TESTPROVIDER",
+
+        OAUTH2_GITHUB_CLIENT_ID: "xxxxxx",
+        OAUTH2_GITHUB_CLIENT_SECRET: "xxxxxx",
+        OAUTH2_GITHUB_AUTHORIZATION_URL:
+          "https://github.com/login/oauth/authorize",
+        OAUTH2_GITHUB_ACCESS_TOKEN_URL:
+          "https://github.com/login/oauth/access_token",
+
+        OAUTH2_AZUREAD_CLIENT_ID: "xxxxxx",
+        OAUTH2_AZUREAD_CLIENT_SECRET: "xxxxxx",
+        OAUTH2_AZUREAD_AUTHORIZATION_URL:
+          "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        OAUTH2_AZUREAD_ACCESS_TOKEN_URL:
+          "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+
+        OAUTH2_TESTPROVIDER_CLIENT_ID: "test_client_id",
+        OAUTH2_TESTPROVIDER_CLIENT_SECRET: "test_secret_id",
+        OAUTH2_TESTPROVIDER_AUTHORIZATION_URL: "/api/test-provider/authorize",
+        OAUTH2_TESTPROVIDER_ACCESS_TOKEN_URL: "/api/test-provider/token",
+      },
+    },
+  ],
+};
+```
+
+In the `back` directory run:
+
 ```sh
 $ pm2 start ecosystem.config.js --env production
 ```
