@@ -1,6 +1,29 @@
-# Gestion Stock
+<h1>Gestion Stock</h1>
 
 An example of angular web app with nodejs back-end.
+
+- [Production Deployment](#production-deployment)
+  - [Target description](#target-description)
+  - [Prerequisites](#prerequisites)
+    - [Identify your linux](#identify-your-linux)
+    - [Identify your Linux init system](#identify-your-linux-init-system)
+  - [Machine upgrade](#machine-upgrade)
+  - [Git installation](#git-installation)
+  - [nginx (re)installation](#nginx-reinstallation)
+    - [purge nginx](#purge-nginx)
+    - [Reboot](#reboot)
+    - [Install nginx](#install-nginx)
+  - [Nodejs](#nodejs)
+  - [PM2](#pm2)
+  - [Firewall UFW](#firewall-ufw)
+  - [MongoDB](#mongodb)
+  - [Project install](#project-install)
+  - [Start the project with PM2](#start-the-project-with-pm2)
+  - [Make the DNS working](#make-the-dns-working)
+  - [Configure NGINX as a reverse proxy](#configure-nginx-as-a-reverse-proxy)
+  - [Certbot (HTTPS)](#certbot-https)
+    - [Configure the OAUTH2 providers](#configure-the-oauth2-providers)
+- [Author](#author)
 
 # Production Deployment
 
@@ -34,6 +57,18 @@ You can also use:
 $ uname -a
 Linux vps716174 4.19.0-13-cloud-amd64 #1 SMP Debian 4.19.160-2 (2020-11-28) x86_64 GNU/Linux
 ```
+
+### Identify your Linux init system
+
+The init system is the first process started by Linux, it manages the permanent processes.
+
+```sh
+$ ps --no-headers -o comm 1
+systemd
+```
+
+The answer should be `systemd` or `init`.
+The `systemd` is managed by the user interface command `systemctl`.
 
 ## Machine upgrade
 
@@ -171,6 +206,254 @@ Install pm2
 npm i -g pm2
 ```
 
+## Firewall UFW
+
+UFW is a firewall very simple to use.
+
+```sh
+$ sudo apt update
+$ sudo apt install ufw
+```
+
+Configure the minimum rules:
+
+```sh
+$ sudo ufw allow ssh
+$ sudo ufw allow http
+$ sudo ufw allow https
+```
+
+Enable the firewall.
+
+```sh
+$ sudo ufw enable
+```
+
+Check the status:
+
+```sh
+$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+443/tcp                    ALLOW       Anywhere
+22/tcp (v6)                ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
+443/tcp (v6)               ALLOW       Anywhere (v6)
+```
+
+## MongoDB
+
+Check if mongo is installed:
+
+```sh
+$ mongod --version
+```
+
+Install mongo
+
+Check the official doc: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
+
+```sh
+$ wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+OK
+```
+
+Add a new repo in APT source list:
+
+```sh
+$ echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/5.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+```
+
+Reload the APT package list
+
+```sh
+$ sudo apt-get update
+```
+
+Install MongoDB (latest version)
+
+```sh
+$ sudo apt-get install -y mongodb-org
+```
+
+To be sure, reload the daemons (permanent processes on Linux)
+
+```sh
+$ sudo systemctl daemon-reload
+```
+
+Start Mongo
+
+```sh
+$ sudo systemctl start mongod
+```
+
+Verify Mongo is started:
+
+```sh
+$ sudo systemctl status mongod
+```
+
+If you want to stop or restart mongod:
+
+```sh
+$ sudo systemctl stop mongod
+$ sudo systemctl restart mongod
+```
+
+Connect to Mongo and show the database list:
+
+```sh
+$ mongosh
+test>show databases;
+admin     41 kB
+config  12.3 kB
+local   73.7 kB
+test>quit;
+```
+
+Data produced by Mongo are stored here:
+
+```sh
+/var/log/mongodb
+/var/lib/mongodb
+```
+
+## Project install
+
+```sh
+cd $HOME
+mkdir projects
+cd projects
+git clone https://github.com/jlg-formation/fuj-juillet-2020.git
+cd fuj-juillet-2020
+cd front
+npm i
+npm run build
+cd ../back
+npm i
+npm run compile
+```
+
+## Start the project with PM2
+
+```sh
+$ pm2 start ecosystem.config.js --env production
+```
+
+Briefly test without the firewall.
+
+```sh
+$ sudo ufw disable
+```
+
+Test on your browser:
+`http://xx.xx.xx.xx:3333`
+
+```sh
+$ ufw --force enable
+```
+
+Make sure PM2 will restart the website on Linux startup.
+
+`pm2 startup` will configure `systemd`.
+
+```sh
+$ pm2 startup
+$ pm2 save
+```
+
+## Make the DNS working
+
+Connect to your DNS provider (for instance OVH) and add an entry to the DNS (A record): it is a mapping between the domain (ex: gestion-stock.yoursite.com) and your Linux internet IP address (`ifconfig eth0`).
+
+Disable the firewall.
+
+```sh
+$ sudo ufw disable
+```
+
+Open a browser and go to http://gestion-stock.yoursite.com:3333
+
+Reenable the firewall.
+
+```sh
+$ ufw --force enable
+```
+
+## Configure NGINX as a reverse proxy
+
+In the directory `/etc/nginx/sites-available` you store the different config for web sites.
+
+Create a file called `/etc/nginx/sites-available/gestion-stock.yoursite.com` with the following content:
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name gestion-stock.yoursite.com;
+
+
+    location / {
+        proxy_pass http://127.0.0.1:3333;
+    }
+}
+```
+
+Create a symbolic soft link to the `/etc/nginx/sites-enabled` directory.
+
+```sh
+$ cd /etc/nginx/sites-enabled
+$ ln -s ../sites-available/gestion-stock.yoursite.com.conf .
+```
+
+Test the nginx config:
+
+```sh
+$ sudo nginx -t
+```
+
+If success, reload nginx.
+
+```sh
+$ sudo nginx -s reload
+```
+
+Open a browser and test the url `http://gestion-stock.yoursite.com`
+
+## Certbot (HTTPS)
+
+Source: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-10
+
+Install Certbot:
+
+```sh
+$ sudo apt update
+$ sudo apt install python3-acme python3-certbot python3-mock python3-openssl python3-pkg-resources python3-pyparsing python3-zope.interface
+```
+
+```sh
+sudo apt install python3-certbot-nginx
+```
+
+Install the certificate:
+
+```sh
+$ sudo certbot --nginx -d gestion-stock.jlg-consulting.com
+# Choose REDIRECT http to https
+```
+
+### Configure the OAUTH2 providers
+
 # Author
 
 Jean-Louis GUENEGO <jlguenego@gmail.com>
+
+```
+
+```
