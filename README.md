@@ -486,8 +486,45 @@ sudo apt install python3-certbot-nginx
 Install the certificate:
 
 ```sh
-$ sudo certbot --nginx -d gestion-stock.jlg-consulting.com
+$ sudo certbot --nginx -d gestion-stock.yoursite.com
 # Choose REDIRECT http to https
+```
+
+The `gestion-stock.yoursite.com.conf` file should look like this:
+
+```
+server {
+
+    server_name gestion-stock.yoursite.com;
+
+
+    location / {
+        proxy_pass http://127.0.0.1:3333;
+    }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/gestion-stock.yoursite.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/gestion-stock.yoursite.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = gestion-stock.yoursite.com) {
+        return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+
+        listen 80;
+        listen [::]:80;
+
+        server_name gestion-stock.yoursite.com;
+        return 404; # managed by Certbot
+
+
+    }
 ```
 
 ### Configure the OAUTH2 providers
