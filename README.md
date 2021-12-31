@@ -22,7 +22,6 @@ An example of angular web app with nodejs back-end.
   - [Make the DNS working](#make-the-dns-working)
   - [Configure NGINX as a reverse proxy](#configure-nginx-as-a-reverse-proxy)
   - [Certbot (HTTPS)](#certbot-https)
-    - [Configure the OAUTH2 providers](#configure-the-oauth2-providers)
 - [Author](#author)
 
 # Production Deployment
@@ -526,8 +525,6 @@ server {
 
     }
 ```
-
-### Configure the OAUTH2 providers
 
 # Author
 
