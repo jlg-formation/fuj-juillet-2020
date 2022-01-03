@@ -23,6 +23,7 @@ An example of angular web app with nodejs back-end.
   - [Configure NGINX as a reverse proxy](#configure-nginx-as-a-reverse-proxy)
   - [Certbot (HTTPS)](#certbot-https)
   - [OAuth2 providers](#oauth2-providers)
+- [Update the software](#update-the-software)
 - [Author](#author)
 
 # Production Deployment
@@ -543,6 +544,24 @@ For Microsoft Azure AD
 
 ```
 https://gestion-stock.jlg-consulting.com/api/oauth2/redirect/AZUREAD
+```
+
+# Update the software
+
+```sh
+cd $HOME
+cd projects
+cd fuj-juillet-2020
+git pull
+cd front
+npm i
+npm run build
+cd ..
+cd back
+npm i
+npm run compile
+pm2 delete GStock
+pm2 start ecosystem.config.js --env production
 ```
 
 # Author
