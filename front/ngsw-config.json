@@ -34,7 +34,7 @@
   "dataGroups": [
     {
       "name": "uploads",
-      "urls": ["/api/uploads/**"],
+      "urls": ["/api/upload/**"],
       "cacheConfig": {
         "maxSize": 5000,
         "maxAge": "9999d",
