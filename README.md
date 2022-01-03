@@ -22,14 +22,15 @@ An example of angular web app with nodejs back-end.
   - [Make the DNS working](#make-the-dns-working)
   - [Configure NGINX as a reverse proxy](#configure-nginx-as-a-reverse-proxy)
   - [Certbot (HTTPS)](#certbot-https)
+  - [OAuth2 providers](#oauth2-providers)
 - [Author](#author)
 
 # Production Deployment
 
 ## Target description
 
-In this documentation the production machine is a OVH VPS.
-The back-end server serve the back-end API and the front-end application.
+In this documentation the production machine is a OVH VPS Debian 10.
+The production macjine serves the back-end API and the front-end application.
 It is started with pm2.
 It run behind a proxy nginx that maintains the https connection.
 
@@ -354,7 +355,7 @@ module.exports = {
       },
       env_production: {
         WIAME_NODESERVER_PORT: 3333,
-        OAUTH2_PROVIDER_LIST: "GITHUB,AZUREAD,TESTPROVIDER",
+        OAUTH2_PROVIDER_LIST: "GITHUB,AZUREAD",
 
         OAUTH2_GITHUB_CLIENT_ID: "xxxxxx",
         OAUTH2_GITHUB_CLIENT_SECRET: "xxxxxx",
@@ -524,6 +525,24 @@ server {
 
 
     }
+```
+
+## OAuth2 providers
+
+Make sure the redirect URI are well configured on Github and Microsoft Azure AD.
+
+The callback URL must be configured to:
+
+For Github
+
+```
+https://gestion-stock.yoursite.com/api/oauth2/redirect/GITHUB
+```
+
+For Microsoft Azure AD
+
+```
+https://gestion-stock.jlg-consulting.com/api/oauth2/redirect/AZUREAD
 ```
 
 # Author

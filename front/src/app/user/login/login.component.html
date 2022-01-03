@@ -10,7 +10,7 @@
     </a>
 
     <a
-      [hidden]="!oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
+      *ngIf="oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
       class="button"
       [href]="oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
     >
