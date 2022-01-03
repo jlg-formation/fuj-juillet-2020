@@ -35,6 +35,7 @@ const routes: Routes = [
     path: '403',
     component: Error403Component,
   },
+  { path: 'cache-storage', loadChildren: () => import('./cache-storage/cache-storage.module').then(m => m.CacheStorageModule) },
   {
     path: '**',
     // component: Error404Component,
