@@ -4,8 +4,8 @@
   <table class="card">
     <tbody>
       <tr *ngFor="let url of cacheUrls">
-        <td class="url">{{ url }}</td>
         <td class="image"><img [src]="url" alt="Cached image" /></td>
+        <td class="url">{{ url }}</td>
       </tr>
     </tbody>
   </table>
