@@ -31,5 +31,20 @@
       }
     }
   ],
+  "dataGroups": [
+    {
+      "name": "uploads",
+      "urls": ["/api/uploads/**"],
+      "cacheConfig": {
+        "maxSize": 5000,
+        "maxAge": "9999d",
+        "strategy": "performance",
+        "timeout": "5s"
+      },
+      "cacheQueryOptions": {
+        "ignoreSearch": true
+      }
+    }
+  ],
   "navigationUrls": ["/**", "!/**/*.*", "!/**/*__*", "!/**/*__*/**", "!/api/**"]
 }
