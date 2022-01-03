@@ -1,6 +1,12 @@
 <main>
   <h1>Cache Storage</h1>
-  <nav>
-    <button (click)="addImages()">Ajouter toutes les images d'articles</button>
-  </nav>
+  <p>Here is the list of images in the cache.</p>
+  <table class="card">
+    <tbody>
+      <tr *ngFor="let url of cacheUrls">
+        <td class="url">{{ url }}</td>
+        <td class="image"><img [src]="url" alt="Cached image" /></td>
+      </tr>
+    </tbody>
+  </table>
 </main>
