@@ -7,10 +7,11 @@ import { FieldErrorComponent } from './field-error/field-error.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ColorSchemeComponent } from './color-scheme/color-scheme.component';
 import { NetworkStatusComponent } from './network-status/network-status.component';
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 @NgModule({
-  declarations: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent],
+  declarations: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent, ImageViewerComponent],
   imports: [CommonModule, RouterModule, FontAwesomeModule],
-  exports: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent],
+  exports: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent, ImageViewerComponent],
 })
 export class WidgetModule {}

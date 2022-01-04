@@ -1,0 +1,14 @@
+<div [class]="'layout ' + layout">
+  <div class="wrapper" *ngFor="let url of srcset">
+    <img [src]="url" role="none" (error)="onImgError($event, url)" />
+  </div>
+  <div class="wrapper etc" *ngIf="srcset.length > 5">
+    <fa-icon [icon]="faImages" role="none"></fa-icon>
+  </div>
+</div>
+<fa-icon
+  class="not-found"
+  *ngIf="srcset.length === 0"
+  [icon]="faImage"
+  role="none"
+></fa-icon>

@@ -35,23 +35,11 @@ table.card {
 
         &.images {
           display: flex;
-          flex-flow: row;
-          gap: 0.3em;
           justify-content: center;
           align-items: center;
           background-color: var(--gray-9);
           padding: 0;
-          overflow: hidden;
           height: 14em;
-          img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-          }
-          .not-found {
-            color: var(--gray-5);
-            font-size: 8em;
-          }
         }
 
         &.name {

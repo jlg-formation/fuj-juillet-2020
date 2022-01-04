@@ -48,7 +48,7 @@
     >
       <thead>
         <tr>
-          <th scope="col" class="image">Image</th>
+          <th scope="col" class="images">Images</th>
           <th scope="col" class="name">Nom</th>
           <th scope="col" class="price">Prix</th>
           <th scope="col" class="qty">Quantité</th>
@@ -61,18 +61,7 @@
           *ngFor="let a of articleService.documents$ | async"
         >
           <td class="images">
-            <img
-              *ngFor="let url of a.images"
-              [src]="url"
-              alt="Image d'illustration de l'article"
-              (error)="onImgError($event, url)"
-            />
-            <fa-icon
-              class="not-found"
-              *ngIf="a.images.length === 0"
-              [icon]="faImage"
-              role="none"
-            ></fa-icon>
+            <app-image-viewer [srcset]="a.images"></app-image-viewer>
           </td>
           <td class="name">{{ a.name }}</td>
           <td class="price">{{ a.price }} €</td>
