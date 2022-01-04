@@ -1,7 +1,7 @@
+import { CacheStorageService } from './../services/cache-storage.service';
 import { Component } from '@angular/core';
-
-// const KEY = 'uploads:cache';
-const KEY = 'jlg';
+import { faCircleNotch, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-cache-storage',
@@ -9,17 +9,36 @@ const KEY = 'jlg';
   styleUrls: ['./cache-storage.component.scss'],
 })
 export class CacheStorageComponent {
-  cacheUrls: string[] = [];
-  constructor() {
-    (async () => {
-      const keys = await window.caches.keys();
-      const key = keys.find((k) => k.match(KEY));
-      if (!key) {
-        console.log('no key found.');
-        return;
-      }
-      const cache = await window.caches.open(key);
-      this.cacheUrls = (await cache.keys()).map((r) => r.url);
-    })();
+  faCircleNotch = faCircleNotch;
+  faSync = faSync;
+  faTrashAlt = faTrashAlt;
+  isLoading = false;
+  isRemoving = false;
+  selectedUrls = new Set<string>();
+
+  constructor(public cacheStorageService: CacheStorageService) {
+    this.refresh();
+  }
+
+  async refresh() {
+    this.isLoading = true;
+    await this.cacheStorageService.retrieveAll();
+    this.isLoading = false;
+  }
+
+  async remove() {
+    this.isRemoving = true;
+    await this.cacheStorageService.remove(this.selectedUrls);
+    this.selectedUrls.clear();
+    this.isRemoving = false;
+    await this.cacheStorageService.retrieveAll();
+  }
+
+  toggle(url: string) {
+    if (this.selectedUrls.has(url)) {
+      this.selectedUrls.delete(url);
+      return;
+    }
+    this.selectedUrls.add(url);
   }
 }

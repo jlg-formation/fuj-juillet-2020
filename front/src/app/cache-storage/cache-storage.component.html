@@ -1,12 +1,45 @@
 <main>
   <h1>Cache Storage</h1>
-  <p>Here is the list of images in the cache.</p>
-  <table class="card">
-    <tbody>
-      <tr *ngFor="let url of cacheUrls">
-        <td class="image"><img [src]="url" alt="Cached image" /></td>
-        <td class="url">{{ url }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="content">
+    <div class="navigation">
+      <nav>
+        <button
+          aria-label="Raffraichir"
+          (click)="refresh()"
+          [disabled]="isLoading"
+        >
+          <fa-icon [icon]="faSync" [spin]="isLoading"></fa-icon>
+        </button>
+        <button
+          aria-label="Supprimer"
+          [hidden]="selectedUrls.size === 0"
+          (click)="remove()"
+          [disabled]="isRemoving"
+        >
+          <fa-icon
+            [icon]="isRemoving ? faCircleNotch : faTrashAlt"
+            [spin]="isRemoving"
+          ></fa-icon>
+        </button>
+      </nav>
+    </div>
+    <table class="card">
+      <tbody>
+        <tr
+          [class.selected]="selectedUrls.has(url)"
+          (click)="toggle(url)"
+          *ngFor="let url of cacheStorageService.url$ | async"
+        >
+          <td class="image"><img [src]="url" alt="Cached image" /></td>
+          <td class="url">{{ url }}</td>
+        </tr>
+        <tr
+          class="empty"
+          *ngIf="(cacheStorageService.url$ | async)?.length === 0"
+        >
+          <td colspan="3">Pas d'image dans le cache storage.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
