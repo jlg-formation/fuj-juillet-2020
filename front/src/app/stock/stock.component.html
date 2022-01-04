@@ -60,12 +60,12 @@
           (click)="toggle(a)"
           *ngFor="let a of articleService.documents$ | async"
         >
-          <td class="image">
+          <td class="images">
             <img
-              *ngIf="a.images.length > 0"
-              [src]="a.images[0]"
+              *ngFor="let url of a.images"
+              [src]="url"
               alt="Image d'illustration de l'article"
-              (error)="onImgError($event, a)"
+              (error)="onImgError($event, url)"
             />
             <fa-icon
               class="not-found"
@@ -88,7 +88,7 @@
       </tbody>
       <tbody *ngIf="isLoading" class="skeleton">
         <tr *ngFor="let a of [1, 2, 3]">
-          <td class="image">
+          <td class="images">
             <fa-icon class="not-found" [icon]="faImage" role="none"></fa-icon>
           </td>
           <td class="name">x</td>

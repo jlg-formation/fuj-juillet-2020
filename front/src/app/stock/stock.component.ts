@@ -54,16 +54,16 @@ export class StockComponent implements OnInit {
     this.refresh();
   }
 
-  onImgError(event: Event, a: Article) {
+  onImgError(event: Event, url: string) {
     console.log('event: ', event);
     // (event.target as HTMLImageElement).style.display = 'none';
     // (event.target as HTMLImageElement).src = 'assets/image-not-found.svg';
     console.log('onImgError');
     const img = event.target as HTMLImageElement;
-    if (!a.images[0]) {
+    if (!url) {
       return;
     }
-    this.cacheService.loadImage(img, a.images[0]);
+    this.cacheService.loadImage(img, url);
   }
 
   refresh() {
