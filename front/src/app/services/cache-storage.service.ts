@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-// const KEY = 'uploads:cache';
-const KEY = 'jlg';
+const KEY = 'uploads:cache';
 
 @Injectable({
   providedIn: 'root',
