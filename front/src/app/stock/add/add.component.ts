@@ -36,7 +36,7 @@ export class AddComponent {
   });
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
-  file!: File;
+  files: File[] = [];
   isAdding = false;
 
   constructor(
@@ -49,9 +49,7 @@ export class AddComponent {
 
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0] as File;
-
-      this.file = file;
+      this.files = event.target.files;
     }
   }
 
@@ -60,20 +58,22 @@ export class AddComponent {
       try {
         this.isAdding = true;
         const article = this.f.value as Article;
-        if (this.file) {
+        article.images = [];
+        for (const file of this.files) {
           const newName =
             'file-' +
             Date.now() +
             '-' +
             Math.floor(Math.random() * 1e9) +
             '.' +
-            getExtension(this.file.type);
-          const renamedFile = new File([this.file], newName);
+            getExtension(file.type);
+          const renamedFile = new File([file], newName);
           await lastValueFrom(
             this.fileService.add(renamedFile).pipe(delay(20))
           );
-          article.image = this.fileService.getUrl(newName);
+          article.images.push(this.fileService.getUrl(newName));
         }
+
         await lastValueFrom(this.articleService.add(article).pipe(delay(20)));
         this.router.navigate(['..'], { relativeTo: this.route });
         this.isAdding = false;

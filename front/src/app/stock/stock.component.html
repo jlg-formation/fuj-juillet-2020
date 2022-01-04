@@ -62,14 +62,14 @@
         >
           <td class="image">
             <img
-              *ngIf="a.image"
-              [src]="a.image"
+              *ngIf="a.images.length > 0"
+              [src]="a.images[0]"
               alt="Image d'illustration de l'article"
               (error)="onImgError($event, a)"
             />
             <fa-icon
               class="not-found"
-              *ngIf="!a.image"
+              *ngIf="a.images.length === 0"
               [icon]="faImage"
               role="none"
             ></fa-icon>
