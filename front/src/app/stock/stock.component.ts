@@ -34,6 +34,7 @@ export class StockComponent implements OnInit {
   isRemoving = false;
   selectedArticles = new Set<Article>();
   showMode: ShowMode = 'card';
+  articles: Article[] = [];
 
   constructor(
     public articleService: ArticleService,
@@ -42,6 +43,7 @@ export class StockComponent implements OnInit {
   ) {
     this.articleService.documents$.subscribe((documents) => {
       console.log('emit documents', documents);
+      this.articles = [...documents].reverse();
     });
   }
 

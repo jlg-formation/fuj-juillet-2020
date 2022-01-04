@@ -58,7 +58,7 @@
         <tr
           [class.selected]="selectedArticles.has(a)"
           (click)="toggle(a)"
-          *ngFor="let a of articleService.documents$ | async"
+          *ngFor="let a of articles"
         >
           <td class="images">
             <app-image-viewer [srcset]="a.images"></app-image-viewer>
@@ -67,10 +67,7 @@
           <td class="price">{{ a.price }} €</td>
           <td class="qty">{{ a.qty }}</td>
         </tr>
-        <tr
-          class="empty"
-          *ngIf="(articleService.documents$ | async)?.length === 0"
-        >
+        <tr class="empty" *ngIf="articles.length === 0">
           <td colspan="3" *ngIf="!error">Pas d'article.</td>
           <td colspan="3" *ngIf="error">Erreur: {{ error }}.</td>
         </tr>
