@@ -35,6 +35,10 @@ The production macjine serves the back-end API and the front-end application.
 It is started with pm2.
 It run behind a proxy nginx that maintains the https connection.
 
+<img alt="picture 1" src="images/41a41fe6d544fe5143beeb51cdac110bf6607dc9c6f5be38f679f2cf31dea18a.png" width="500" />
+
+<img alt="picture 2" src="images/616b7d97719f2fc54a651e7431b68cfd4aaeb7c42366fac492869b459607351a.png" width="500" />
+
 ## Prerequisites
 
 Open a root terminal on your production system.
