@@ -22,7 +22,7 @@ export class AddComponent {
     name: new FormControl('toto', {
       validators: [
         Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(20),
         Validators.minLength(3),
       ],
       asyncValidators: [
