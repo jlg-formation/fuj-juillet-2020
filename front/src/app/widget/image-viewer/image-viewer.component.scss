@@ -87,4 +87,11 @@
     color: var(--gray-5);
     font-size: 8em;
   }
+
+  &.small {
+    div.layout {
+      gap: 0;
+    }
+    font-size: 0.2em;
+  }
 }
