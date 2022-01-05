@@ -45,7 +45,7 @@
     }
     &.p-4 {
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 3fr 1fr;
+      grid-template-rows: 2fr 1fr;
       > div:nth-child(1) {
         grid-column: 1 / 4;
       }
