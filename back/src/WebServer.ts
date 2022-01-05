@@ -13,7 +13,7 @@ import {WebServerOptions} from './interfaces/WebServerOptions';
 import {accessLog} from './logs/accessLogs';
 import {upload} from './upload/upload.router';
 import {validation} from './validation/validation';
-
+import MongoStore from 'connect-mongo';
 export class WebServer {
   app: Express;
   options: WebServerOptions = {
@@ -38,6 +38,9 @@ export class WebServer {
         secret: 'do not change this secret or all session will be reset...',
         resave: false,
         saveUninitialized: true,
+        store: MongoStore.create({
+          mongoUrl: options.dbUri,
+        }),
       })
     );
 
