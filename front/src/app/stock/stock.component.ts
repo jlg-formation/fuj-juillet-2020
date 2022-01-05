@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -9,7 +10,10 @@ import {
   faSync,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthorizationService, CacheService } from '@jlguenego/angular-tools';
+import {
+  AuthenticationService,
+  AuthorizationService,
+} from '@jlguenego/angular-tools';
 import { delay, lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
@@ -39,7 +43,8 @@ export class StockComponent implements OnInit {
   constructor(
     public articleService: ArticleService,
     public authorizationService: AuthorizationService,
-    public cacheService: CacheService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.articleService.documents$.subscribe((documents) => {
       console.log('emit documents', documents);
@@ -68,6 +73,15 @@ export class StockComponent implements OnInit {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 403) {
             this.error = "Désolé mais vous n'êtes pas autorisé...";
+            return;
+          }
+          if (err.status === 401) {
+            await lastValueFrom(
+              this.authenticationService.setAfterLoginRoute(
+                window.location.pathname
+              )
+            );
+            this.router.navigateByUrl('/user/login');
             return;
           }
         }
