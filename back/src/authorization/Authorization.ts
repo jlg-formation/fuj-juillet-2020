@@ -2,7 +2,7 @@ import {Request, Router} from 'express';
 const app = Router();
 
 const isAuthorized = (req: Request) => {
-  if (req.url === '/api/articles') {
+  if (req.url === '/api/articles' && req.method === 'POST') {
     if (req.user.identityProvider === 'azure AD') {
       return false;
     }
