@@ -60,6 +60,7 @@ export class AddComponent {
         const article = this.f.value as Article;
         article.images = [];
         for (const file of this.files) {
+          console.log('file: ', file);
           const newName =
             'file-' +
             Date.now() +
@@ -67,10 +68,20 @@ export class AddComponent {
             Math.floor(Math.random() * 1e9) +
             '.' +
             getExtension(file.type);
-          const renamedFile = new File([file], newName);
-          await lastValueFrom(
-            this.fileService.add(renamedFile).pipe(delay(20))
-          );
+          const renamedFile = new File([file], newName, {
+            type: file.type,
+            lastModified: file.lastModified,
+          });
+          console.log('renamedFile: ', renamedFile);
+
+          await this.fileService.add(renamedFile, {
+            compress: {
+              maxSizeMB: 1,
+              maxWidthOrHeight: 1920,
+              useWebWorker: true,
+            },
+          });
+
           article.images.push(this.fileService.getUrl(newName));
         }
 

@@ -28,6 +28,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@jlguenego/angular-tools": "^0.0.7",
+    "browser-image-compression": "^1.0.17",
     "localforage": "^1.10.0",
     "matcher": "^5.0.0",
     "normalize.css": "^8.0.1",
