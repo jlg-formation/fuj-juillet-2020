@@ -1,5 +1,11 @@
 <main>
-  <p class="version">Date de la version: {{ timestamp }}</p>
+  <p class="version">
+    version
+    <br />
+    <b>#{{ build.git.hash }}</b>
+    <br />
+    <b>{{ timestamp }}</b>
+  </p>
   <h1>Mentions Légales</h1>
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
