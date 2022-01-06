@@ -9,6 +9,7 @@ import {
   faPlus,
   faSync,
   faTrashAlt,
+  faFilePdf,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   AuthenticationService,
@@ -39,6 +40,7 @@ export class StockComponent implements OnInit {
   selectedArticles = new Set<Article>();
   showMode: ShowMode = 'card';
   articles: Article[] = [];
+  faFilePdf = faFilePdf;
 
   constructor(
     public articleService: ArticleService,
@@ -117,5 +119,12 @@ export class StockComponent implements OnInit {
   toggleShowMode() {
     this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
     console.log(this.selectedArticles);
+  }
+
+  exportToPDF() {
+    const a = [...this.selectedArticles][0];
+    console.log('export to PDF', a);
+    // const html = getHTMLTemplate(a);
+    // this.pdfService.get(html);
   }
 }

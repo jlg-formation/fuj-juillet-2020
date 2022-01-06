@@ -28,6 +28,13 @@
             [spin]="isRemoving"
           ></fa-icon>
         </button>
+        <button
+          aria-label="Export to PDF"
+          [hidden]="selectedArticles.size !== 1"
+          (click)="exportToPDF()"
+        >
+          <fa-icon [icon]="faFilePdf"></fa-icon>
+        </button>
       </nav>
       <nav>
         <button
