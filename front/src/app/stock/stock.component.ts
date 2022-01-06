@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   faAddressCard,
@@ -46,7 +46,8 @@ export class StockComponent implements OnInit {
     public articleService: ArticleService,
     public authorizationService: AuthorizationService,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.articleService.documents$.subscribe((documents) => {
       console.log('emit documents', documents);
@@ -122,9 +123,21 @@ export class StockComponent implements OnInit {
   }
 
   exportToPDF() {
-    const a = [...this.selectedArticles][0];
-    console.log('export to PDF', a);
-    // const html = getHTMLTemplate(a);
-    // this.pdfService.get(html);
+    (async () => {
+      try {
+        const a = [...this.selectedArticles][0];
+        console.log('export to PDF', a);
+        const pdfBlob = await lastValueFrom(
+          this.http.post<Blob>('/api/pdf/article', a)
+        );
+        const file = new File([pdfBlob], 'article.pdf');
+        // save to file
+        // const result = await window.saveAs({
+        //   type: 'save-file',
+        // });
+      } catch (err) {
+        console.error('err: ', err);
+      }
+    })();
   }
 }
