@@ -18,6 +18,7 @@ import {
 import { delay, lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
+import { saveAs } from 'file-saver';
 
 type ShowMode = 'detail' | 'card';
 
@@ -127,14 +128,17 @@ export class StockComponent implements OnInit {
       try {
         const a = [...this.selectedArticles][0];
         console.log('export to PDF', a);
-        const pdfBlob = await lastValueFrom(
-          this.http.post<Blob>('/api/pdf/article', a)
+        const response = await lastValueFrom(
+          this.http.post('/api/pdf/article', a, {
+            observe: 'response',
+            responseType: 'blob',
+          })
         );
-        const file = new File([pdfBlob], 'article.pdf');
-        // save to file
-        // const result = await window.saveAs({
-        //   type: 'save-file',
-        // });
+        if (response.body === null) {
+          throw new Error('body is null');
+        }
+        const pdfBlob = response.body;
+        saveAs(pdfBlob, 'article.pdf');
       } catch (err) {
         console.error('err: ', err);
       }

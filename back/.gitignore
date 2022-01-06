@@ -20,5 +20,8 @@ ecosystem.config.js
 # Upload files
 /uploads
 
+# Temp files
+/temp
+
 
 

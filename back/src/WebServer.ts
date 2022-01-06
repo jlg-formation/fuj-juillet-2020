@@ -14,6 +14,7 @@ import {accessLog} from './logs/accessLogs';
 import {upload} from './upload/upload.router';
 import {validation} from './validation/validation';
 import MongoStore from 'connect-mongo';
+import {pdfRouter} from './pdf/pdf.router';
 export class WebServer {
   app: Express;
   options: WebServerOptions = {
@@ -78,6 +79,9 @@ export class WebServer {
 
     // file upload
     app.use('/api/upload', upload);
+
+    // pdf generator
+    app.use('/api/pdf', pdfRouter);
 
     // Business logic with crudity
     app.use(
