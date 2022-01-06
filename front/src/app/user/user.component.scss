@@ -11,3 +11,15 @@ nav {
     width: 15em;
   }
 }
+
+div label {
+  display: flex;
+  flex-flow: column;
+  padding: 2em 0;
+}
+
+div.cache-storage {
+  display: flex;
+  flex-flow: column;
+  padding: 2em 0;
+}

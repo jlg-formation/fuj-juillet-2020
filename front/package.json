@@ -10,7 +10,8 @@
     "test:ci": "ng test --browsers=ChromeHeadless --watch=false",
     "e2e": "cypress open",
     "lint": "ng lint",
-    "check-size": "ng build --stats-json && webpack-bundle-analyzer dist/front/stats.json"
+    "check-size": "ng build --stats-json && webpack-bundle-analyzer dist/front/stats.json",
+    "prebuild": "angular-build-info"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +52,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
+    "angular-build-info": "^2.0.1",
     "cypress": "^8.5.0",
     "eslint": "^8.2.0",
     "eslint-plugin-unused-imports": "^2.0.0",

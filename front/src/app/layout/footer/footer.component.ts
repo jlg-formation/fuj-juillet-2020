@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NetworkService } from '@jlguenego/angular-tools';
-
+import build from 'src/build';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-  constructor(public networkService: NetworkService) {}
+  hash = build.git.hash;
 }
