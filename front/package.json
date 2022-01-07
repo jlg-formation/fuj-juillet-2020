@@ -29,7 +29,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@jlguenego/angular-tools": "^0.0.9",
+    "@jlguenego/angular-tools": "^0.0.10",
     "browser-image-compression": "^1.0.17",
     "file-saver": "^2.0.5",
     "localforage": "^1.10.0",
