@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Article</title>
+    <%- css %>
   </head>
   <body>
     <h1>Article</h1>
     <p>Nom : <%= article.name %></p>
     <p>Prix : <%= article.price %></p>
     <p>Quantité : <%= article.qty %></p>
-    <% for(const url of article.images) { %>
-    <p><%= url %></p>
+    <% for(const data of images) { %>
+    <p><img src="<%= data %>" alt="Image" /></p>
     <% } %>
   </body>
 </html>
