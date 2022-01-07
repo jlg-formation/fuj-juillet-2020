@@ -25,6 +25,7 @@
     "connect-mongo": "^4.6.0",
     "cors": "^2.8.5",
     "crudity": "^2.0.6",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "got": "^11.8.2",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
+    "@types/ejs": "^3.1.0",
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.4",
     "@types/mocha": "^9.0.0",
