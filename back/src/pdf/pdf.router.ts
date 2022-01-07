@@ -3,7 +3,7 @@ import {Router} from 'express';
 import {basename} from 'path';
 import puppeteer from 'puppeteer';
 import {assert} from 'superstruct';
-import {ArticleModel} from './../validation/article.model';
+import {ArticleModel} from '../validation/article.model';
 import fs from 'fs';
 
 const app = Router();
