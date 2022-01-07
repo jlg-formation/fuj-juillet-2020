@@ -67,6 +67,7 @@ export class WebServer {
     app.use('/api', oauth2Client.router());
     app.use('/api/articles', oauth2Client.auth());
     app.use('/api/upload', oauth2Client.auth());
+    app.use('/api/pdf', oauth2Client.auth());
 
     // Authorization
     app.use(authorization);
