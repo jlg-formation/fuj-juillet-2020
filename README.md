@@ -330,6 +330,24 @@ Data produced by Mongo are stored here:
 
 ## Project install
 
+First you may need to generate a github personal access token (the github password won't work).
+Source : https://www.edgoad.com/2021/02/using-personal-access-tokens-with-git-and-github.html
+
+```sh
+git config --global user.name "Your NAME"
+git config --global user.email "your@address.email.com"
+git config --global credential.helper cache
+git config -l
+```
+
+Note: if you want to remove the personal access token from the cache:
+
+```sh
+git config --global --unset credential.helper
+```
+
+When cloning the project, you will be asked for a password. Enter instead the personal access token.
+
 ```sh
 cd $HOME
 mkdir projects
