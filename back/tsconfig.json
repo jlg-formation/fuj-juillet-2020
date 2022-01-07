@@ -4,7 +4,8 @@
     "rootDir": ".",
     "outDir": "build",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "lib": ["dom"]
   },
   "include": ["src/**/*.ts", "test/**/*.ts"]
 }
