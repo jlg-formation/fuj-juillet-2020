@@ -19,6 +19,7 @@ app.post('/article', (req, res) => {
       });
       res.status(201).send(pdf);
     } catch (err) {
+      console.error('err: ', err);
       res.status(500).end();
     }
   })();
