@@ -1,7 +1,57 @@
+@page {
+  size: A4;
+  margin: 1cm;
+}
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
+  background-color: black;
+  border: 0.1em solid black;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border: 0.1em solid black;
+  border-collapse: collapse;
+}
+
+td {
+  background-color: white;
+  border: 0.1em solid black;
+  padding: 0.5em 1em;
+}
+
+td.key {
+  width: 30%;
+  font-weight: bold;
+}
+
+td.value {
+  width: 70%;
+}
+
+div.images {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1em;
 }
 
 img {
-  width: 10em;
+  width: 15em;
 }

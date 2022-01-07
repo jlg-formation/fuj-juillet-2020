@@ -33,7 +33,10 @@
           [hidden]="selectedArticles.size !== 1"
           (click)="exportToPDF()"
         >
-          <fa-icon [icon]="faFilePdf"></fa-icon>
+          <fa-icon
+            [icon]="isExporting ? faCircleNotch : faFilePdf"
+            [spin]="isExporting"
+          ></fa-icon>
         </button>
       </nav>
       <nav>

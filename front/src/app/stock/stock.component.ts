@@ -1,24 +1,24 @@
-import { Router } from '@angular/router';
-import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faAddressCard,
   faCircleNotch,
+  faFilePdf,
   faImage,
   faList,
   faPlus,
   faSync,
   faTrashAlt,
-  faFilePdf,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   AuthenticationService,
   AuthorizationService,
 } from '@jlguenego/angular-tools';
+import { saveAs } from 'file-saver';
 import { delay, lastValueFrom } from 'rxjs';
 import { Article } from '../interfaces/article';
 import { ArticleService } from './../services/article.service';
-import { saveAs } from 'file-saver';
 
 type ShowMode = 'detail' | 'card';
 
@@ -28,20 +28,21 @@ type ShowMode = 'detail' | 'card';
   styleUrls: ['./stock.component.scss'],
 })
 export class StockComponent implements OnInit {
+  articles: Article[] = [];
   error = '';
   faAddressCard = faAddressCard;
   faCircleNotch = faCircleNotch;
+  faFilePdf = faFilePdf;
   faImage = faImage;
   faList = faList;
   faPlus = faPlus;
   faSync = faSync;
   faTrashAlt = faTrashAlt;
+  isExporting = false;
   isLoading = false;
   isRemoving = false;
   selectedArticles = new Set<Article>();
   showMode: ShowMode = 'card';
-  articles: Article[] = [];
-  faFilePdf = faFilePdf;
 
   constructor(
     public articleService: ArticleService,
@@ -54,6 +55,31 @@ export class StockComponent implements OnInit {
       console.log('emit documents', documents);
       this.articles = [...documents].reverse();
     });
+  }
+
+  exportToPDF() {
+    (async () => {
+      try {
+        this.isExporting = true;
+        const a = [...this.selectedArticles][0];
+        console.log('export to PDF', a);
+        const response = await lastValueFrom(
+          this.http.post('/api/pdf/article', a, {
+            observe: 'response',
+            responseType: 'blob',
+          })
+        );
+        if (response.body === null) {
+          throw new Error('body is null');
+        }
+        this.isExporting = false;
+        const pdfBlob = response.body;
+        saveAs(pdfBlob, 'article.pdf');
+      } catch (err) {
+        this.isExporting = false;
+        console.error('err: ', err);
+      }
+    })();
   }
 
   getImage(url: string) {
@@ -121,27 +147,5 @@ export class StockComponent implements OnInit {
   toggleShowMode() {
     this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
     console.log(this.selectedArticles);
-  }
-
-  exportToPDF() {
-    (async () => {
-      try {
-        const a = [...this.selectedArticles][0];
-        console.log('export to PDF', a);
-        const response = await lastValueFrom(
-          this.http.post('/api/pdf/article', a, {
-            observe: 'response',
-            responseType: 'blob',
-          })
-        );
-        if (response.body === null) {
-          throw new Error('body is null');
-        }
-        const pdfBlob = response.body;
-        saveAs(pdfBlob, 'article.pdf');
-      } catch (err) {
-        console.error('err: ', err);
-      }
-    })();
   }
 }

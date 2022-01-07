@@ -9,11 +9,29 @@
   </head>
   <body>
     <h1>Article</h1>
-    <p>Nom : <%= article.name %></p>
-    <p>Prix : <%= article.price %></p>
-    <p>Quantité : <%= article.qty %></p>
-    <% for(const data of images) { %>
-    <p><img src="<%= data %>" alt="Image" /></p>
-    <% } %>
+    <table>
+      <tr>
+        <td class="key">Nom</td>
+        <td class="value"><%= article.name %></td>
+      </tr>
+      <tr>
+        <td class="key">Prix</td>
+        <td class="value"><%= article.price %></td>
+      </tr>
+      <tr>
+        <td class="key">Quantité</td>
+        <td class="value"><%= article.qty %></td>
+      </tr>
+      <tr>
+        <td class="key">Images</td>
+        <td class="value">
+          <div class="images">
+            <% for(const data of images) { %>
+            <img src="<%= data %>" alt="Image" />
+            <% } %>
+          </div>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
