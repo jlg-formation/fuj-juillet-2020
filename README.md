@@ -330,7 +330,10 @@ Data produced by Mongo are stored here:
 
 ## Project install
 
-First you may need to generate a github personal access token (the github password won't work).
+Please do not use the root account (for security reason).
+Create a unix user account if needed.
+
+You may need to generate a github personal access token (the github password won't work).
 Source : https://www.edgoad.com/2021/02/using-personal-access-tokens-with-git-and-github.html
 
 ```sh
