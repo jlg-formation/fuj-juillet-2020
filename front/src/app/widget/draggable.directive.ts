@@ -64,11 +64,11 @@ export class DraggableDirective implements OnInit {
 
     const touchstart = (event: TouchEvent) => {
       // Prevent default dragging of selected content
-      // event.preventDefault();
-      // this.startX = event.pageX - this.x;
-      // this.startY = event.pageY - this.y;
-      // document.addEventListener('mousemove', mousemove);
-      // document.addEventListener('mouseup', mouseup);
+      event.preventDefault();
+      this.startX = event.changedTouches[0].pageX - this.x;
+      this.startY = event.changedTouches[0].pageY - this.y;
+      document.addEventListener('touchmove', touchmove);
+      document.addEventListener('touchend', touchup);
     };
 
     this.elt.nativeElement.addEventListener('touchstart', touchstart);
@@ -78,15 +78,27 @@ export class DraggableDirective implements OnInit {
       this.y = event.pageY - this.startY;
 
       this.stayInsideParent();
-
       this.paint();
+      this.sendPosition();
+    };
 
+    const touchmove = (event: TouchEvent) => {
+      this.x = event.changedTouches[0].pageX - this.startX;
+      this.y = event.changedTouches[0].pageY - this.startY;
+
+      this.stayInsideParent();
+      this.paint();
       this.sendPosition();
     };
 
     const mouseup = () => {
       document.removeEventListener('mousemove', mousemove);
       document.removeEventListener('mouseup', mouseup);
+    };
+
+    const touchup = () => {
+      document.removeEventListener('touchmove', touchmove);
+      document.removeEventListener('touchup', touchup);
     };
   }
 
