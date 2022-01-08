@@ -17,7 +17,11 @@ export class UserComponent {
     public authenticationService: AuthenticationService,
     private router: Router,
     public colorSchemeService: ColorSchemeService
-  ) {}
+  ) {
+    this.hue.valueChanges.subscribe((hue) => {
+      this.colorSchemeService.updateHue(+hue);
+    });
+  }
 
   logout(): void {
     console.log('about to logout');
@@ -30,10 +34,5 @@ export class UserComponent {
 
   getHue() {
     return this.colorSchemeService.hue$.value;
-  }
-
-  updateHue() {
-    const hue = +this.hue.value;
-    this.colorSchemeService.updateHue(hue);
   }
 }
