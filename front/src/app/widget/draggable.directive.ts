@@ -51,14 +51,27 @@ export class DraggableDirective implements OnInit {
     this.initFromPosition();
     this.paint();
 
-    this.elt.nativeElement.addEventListener('mousedown', (event) => {
+    const mousedown = (event: MouseEvent) => {
       // Prevent default dragging of selected content
       event.preventDefault();
       this.startX = event.pageX - this.x;
       this.startY = event.pageY - this.y;
       document.addEventListener('mousemove', mousemove);
       document.addEventListener('mouseup', mouseup);
-    });
+    };
+
+    this.elt.nativeElement.addEventListener('mousedown', mousedown);
+
+    const touchstart = (event: TouchEvent) => {
+      // Prevent default dragging of selected content
+      // event.preventDefault();
+      // this.startX = event.pageX - this.x;
+      // this.startY = event.pageY - this.y;
+      // document.addEventListener('mousemove', mousemove);
+      // document.addEventListener('mouseup', mouseup);
+    };
+
+    this.elt.nativeElement.addEventListener('touchstart', touchstart);
 
     const mousemove = (event: MouseEvent) => {
       this.x = event.pageX - this.startX;
