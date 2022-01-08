@@ -9,10 +9,11 @@ import { ColorSchemeComponent } from './color-scheme/color-scheme.component';
 import { NetworkStatusComponent } from './network-status/network-status.component';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { HueSelectorComponent } from './hue-selector/hue-selector.component';
+import { DraggableDirective } from './draggable.directive';
 
 @NgModule({
-  declarations: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent, ImageViewerComponent, HueSelectorComponent],
+  declarations: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent, ImageViewerComponent, HueSelectorComponent, DraggableDirective],
   imports: [CommonModule, RouterModule, FontAwesomeModule],
-  exports: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent, ImageViewerComponent, HueSelectorComponent],
+  exports: [UserStatusComponent, DetailComponent, FieldErrorComponent, ColorSchemeComponent, NetworkStatusComponent, ImageViewerComponent, HueSelectorComponent, DraggableDirective],
 })
 export class WidgetModule {}

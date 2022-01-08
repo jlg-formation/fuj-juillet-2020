@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
 })
 export class UserComponent {
   hue = new FormControl(this.getHue());
+
   constructor(
     public authenticationService: AuthenticationService,
     private router: Router,
@@ -23,6 +24,10 @@ export class UserComponent {
     });
   }
 
+  getHue() {
+    return this.colorSchemeService.hue$.value;
+  }
+
   logout(): void {
     console.log('about to logout');
     this.authenticationService.disconnect().subscribe({
@@ -30,9 +35,5 @@ export class UserComponent {
         this.router.navigateByUrl('/');
       },
     });
-  }
-
-  getHue() {
-    return this.colorSchemeService.hue$.value;
   }
 }

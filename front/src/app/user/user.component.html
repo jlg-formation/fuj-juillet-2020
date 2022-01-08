@@ -4,9 +4,7 @@
     <app-detail [object]="authenticationService.user$ | async"></app-detail>
     <label>
       <div>Hue: {{ hue.value }}</div>
-      <app-hue-selector>
-        <input type="range" [formControl]="hue" min="0" max="360" step="1" />
-      </app-hue-selector>
+      <app-hue-selector [formControl]="hue"> </app-hue-selector>
     </label>
     <nav>
       <button class="theme" (click)="colorSchemeService.toggleColorScheme()">
