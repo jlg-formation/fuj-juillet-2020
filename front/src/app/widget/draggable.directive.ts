@@ -3,10 +3,8 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 
 export interface DraggablePosition {
@@ -17,26 +15,24 @@ export interface DraggablePosition {
 @Directive({
   selector: '[appDraggable]',
 })
-export class DraggableDirective implements OnInit, OnChanges {
+export class DraggableDirective implements OnInit {
   parentRect!: DOMRect;
+  @Input() position: DraggablePosition = { x: 0, y: 0 };
+  @Output() positionChange = new EventEmitter<DraggablePosition>();
   rect!: DOMRect;
   startX = 0;
   startY = 0;
   x = 0;
   y = 0;
 
-  @Input() position: DraggablePosition = { x: 0, y: 0 };
-  @Output() positionChange = new EventEmitter<DraggablePosition>();
-
   constructor(private elt: ElementRef<HTMLElement>) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('directive draggable changes: ', changes);
+
+  initFromPosition() {
+    this.x = (this.parentRect.width - this.rect.width) * this.position.x;
+    this.y = (this.parentRect.height - this.rect.height) * this.position.y;
   }
 
-  ngOnInit(): void {
-    this.elt.nativeElement.style.position = 'relative';
-    this.elt.nativeElement.style.cursor = 'pointer';
-
+  initRect() {
     const parentRect =
       this.elt.nativeElement.parentElement?.getBoundingClientRect();
     if (!parentRect) {
@@ -44,6 +40,13 @@ export class DraggableDirective implements OnInit, OnChanges {
     }
     this.parentRect = parentRect;
     this.rect = this.elt.nativeElement.getBoundingClientRect();
+  }
+
+  ngOnInit(): void {
+    this.elt.nativeElement.style.position = 'relative';
+    this.elt.nativeElement.style.cursor = 'pointer';
+
+    this.initRect();
 
     this.initFromPosition();
     this.paint();
@@ -74,9 +77,9 @@ export class DraggableDirective implements OnInit, OnChanges {
     };
   }
 
-  initFromPosition() {
-    this.x = (this.parentRect.width - this.rect.width) * this.position.x;
-    this.y = (this.parentRect.height - this.rect.height) * this.position.y;
+  paint() {
+    this.elt.nativeElement.style.left = this.x + 'px';
+    this.elt.nativeElement.style.top = this.y + 'px';
   }
 
   sendPosition() {
@@ -106,10 +109,5 @@ export class DraggableDirective implements OnInit, OnChanges {
     this.y =
       Math.min(this.rect.bottom + this.y, this.parentRect.bottom) -
       this.rect.bottom;
-  }
-
-  paint() {
-    this.elt.nativeElement.style.left = this.x + 'px';
-    this.elt.nativeElement.style.top = this.y + 'px';
   }
 }
