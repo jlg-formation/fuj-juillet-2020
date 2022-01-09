@@ -12,6 +12,12 @@ nav {
   }
 }
 
+div.content {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
 div label {
   display: flex;
   flex-flow: column;
