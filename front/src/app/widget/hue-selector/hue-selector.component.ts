@@ -1,4 +1,10 @@
-import { Component, forwardRef } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  HostBinding,
+  HostListener,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DraggablePosition } from '../draggable.directive';
 
@@ -19,6 +25,25 @@ export class HueSelectorComponent implements ControlValueAccessor {
   onTouched: any = () => {};
   disabled = false;
 
+  @HostBinding('attr.tabindex') tabindex = '0';
+
+  @HostListener('focusout', ['$event'])
+  onBlur(evt: any) {
+    this.onTouched();
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(evt: any) {
+    console.log('onclick evt: ', evt);
+    console.log('this.elt.nativeElement: ', this.elt.nativeElement);
+    // setTimeout(() => {
+    this.elt.nativeElement.focus();
+    const activeElt = document.activeElement;
+    console.log('activeElt: ', activeElt);
+
+    // }, 100);
+  }
+
   gradient = this.initGradiant();
   privatePosition: DraggablePosition = { x: 0.1, y: 0 };
   set position(val: DraggablePosition) {
@@ -32,35 +57,26 @@ export class HueSelectorComponent implements ControlValueAccessor {
     return this.privatePosition;
   }
 
-  constructor() {}
+  constructor(private elt: ElementRef<HTMLElement>) {}
 
   initGradiant() {
     const sampleNbr = 20;
     const colors = new Array(sampleNbr + 1)
       .fill(0)
       .map((n, i) => `hsl(${(i * 360) / sampleNbr}, 100%, 50%)`);
-    console.log('colors: ', colors);
     const colorStr = colors.join(',');
-    console.log('colorStr: ', colorStr);
     const result = `background: linear-gradient(90deg, ${colorStr});`;
-    console.log('result: ', result);
     return result;
   }
 
   registerOnChange(fn: any): void {
-    console.log('registerOnChange fn: ', fn);
     this.onChange = (...args: any[]) => {
-      console.log('running onchange', args);
-
       return fn(...args);
     };
   }
 
   registerOnTouched(fn: any): void {
-    console.log('registerOnTouched fn: ', fn);
     this.onTouched = (...args: any[]) => {
-      console.log('running ontouched', args);
-
       return fn(...args);
     };
   }
