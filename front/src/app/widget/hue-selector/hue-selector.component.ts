@@ -33,7 +33,6 @@ export class HueSelectorComponent implements ControlValueAccessor {
   }
 
   set position(val: DraggablePosition) {
-    console.log('val: ', val);
     this.privatePosition = val;
     const hue = Math.floor(360 * this.privatePosition.x);
     this.onChange(hue);
@@ -69,11 +68,8 @@ export class HueSelectorComponent implements ControlValueAccessor {
       return;
     }
     const rect = divCursor.getBoundingClientRect() as DOMRect;
-    console.log('rect: ', rect);
     const pos = { x: evt.pageX, y: evt.pageY };
-    console.log('pos: ', pos);
     const newPosition = { x: (pos.x - rect.left) / rect.width, y: 0 };
-    console.log('newPosition: ', newPosition);
     this.position = newPosition;
   }
 
@@ -96,7 +92,6 @@ export class HueSelectorComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: number): void {
-    console.log('writeValue obj: ', obj);
     this.position = { x: obj / 360, y: 0 };
   }
 }

@@ -45,9 +45,7 @@ export class DraggableDirective implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('draggable new position: ', this.position);
     if (!this.rect) {
-      console.log('not initialized yet');
       return;
     }
     this.initFromPosition();

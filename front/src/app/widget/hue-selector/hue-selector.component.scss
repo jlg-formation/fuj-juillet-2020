@@ -1,6 +1,8 @@
 :host {
   display: flex;
-  height: 2em;
+  height: 3em;
+  background-color: var(--gray-9);
+  border-radius: 3em;
 
   &:focus {
     outline: auto 5px -webkit-focus-ring-color;
@@ -10,11 +12,11 @@
     display: flex;
     align-items: center;
     position: relative;
-    margin: 0 1em;
+    margin: 0;
     width: 100%;
     div.gradiant-bar {
       cursor: pointer;
-      margin: 0.25em 0;
+      margin: 0.25em 1.5em;
       height: 0.5em;
       width: 100%;
     }
@@ -23,14 +25,20 @@
       width: 100%;
       cursor: pointer;
       position: absolute;
-      top: 0.5em;
+      top: 0;
       left: 0;
 
       div.draggable {
-        width: 1em;
-        height: 1em;
+        width: 3em;
+        height: 3em;
+        padding: 1em;
+        background-clip: content-box;
         background-color: var(--gray-0);
         border-radius: 100%;
+        border: none;
+        @media (hover: none) and (pointer: coarse) {
+          border: 0.1em solid var(--transparent-1);
+        }
       }
     }
   }
