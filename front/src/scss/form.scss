@@ -26,3 +26,8 @@ input {
   background-color: var(--gray-10);
   color: var(--gray-0);
 }
+
+label {
+  display: flex;
+  flex-flow: column;
+}

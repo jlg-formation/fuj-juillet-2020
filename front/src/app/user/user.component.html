@@ -3,7 +3,7 @@
   <div>
     <app-detail [object]="authenticationService.user$ | async"></app-detail>
     <label>
-      <div>Hue: {{ hue.value }}</div>
+      <div>Couleur: {{ hue.value }}</div>
       <app-hue-selector [formControl]="hue"> </app-hue-selector>
     </label>
     <nav>
