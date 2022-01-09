@@ -27,21 +27,14 @@ export class HueSelectorComponent implements ControlValueAccessor {
 
   @HostBinding('attr.tabindex') tabindex = '0';
 
-  @HostListener('focusout', ['$event'])
-  onBlur(evt: any) {
+  @HostListener('focusout')
+  onBlur() {
     this.onTouched();
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener('click')
   onClick(evt: any) {
-    console.log('onclick evt: ', evt);
-    console.log('this.elt.nativeElement: ', this.elt.nativeElement);
-    // setTimeout(() => {
     this.elt.nativeElement.focus();
-    const activeElt = document.activeElement;
-    console.log('activeElt: ', activeElt);
-
-    // }, 100);
   }
 
   gradient = this.initGradiant();
