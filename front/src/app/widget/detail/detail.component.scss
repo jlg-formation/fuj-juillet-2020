@@ -1,3 +1,9 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 table {
   border-collapse: collapse;
   border: 0.1em solid var(--gray-8);

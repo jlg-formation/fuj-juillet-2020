@@ -339,7 +339,7 @@ Source : https://www.edgoad.com/2021/02/using-personal-access-tokens-with-git-an
 ```sh
 git config --global user.name "Your NAME"
 git config --global user.email "your@address.email.com"
-git config --global credential.helper cache
+git config --global credential.helper store
 git config -l
 ```
 
