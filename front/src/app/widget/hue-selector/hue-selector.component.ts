@@ -21,24 +21,17 @@ import { DraggablePosition } from '../draggable.directive';
   ],
 })
 export class HueSelectorComponent implements ControlValueAccessor {
-  onChange: any = () => {};
-  onTouched: any = () => {};
   disabled = false;
-
-  @HostBinding('attr.tabindex') tabindex = '0';
-
-  @HostListener('focusout')
-  onBlur() {
-    this.onTouched();
-  }
-
-  @HostListener('click')
-  onClick(evt: any) {
-    this.elt.nativeElement.focus();
-  }
-
   gradient = this.initGradiant();
   privatePosition: DraggablePosition = { x: 0.1, y: 0 };
+  @HostBinding('attr.tabindex') tabindex = '0';
+
+  constructor(private elt: ElementRef<HTMLElement>) {}
+
+  get position() {
+    return this.privatePosition;
+  }
+
   set position(val: DraggablePosition) {
     console.log('val: ', val);
     this.privatePosition = val;
@@ -46,11 +39,6 @@ export class HueSelectorComponent implements ControlValueAccessor {
     this.onChange(hue);
     // this.onTouched(hue);
   }
-  get position() {
-    return this.privatePosition;
-  }
-
-  constructor(private elt: ElementRef<HTMLElement>) {}
 
   initGradiant() {
     const sampleNbr = 20;
@@ -61,6 +49,35 @@ export class HueSelectorComponent implements ControlValueAccessor {
     const result = `background: linear-gradient(90deg, ${colorStr});`;
     return result;
   }
+
+  @HostListener('focusout')
+  onBlur() {
+    this.onTouched();
+  }
+
+  onChange: any = () => {};
+
+  @HostListener('mouseup', ['$event'])
+  onClick(evt: PointerEvent) {
+    evt.preventDefault();
+    this.elt.nativeElement.focus();
+    const target = evt.target;
+    const divCursor = this.elt.nativeElement.querySelector(
+      'div.cursor'
+    ) as HTMLElement;
+    if (target !== divCursor) {
+      return;
+    }
+    const rect = divCursor.getBoundingClientRect() as DOMRect;
+    console.log('rect: ', rect);
+    const pos = { x: evt.pageX, y: evt.pageY };
+    console.log('pos: ', pos);
+    const newPosition = { x: (pos.x - rect.left) / rect.width, y: 0 };
+    console.log('newPosition: ', newPosition);
+    this.position = newPosition;
+  }
+
+  onTouched: any = () => {};
 
   registerOnChange(fn: any): void {
     this.onChange = (...args: any[]) => {
@@ -74,12 +91,12 @@ export class HueSelectorComponent implements ControlValueAccessor {
     };
   }
 
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
   writeValue(obj: number): void {
     console.log('writeValue obj: ', obj);
     this.position = { x: obj / 360, y: 0 };
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
   }
 }

@@ -3,8 +3,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 
 export interface DraggablePosition {
@@ -15,7 +17,7 @@ export interface DraggablePosition {
 @Directive({
   selector: '[appDraggable]',
 })
-export class DraggableDirective implements OnInit {
+export class DraggableDirective implements OnInit, OnChanges {
   parentRect!: DOMRect;
   @Input() position: DraggablePosition = { x: 0, y: 0 };
   @Output() positionChange = new EventEmitter<DraggablePosition>();
@@ -40,6 +42,16 @@ export class DraggableDirective implements OnInit {
     }
     this.parentRect = parentRect;
     this.rect = this.elt.nativeElement.getBoundingClientRect();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('draggable new position: ', this.position);
+    if (!this.rect) {
+      console.log('not initialized yet');
+      return;
+    }
+    this.initFromPosition();
+    this.paint();
   }
 
   ngOnInit(): void {
