@@ -2,4 +2,11 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
+
+  h1 {
+    @media screen and (max-width: 800px) {
+      font-size: 2em;
+    }
+    font-size: 3em;
+  }
 }
