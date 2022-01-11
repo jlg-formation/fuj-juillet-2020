@@ -1,8 +1,8 @@
 :host {
   display: flex;
-  height: 3em;
+  height: 2.5em;
   background-color: var(--gray-9);
-  border-radius: 3em;
+  border-radius: 2.5em;
 
   &:focus {
     outline: auto 5px -webkit-focus-ring-color;
@@ -16,9 +16,10 @@
     width: 100%;
     div.gradiant-bar {
       cursor: pointer;
-      margin: 0.25em 1.5em;
+      margin: 0 1.25em;
       height: 0.5em;
       width: 100%;
+      border-radius: 0.5em;
     }
 
     .cursor {
@@ -29,9 +30,9 @@
       top: 0;
 
       div.draggable {
-        width: 3em;
-        height: 3em;
-        padding: 1em;
+        width: 2.5em;
+        height: 2.5em;
+        padding: 0.75em;
         background-clip: content-box;
         background-color: var(--gray-0);
         border-radius: 100%;
