@@ -3,6 +3,7 @@
 @import "../node_modules/normalize.css/normalize.css";
 
 @import "./scss/fonts/custom-font/css/fontello.css";
+@import "./scss/fonts/basier-circle/stylesheet.css";
 @import "./scss/fonts/custom-font/css/animation.css";
 
 @import "../node_modules/@jlguenego/angular-tools/src/assets/themes.css";
@@ -24,7 +25,7 @@
 
 body {
   min-width: 320px;
-  font-family: sans-serif;
+  font-family: "basier_circleregular";
   color: var(--gray-0);
   background-color: var(--gray-10);
 }
