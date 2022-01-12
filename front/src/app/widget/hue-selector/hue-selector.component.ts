@@ -23,10 +23,33 @@ import { DraggablePosition } from '../draggable.directive';
 export class HueSelectorComponent implements ControlValueAccessor {
   disabled = false;
   gradient = this.initGradiant();
+
   privatePosition: DraggablePosition = { x: 0.1, y: 0 };
   @HostBinding('attr.tabindex') tabindex = '0';
 
   constructor(private elt: ElementRef<HTMLElement>) {}
+
+  @HostListener('keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log('event: ', event);
+    const hue = Math.round(360 * this.privatePosition.x);
+    switch (event.code) {
+      case 'ArrowLeft':
+        console.log('decrease hue');
+        if (hue > 0) {
+          this.writeValue(hue - 1);
+        }
+
+        break;
+      case 'ArrowRight':
+        console.log('increase hue', hue);
+        if (hue < 360) {
+          this.writeValue(hue + 1);
+        }
+        break;
+      default:
+    }
+  }
 
   get position() {
     return this.privatePosition;
