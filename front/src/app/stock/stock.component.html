@@ -4,6 +4,7 @@
     <div class="navigation">
       <nav>
         <button
+          class="icon"
           aria-label="Raffraichir"
           (click)="refresh()"
           [disabled]="isLoading"
@@ -11,6 +12,7 @@
           <fa-icon [icon]="faSync" [spin]="isLoading"></fa-icon>
         </button>
         <button
+          class="icon"
           [disabled]="(authorizationService.can('stock.add') | async) === false"
           routerLink="add"
           aria-label="Ajouter"
@@ -18,6 +20,7 @@
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
         <button
+          class="icon"
           aria-label="Supprimer"
           [hidden]="selectedArticles.size === 0"
           (click)="remove()"
@@ -29,6 +32,7 @@
           ></fa-icon>
         </button>
         <button
+          class="icon"
           aria-label="Export to PDF"
           [hidden]="selectedArticles.size !== 1"
           (click)="exportToPDF()"
@@ -41,6 +45,7 @@
       </nav>
       <nav>
         <button
+          class="icon"
           (click)="toggleShowMode()"
           aria-label="Voir les articles par carte ou table"
         >

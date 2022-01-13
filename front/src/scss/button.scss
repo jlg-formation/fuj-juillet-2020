@@ -55,4 +55,13 @@ button {
       }
     }
   }
+
+  &.icon {
+    width: 2.5em;
+    &:not([hidden]) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
