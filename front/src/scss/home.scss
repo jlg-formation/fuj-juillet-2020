@@ -1,0 +1,39 @@
+@keyframes hypnose {
+  0% {
+    transform: translate(-50vw, -60vh) scale(0.5) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50vw, -60vh) scale(10) rotate(-180deg);
+  }
+}
+
+body {
+  div.background-frame {
+    overflow: hidden;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  // overflow: hidden;
+
+  div.background {
+    background-image: url("/assets/favicon-light.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.02;
+    animation: hypnose 60s ease-in-out infinite alternate;
+    height: 200vh;
+    width: 200vw;
+  }
+
+  &.dark {
+    div.background {
+      background-image: url("/assets/favicon-dark.svg");
+      opacity: 0.15;
+    }
+  }
+}
