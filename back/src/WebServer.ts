@@ -88,7 +88,7 @@ export class WebServer {
     app.use(
       '/api/articles',
       crudity(this.server, 'articles', {
-        pageSize: 10,
+        pageSize: 0,
         storage: {
           type: 'mongodb',
           uri: this.options.dbUri,
