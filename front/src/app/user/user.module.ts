@@ -1,3 +1,4 @@
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WidgetModule } from './../widget/widget.module';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,12 @@ import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [UserComponent, LoginComponent],
-  imports: [CommonModule, UserRoutingModule, WidgetModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    WidgetModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+  ],
 })
 export class UserModule {}

@@ -7,5 +7,13 @@ nav {
     flex-flow: column;
     text-decoration: inherit;
     color: inherit;
+    width: 18em;
+    max-width: 100%;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
   }
 }

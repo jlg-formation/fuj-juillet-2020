@@ -2,11 +2,17 @@
   <h1>Page de connexion</h1>
   <nav>
     <a [href]="oauth2Service.getAuthorizeUrl('GITHUB')">
-      <button>Connexion avec Github</button>
+      <button>
+        <fa-icon [icon]="faGithub"></fa-icon>
+        Connexion avec Github
+      </button>
     </a>
 
     <a class="button" [href]="oauth2Service.getAuthorizeUrl('AZUREAD')">
-      <button>Connexion avec Azure AD</button>
+      <button>
+        <fa-icon [icon]="faMicrosoft"></fa-icon>
+        Connexion avec Azure AD
+      </button>
     </a>
 
     <a
@@ -14,7 +20,10 @@
       class="button"
       [href]="oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
     >
-      <button>Connexion avec Test Provider</button>
+      <button>
+        <fa-icon [icon]="faSmileWink"></fa-icon>
+        Connexion avec Test Provider
+      </button>
     </a>
   </nav>
 </main>
