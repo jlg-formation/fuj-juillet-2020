@@ -56,7 +56,12 @@
       </nav>
     </div>
     <div class="search">
-      <input type="text" placeholder="Filtrer" [formControl]="filter" />
+      <input
+        type="text"
+        placeholder="Filtrer"
+        [formControl]="filter"
+        jlgAutofocus
+      />
     </div>
 
     <table
@@ -81,7 +86,7 @@
           <td class="images">
             <app-image-viewer [srcset]="a.images"></app-image-viewer>
           </td>
-          <td class="name">{{ a.name }}</td>
+          <td class="name" [innerHTML]="a.name | match: filter.value"></td>
           <td class="price">{{ a.price }} €</td>
           <td class="qty">{{ a.qty }}</td>
         </tr>
