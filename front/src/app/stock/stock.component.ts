@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,6 +15,7 @@ import {
 import {
   AuthenticationService,
   AuthorizationService,
+  FilterService,
 } from '@jlguenego/angular-tools';
 import { saveAs } from 'file-saver';
 import { delay, lastValueFrom } from 'rxjs';
@@ -43,17 +45,26 @@ export class StockComponent implements OnInit {
   isRemoving = false;
   selectedArticles = new Set<Article>();
   showMode: ShowMode = 'card';
+  filter = new FormControl('');
 
   constructor(
     public articleService: ArticleService,
     public authorizationService: AuthorizationService,
     private authenticationService: AuthenticationService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private filterService: FilterService
   ) {
     this.articleService.documents$.subscribe((documents) => {
       console.log('emit documents', documents);
-      this.articles = [...documents].reverse();
+      this.articles = [...documents]
+        .reverse()
+        .filter((d) => this.filterService.match(this.filter.value, d));
+    });
+    this.filter.valueChanges.subscribe(() => {
+      this.articles = [...this.articleService.documents$.value]
+        .reverse()
+        .filter((d) => this.filterService.match(this.filter.value, d));
     });
   }
 

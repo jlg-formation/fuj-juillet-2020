@@ -1,5 +1,8 @@
 div.content {
   width: 100%;
+  display: flex;
+  flex-flow: column;
+  gap: 0.3em;
 }
 
 div.navigation {
@@ -9,7 +12,7 @@ div.navigation {
   nav {
     display: flex;
     gap: 0.3em;
-    margin: 0.5em 0;
+    margin: 0;
   }
 }
 
