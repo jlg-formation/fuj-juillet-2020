@@ -5,6 +5,11 @@ button {
   border-radius: 2.5em;
   text-align: center;
   text-decoration: inherit;
+  &:disabled {
+    border: 0.1em solid var(--gray-9);
+    background: var(--gray-9);
+    color: var(--gray-5);
+  }
   &:not(:disabled) {
     color: inherit;
     cursor: pointer;
