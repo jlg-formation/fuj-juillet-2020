@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
+  digestMessageBlob,
   DuplicateAsyncValidator,
   FileService,
   JlgValidators,
@@ -61,28 +62,22 @@ export class AddComponent {
         article.images = [];
         for (const file of this.files) {
           console.log('file: ', file);
-          const newName =
-            'file-' +
-            Date.now() +
-            '-' +
-            Math.floor(Math.random() * 1e9) +
+
+          const compressedFile = await this.fileService.compress(file, {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+          });
+          const name =
+            (await digestMessageBlob('SHA-1', compressedFile)) +
             '.' +
-            getExtension(file.type);
-          const renamedFile = new File([file], newName, {
-            type: file.type,
-            lastModified: file.lastModified,
+            getExtension(compressedFile.type);
+          const renamedFile = new File([compressedFile], name, {
+            type: compressedFile.type,
+            lastModified: compressedFile.lastModified,
           });
-          console.log('renamedFile: ', renamedFile);
-
-          await this.fileService.add(renamedFile, {
-            compress: {
-              maxSizeMB: 1,
-              maxWidthOrHeight: 1920,
-              useWebWorker: true,
-            },
-          });
-
-          article.images.push(this.fileService.getUrl(newName));
+          await this.fileService.add(renamedFile);
+          article.images.push(this.fileService.getUrl(name));
         }
 
         await lastValueFrom(this.articleService.add(article).pipe(delay(20)));
