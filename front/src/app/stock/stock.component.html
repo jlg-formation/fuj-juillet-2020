@@ -89,7 +89,7 @@
         <tr
           [class.selected]="selectedArticles.has(a)"
           *ngFor="let a of articles"
-          [routerLink]="a.id"
+          [routerLink]="'article/' + a.id"
         >
           <td class="select" (click)="stopPropagation($event)">
             <label>

@@ -20,7 +20,7 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard, AuthorizationGuard],
   },
   {
-    path: ':id',
+    path: 'article/:id',
     component: ArticleComponent,
     canActivate: [AuthenticationGuard, AuthorizationGuard],
   },
