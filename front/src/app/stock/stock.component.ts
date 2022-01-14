@@ -155,6 +155,14 @@ export class StockComponent implements OnInit {
     this.selectedArticles.add(a);
   }
 
+  toggleAll() {
+    if (this.selectedArticles.size === this.articles.length) {
+      this.selectedArticles.clear();
+      return;
+    }
+    this.articles.forEach((a) => this.selectedArticles.add(a));
+  }
+
   toggleShowMode() {
     this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
     console.log(this.selectedArticles);

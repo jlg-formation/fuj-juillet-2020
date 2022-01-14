@@ -3,6 +3,48 @@ table.detail {
   border-collapse: collapse;
   width: 100%;
 
+  thead {
+    background-color: var(--gray-6);
+  }
+
+  tbody {
+    cursor: pointer;
+    tr:nth-child(even) {
+      background-color: var(--gray-9);
+    }
+  }
+
+  th,
+  td {
+    padding: 0 1em;
+    height: 2em;
+    @media screen and (max-width: 400px) {
+      height: 4em;
+      padding: 0 0.5em;
+    }
+  }
+
+  .select {
+    min-width: 2em;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    label {
+      margin: 0;
+      padding: 0.5em;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      input {
+        cursor: pointer;
+        height: 1.2em;
+      }
+    }
+  }
+
   .images {
     display: flex;
     align-items: center;
@@ -19,32 +61,16 @@ table.detail {
   }
 
   .name {
-    min-width: 8em;
+    min-width: 6em;
     text-align: left;
   }
 
   .price {
-    width: 5em;
+    width: 4em;
   }
 
   .qty {
-    width: 5em;
-  }
-
-  th,
-  td {
-    padding: 0.5em 1em;
-  }
-
-  thead {
-    background-color: var(--gray-6);
-  }
-
-  tbody {
-    cursor: pointer;
-    tr:nth-child(even) {
-      background-color: var(--gray-9);
-    }
+    width: 4em;
   }
 
   .qty,
@@ -54,9 +80,12 @@ table.detail {
   }
 
   tbody:not(.skeleton) {
-    tr:hover {
-      background-color: var(--gray-8);
+    @media (hover: hover) and (pointer: fine) {
+      tr:hover {
+        background-color: var(--gray-8);
+      }
     }
+
     tr.selected {
       background-color: var(--gray-7);
     }

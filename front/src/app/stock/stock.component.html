@@ -71,6 +71,14 @@
     >
       <thead>
         <tr>
+          <th scope="col" class="select">
+            <label (click)="toggleAll()">
+              <input
+                type="checkbox"
+                [checked]="selectedArticles.size === articles.length"
+              />
+            </label>
+          </th>
           <th scope="col" class="images">Images</th>
           <th scope="col" class="name">Nom</th>
           <th scope="col" class="price">Prix</th>
@@ -80,9 +88,17 @@
       <tbody *ngIf="!isLoading">
         <tr
           [class.selected]="selectedArticles.has(a)"
-          (click)="toggle(a)"
           *ngFor="let a of articles"
         >
+          <td class="select">
+            <label>
+              <input
+                type="checkbox"
+                [checked]="selectedArticles.has(a)"
+                (click)="toggle(a)"
+              />
+            </label>
+          </td>
           <td class="images">
             <app-image-viewer [srcset]="a.images"></app-image-viewer>
           </td>
