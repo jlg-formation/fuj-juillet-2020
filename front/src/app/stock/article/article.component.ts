@@ -1,3 +1,4 @@
+import { lastValueFrom } from 'rxjs';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -18,18 +19,23 @@ export class ArticleComponent {
     private articleService: ArticleService
   ) {
     this.route.paramMap.subscribe((map) => {
-      console.log('map: ', map);
-      const id = map.get('id');
-      if (!id) {
-        return;
-      }
-      const article = this.articleService.documents$.value.find(
-        (a) => a.id === id
-      );
-      if (!article) {
-        return;
-      }
-      this.article = article;
+      (async () => {
+        console.log('map: ', map);
+        const id = map.get('id');
+        if (!id) {
+          return;
+        }
+        if (this.articleService.documents$.value.length === 0) {
+          await lastValueFrom(this.articleService.retrieveAll());
+        }
+        const article = this.articleService.documents$.value.find(
+          (a) => a.id === id
+        );
+        if (!article) {
+          return;
+        }
+        this.article = article;
+      })();
     });
   }
 }

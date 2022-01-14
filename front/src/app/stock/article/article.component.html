@@ -7,4 +7,8 @@
   <h1>{{ article.name }}</h1>
   <p>Prix: {{ article.price }}</p>
   <p>Quantité: {{ article.qty }}</p>
+
+  <div class="image" *ngFor="let url of article.images">
+    <img [src]="url" alt="Image de l'article" />
+  </div>
 </main>
