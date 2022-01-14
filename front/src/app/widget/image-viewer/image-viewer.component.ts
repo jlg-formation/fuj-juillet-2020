@@ -39,8 +39,12 @@ export class ImageViewerComponent implements OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.srcset.length <= 5) {
-      this.layout = 'p-' + this.srcset.length;
+    try {
+      if (this.srcset.length <= 5) {
+        this.layout = 'p-' + this.srcset.length;
+      }
+    } catch (err) {
+      console.error('err: ', err);
     }
   }
 
