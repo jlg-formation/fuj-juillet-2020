@@ -12,7 +12,7 @@ app.get('/authz/config/:provider/:userid', (req, res) => {
     return;
   }
   res.json({
-    path: ['/stock', '/stock/add'],
+    path: ['/stock*'],
     privilege: ['stock.add'],
   } as AuthorizationConfig);
 });

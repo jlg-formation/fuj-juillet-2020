@@ -167,4 +167,8 @@ export class StockComponent implements OnInit {
     this.showMode = this.showMode === 'detail' ? 'card' : 'detail';
     console.log(this.selectedArticles);
   }
+
+  stopPropagation(evt: Event) {
+    evt.stopPropagation();
+  }
 }

@@ -1,3 +1,4 @@
+import { ArticleComponent } from './article/article.component';
 import { AddComponent } from './add/add.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,6 +17,11 @@ const routes: Routes = [
   {
     path: 'add',
     component: AddComponent,
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
+  },
+  {
+    path: ':id',
+    component: ArticleComponent,
     canActivate: [AuthenticationGuard, AuthorizationGuard],
   },
 ];

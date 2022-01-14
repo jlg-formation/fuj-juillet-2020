@@ -19,9 +19,12 @@ table.card {
       cursor: pointer;
       display: flex;
       flex-flow: column;
-      &:hover {
-        background-color: var(--gray-8);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background-color: var(--gray-8);
+        }
       }
+
       &.selected {
         background-color: var(--gray-7);
         .images {
@@ -32,6 +35,10 @@ table.card {
         display: flex;
         flex-flow: column;
         padding: 0.5em 1em;
+
+        &.select {
+          display: none;
+        }
 
         &.images {
           display: flex;

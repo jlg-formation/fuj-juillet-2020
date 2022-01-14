@@ -89,8 +89,9 @@
         <tr
           [class.selected]="selectedArticles.has(a)"
           *ngFor="let a of articles"
+          [routerLink]="a.id"
         >
-          <td class="select">
+          <td class="select" (click)="stopPropagation($event)">
             <label>
               <input
                 type="checkbox"
