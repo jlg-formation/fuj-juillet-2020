@@ -1,1 +1,5 @@
-<p>article works!</p>
+<main *ngIf="article">
+  <h1>{{ article.name }}</h1>
+  <p>Prix: {{ article.price }}</p>
+  <p>Quantité: {{ article.qty }}</p>
+</main>
