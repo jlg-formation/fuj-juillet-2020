@@ -1,4 +1,9 @@
 <main *ngIf="article">
+  <nav>
+    <button routerLink="../..">
+      <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
+  </nav>
   <h1>{{ article.name }}</h1>
   <p>Prix: {{ article.price }}</p>
   <p>Quantité: {{ article.qty }}</p>

@@ -1,7 +1,8 @@
-import { ArticleService } from './../../services/article.service';
-import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Article } from 'src/app/interfaces/article';
+import { ArticleService } from './../../services/article.service';
 
 @Component({
   selector: 'app-article',
@@ -10,6 +11,8 @@ import { Article } from 'src/app/interfaces/article';
 })
 export class ArticleComponent {
   article!: Article;
+  faChevronLeft = faChevronLeft;
+
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService
