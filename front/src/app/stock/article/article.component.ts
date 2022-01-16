@@ -26,7 +26,10 @@ export class ArticleComponent {
           return;
         }
         if (this.articleService.documents$.value.length === 0) {
-          await lastValueFrom(this.articleService.retrieveAll());
+          this.article = await lastValueFrom(
+            this.articleService.retrieveOne(id)
+          );
+          return;
         }
         const article = this.articleService.documents$.value.find(
           (a) => a.id === id
