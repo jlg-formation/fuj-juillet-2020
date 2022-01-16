@@ -1,1 +1,29 @@
-<p>update works!</p>
+<main>
+  <h1>Modifier un article</h1>
+  <form [formGroup]="f" (ngSubmit)="submit()">
+    <label>
+      <div>Nom</div>
+      <input type="text" jlgAutofocus="select" formControlName="name" />
+      <app-field-error [fg]="f" name="name"></app-field-error>
+    </label>
+    <label>
+      <div>Prix</div>
+      <input type="number" step="0.01" min="0" formControlName="price" />
+      <app-field-error [fg]="f" name="price"></app-field-error>
+    </label>
+    <label>
+      <div>Quantité</div>
+      <input type="number" step="1" min="1" formControlName="qty" />
+      <app-field-error [fg]="f" name="qty"></app-field-error>
+    </label>
+
+    <button class="primary" [disabled]="f.invalid">
+      <fa-icon
+        [icon]="isUpdating ? faCircleNotch : faPen"
+        [spin]="isUpdating"
+      ></fa-icon>
+      Mettre à jour
+    </button>
+  </form>
+  <!-- {{ f.value | json }} -->
+</main>
