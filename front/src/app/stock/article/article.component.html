@@ -1,9 +1,22 @@
 <main *ngIf="article">
-  <nav>
-    <button routerLink="../..">
-      <fa-icon [icon]="faChevronLeft"></fa-icon>
-    </button>
-  </nav>
+  <div class="navigation">
+    <nav>
+      <button routerLink="../.." class="icon">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+      </button>
+    </nav>
+    <nav>
+      <button routerLink="edit" class="icon">
+        <fa-icon [icon]="faPen"></fa-icon>
+      </button>
+      <button (click)="remove()" class="icon">
+        <fa-icon
+          [icon]="isRemoving ? faCircleNotch : faTrashAlt"
+          [spin]="isRemoving"
+        ></fa-icon>
+      </button>
+    </nav>
+  </div>
   <h1>{{ article.name }}</h1>
   <p>Prix: {{ article.price }}</p>
   <p>Quantité: {{ article.qty }}</p>

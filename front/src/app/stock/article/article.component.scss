@@ -1,5 +1,11 @@
-nav {
+div.navigation {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  nav {
+    display: flex;
+    gap: 0.5em;
+  }
 }
 
 div.image {

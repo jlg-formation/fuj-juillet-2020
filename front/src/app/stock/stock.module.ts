@@ -8,9 +8,10 @@ import { AddComponent } from './add/add.component';
 import { StockRoutingModule } from './stock-routing.module';
 import { StockComponent } from './stock.component';
 import { ArticleComponent } from './article/article.component';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
-  declarations: [StockComponent, AddComponent, ArticleComponent],
+  declarations: [StockComponent, AddComponent, ArticleComponent, UpdateComponent],
   imports: [
     CommonModule,
     StockRoutingModule,

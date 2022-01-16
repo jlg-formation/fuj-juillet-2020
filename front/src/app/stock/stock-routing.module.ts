@@ -7,6 +7,7 @@ import {
   AuthenticationGuard,
   AuthorizationGuard,
 } from '@jlguenego/angular-tools';
+import { UpdateComponent } from './update/update.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'article/:id',
     component: ArticleComponent,
+    canActivate: [AuthenticationGuard, AuthorizationGuard],
+  },
+  {
+    path: 'article/:id/edit',
+    component: UpdateComponent,
     canActivate: [AuthenticationGuard, AuthorizationGuard],
   },
 ];

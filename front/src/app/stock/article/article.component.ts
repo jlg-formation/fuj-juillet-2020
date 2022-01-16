@@ -1,7 +1,12 @@
 import { lastValueFrom } from 'rxjs';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  faChevronLeft,
+  faTrashAlt,
+  faCircleNotch,
+  faPen,
+} from '@fortawesome/free-solid-svg-icons';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from './../../services/article.service';
 
@@ -13,10 +18,15 @@ import { ArticleService } from './../../services/article.service';
 export class ArticleComponent {
   article!: Article;
   faChevronLeft = faChevronLeft;
+  faTrashAlt = faTrashAlt;
+  faCircleNotch = faCircleNotch;
+  isRemoving = false;
+  faPen = faPen;
 
   constructor(
     private route: ActivatedRoute,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private router: Router
   ) {
     this.route.paramMap.subscribe((map) => {
       (async () => {
@@ -40,5 +50,23 @@ export class ArticleComponent {
         this.article = article;
       })();
     });
+  }
+
+  remove() {
+    const answer = confirm(`Supprimer l'article ${this.article.name}?`);
+    if (!answer) {
+      return;
+    }
+    (async () => {
+      try {
+        this.isRemoving = true;
+        await lastValueFrom(this.articleService.remove([this.article.id]));
+        this.isRemoving = false;
+        await this.router.navigate(['../..'], { relativeTo: this.route });
+      } catch (err) {
+        this.isRemoving = false;
+        console.error('err: ', err);
+      }
+    })();
   }
 }
