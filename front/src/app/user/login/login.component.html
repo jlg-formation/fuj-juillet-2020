@@ -15,6 +15,13 @@
       </button>
     </a>
 
+    <a class="button" [href]="oauth2Service.getAuthorizeUrl('GOOGLE')">
+      <button>
+        <fa-icon [icon]="faGoogle"></fa-icon>
+        Connexion avec Google
+      </button>
+    </a>
+
     <a
       *ngIf="oauth2Service.getAuthorizeUrl('TESTPROVIDER')"
       class="button"
