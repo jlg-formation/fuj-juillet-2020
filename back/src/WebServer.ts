@@ -1,4 +1,5 @@
 import {oauth2Client} from '@jlguenego/express-oauth2-client';
+import MongoStore from 'connect-mongo';
 import cors from 'cors';
 import {crudity} from 'crudity';
 import express, {Express} from 'express';
@@ -11,10 +12,9 @@ import {authorization} from './authorization/Authorization';
 import {authzConfigRouter} from './authorization/authorization-config.router';
 import {WebServerOptions} from './interfaces/WebServerOptions';
 import {accessLog} from './logs/accessLogs';
+import {pdfRouter} from './pdf/pdf.router';
 import {upload} from './upload/upload.router';
 import {validation} from './validation/validation';
-import MongoStore from 'connect-mongo';
-import {pdfRouter} from './pdf/pdf.router';
 export class WebServer {
   app: Express;
   options: WebServerOptions = {
