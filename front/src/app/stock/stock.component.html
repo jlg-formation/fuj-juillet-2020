@@ -85,34 +85,8 @@
           <th scope="col" class="qty">Quantité</th>
         </tr>
       </thead>
-      <tbody *ngIf="!isLoading">
-        <tr
-          [class.selected]="selectedArticles.has(a)"
-          *ngFor="let a of articles"
-          [routerLink]="'article/' + a.id"
-        >
-          <td class="select" (click)="stopPropagation($event)">
-            <label>
-              <input
-                type="checkbox"
-                [checked]="selectedArticles.has(a)"
-                (click)="toggle(a)"
-              />
-            </label>
-          </td>
-          <td class="images">
-            <app-image-viewer [srcset]="a.images"></app-image-viewer>
-          </td>
-          <td class="name" [innerHTML]="a.name | match: filter.value"></td>
-          <td class="price">{{ a.price }} €</td>
-          <td class="qty">{{ a.qty }}</td>
-        </tr>
-        <tr class="empty" *ngIf="articles.length === 0">
-          <td colspan="3" *ngIf="!error">Pas d'article.</td>
-          <td colspan="3" *ngIf="error">Erreur: {{ error }}.</td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="isLoading" class="skeleton">
+
+      <tbody *ngIf="isLoading; else elseBlock" class="skeleton">
         <tr *ngFor="let a of [1, 2, 3]">
           <td class="images">
             <fa-icon class="not-found" [icon]="faImage" role="none"></fa-icon>
@@ -122,6 +96,35 @@
           <td class="qty">x</td>
         </tr>
       </tbody>
+      <ng-template #elseBlock>
+        <tbody *ngIf="!isLoading">
+          <tr
+            [class.selected]="selectedArticles.has(a)"
+            *ngFor="let a of articles"
+            [routerLink]="'article/' + a.id"
+          >
+            <td class="select" (click)="stopPropagation($event)">
+              <label>
+                <input
+                  type="checkbox"
+                  [checked]="selectedArticles.has(a)"
+                  (click)="toggle(a)"
+                />
+              </label>
+            </td>
+            <td class="images">
+              <app-image-viewer [srcset]="a.images"></app-image-viewer>
+            </td>
+            <td class="name" [innerHTML]="a.name | match: filter.value"></td>
+            <td class="price">{{ a.price }} €</td>
+            <td class="qty">{{ a.qty }}</td>
+          </tr>
+          <tr class="empty" *ngIf="articles.length === 0">
+            <td colspan="3" *ngIf="!error">Pas d'article.</td>
+            <td colspan="3" *ngIf="error">Erreur: {{ error }}.</td>
+          </tr>
+        </tbody>
+      </ng-template>
     </table>
   </div>
 </main>
