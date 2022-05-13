@@ -26,7 +26,6 @@ module.exports = function (config) {
       suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
       dir: require('path').join(__dirname, './coverage/front'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'text-summary' }],

@@ -1,7 +1,6 @@
 {
   "root": true,
   "ignorePatterns": ["projects/**/*"],
-  "plugins": ["unused-imports"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -29,8 +28,7 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ],
-        "unused-imports/no-unused-imports-ts": 2
+        ]
       }
     },
     {
